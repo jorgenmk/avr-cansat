@@ -1,0 +1,26 @@
+\select@language {norsk}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Sammenlikning mellom en line\IeC {\ae }r og switchet regulator}}{5}{table.2.1}
+\contentsline {table}{\numberline {2.2}{\ignorespaces I$^{2}$C-modusene og overf\IeC {\o }ringshastighetene}}{10}{table.2.2}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Oversikt over komponentenes str\IeC {\o }mtrekk}}{19}{table.3.1}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Standard Seriell konfigurasjon av NMEA-protokollen}}{23}{table.4.1}
+\contentsline {table}{\numberline {4.2}{\ignorespaces \ac {GGA} Dataformat med eksempel}}{24}{table.4.2}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Standard konfigurering av GPS-modul}}{28}{table.4.3}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Temperatur/motstand for Vishay SMD Thermistor\cite {smdtherm}}}{44}{table.5.1}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Transmisjonsbudsjett}}{54}{table.6.1}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Spesifikasjoner p\r a XBee Pro 868-modulen}}{85}{table.7.1}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.2}{Tredje handleliste Farnell(alle priser i NOK)}}{97}{table.A.2}
+\contentsline {table}{\numberline {A.1}{\ignorespaces F\IeC {\o }rste handleliste Farnell(alle priser i NOK)}}{99}{table.A.1}
+\contentsline {table}{\numberline {A.3}{\ignorespaces F\IeC {\o }rste handleliste Sparkfun.com(alle priser i US\$)}}{100}{table.A.3}
+\contentsline {table}{\numberline {A.4}{\ignorespaces Andre handleliste Sparkfun.com(alle priser i US\$)}}{100}{table.A.4}
+\contentsline {table}{\numberline {A.5}{\ignorespaces Andre handleliste Farnell(alle priser i NOK)}}{100}{table.A.5}
+\contentsline {table}{\numberline {A.6}{\ignorespaces Handleliste Elfa(alle priser i NOK)}}{101}{table.A.6}
+\contentsline {table}{\numberline {A.7}{\ignorespaces Andre utgifter(alle priser i NOK)}}{101}{table.A.7}

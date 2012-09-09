@@ -1,0 +1,283 @@
+\begin{thebibliography}{10}
+
+\bibitem{kvartbolgetriks}
+{Quarter-wave tricks}.
+\newblock \url{http://www.microwaves101.com/encyclopedia/quarterwave.cfm},
+  november 2008.
+
+\bibitem{AD8345}
+{Analog Devices}.
+\newblock {140 MHz to 1000 MHz Quadrature Modulator, AD8345}.
+\newblock
+  \url{http://www.analog.com/static/imported-files/data_sheets/AD8345.pdf},
+  februar 2005.
+\newblock Rev A.
+
+\bibitem{ADF4360-7}
+{Analog Devices,}.
+\newblock {Integrated Synthesizer and VCO, ADF4360-7}.
+\newblock
+  \url{http://www.analog.com/static/imported-files/data_sheets/ADF4360-7.pdf},
+  september 2005.
+\newblock Rev A.
+
+\bibitem{ADA4941-1}
+{Analog Devices}.
+\newblock {Single-Supply, Differential 18-Bit ADC Driver, ADA4941-1}.
+\newblock
+  \url{http://www.analog.com/static/imported-files/Data_Sheets/ADA4941-1.pdf},
+  februar 2009.
+\newblock Rev A.
+
+\bibitem{analog-hs-ls}
+{Arpit Mehta, Maxim Integrated Products}.
+\newblock {Understand low-side vs. high-side current sensing}.
+\newblock \url{http://www.analog-europe.com/howto/215801634}, februar 2009.
+
+\bibitem{atmega128}
+{ATMEL Corporation}.
+\newblock {ATMega128 Datasheet}.
+\newblock
+  \url{http://www.avrfreaks.net/modules/FreaksFiles/files/383/DN_021.pdf}, juni
+  2008.
+\newblock Rev 2467R.
+
+\bibitem{AtMega168}
+{Atmel Corporation}.
+\newblock {ATMega168 Datasheet}.
+\newblock \url{http://www.atmel.com/dyn/resources/prod_documents/doc2545.pdf},
+  juni 2009.
+\newblock Rev 1.
+
+\bibitem{ALM-1522}
+{Avago}.
+\newblock {Low Noise, High Gain, High Linearity, Balanced Amplifier Module,
+  ALM-1522}.
+\newblock
+  \url{http://www.avagotech.com/pages/en/rf_ics_discretes/rf_ics/gaas_amplifiers_mixers_switches/alm-1522},
+  februar 2009.
+\newblock Rev E.
+
+\bibitem{avrfreaks-adc}
+{AVRFreaks}.
+\newblock {Using the Built-in ADC in AVR}.
+\newblock
+  \url{http://www.avrfreaks.net/modules/FreaksFiles/files/383/DN_021.pdf}, juni
+  2002.
+
+\bibitem{bt}
+{BetaTherm Sensors}.
+\newblock {2.2K3A1B Series 1 BetaCurve Bare leaded Thermistors}.
+\newblock \url{http://www.farnell.com/datasheets/31654.pdf}.
+
+\bibitem{ina193-ds}
+{Burr-Brown from Texas Instruments}.
+\newblock {INA193 Datasheet}.
+\newblock \url{http://focus.ti.com/lit/ds/symlink/ina193.pdf}, august 2006.
+
+\bibitem{national-reg-fund}
+{Chester Simpson, National Semiconductor}.
+\newblock {Linear and Switching Voltage Regulator Fundamentals}.
+\newblock \url{http://www.national.com/appinfo/power/files/f4.pdf} og
+  \url{http://www.national.com/appinfo/power/files/f5.pdf}, juli 2002.
+
+\bibitem{atmega16}
+ATMEL Corporation.
+\newblock {ATMega16 Datasheet}.
+\newblock \url{http://www.atmel.com/dyn/resources/prod_documents/doc2466.pdf},
+  august 2007.
+\newblock Rev 2466P.
+
+\bibitem{ELcom}
+John~Coolen Dennis~Roddy.
+\newblock {\em Electronic comminications}.
+\newblock Prentice Hall, 1995.
+
+\bibitem{xbee-ds}
+{Digi International}.
+\newblock {XBee-Pro 868 OEM Datasheet}.
+\newblock \url{http://ftp1.digi.com/support/documentation/90001020_a.pdf},
+  november 2008.
+
+\bibitem{ERC}
+{European Radiocommunications Office}.
+\newblock {ERC RECOMMENDATION 70-03}.
+\newblock \url{http://www.erodocdb.dk/Docs/doc98/official/pdf/REC7003E.PDF},
+  april 2009.
+\newblock Rev.
+
+\bibitem{pressure}
+{Freescale Semiconductor}.
+\newblock {MPXAZ6115A Integrated Silicon Pressure Sensor}.
+\newblock
+  \url{http://www.freescale.com/files/sensors/doc/data_sheet/MPXAZ6115A.pdf},
+  juni 2004.
+\newblock Rev 1.
+
+\bibitem{accl}
+{Freescale Semiconductor}.
+\newblock {Surface Mount Micromachined Accelerometer}.
+\newblock \url{http://www.farnell.com/datasheets/37663.pdf}, mai 2006.
+\newblock Rev 5.
+
+\bibitem{ft232r-ds}
+{Future Technology Devices International Ltd.}
+\newblock {FT232R USB UART IC Datasheet}.
+\newblock \url{http://www.ftdichip.com/Documents/DataSheets/DS_FT232R.pdf},
+  2008.
+\newblock Rev 2.01.
+
+\bibitem{hch1000}
+{Honeywell S\&C}.
+\newblock {HCH-1000 Series Datasheet, Capacitive Humidity Sensor}.
+\newblock \url{http://www.farnell.com/datasheets/34209.pdf}, juli 2007.
+
+\bibitem{NMEArefman}
+SiRF~Technology Inc.
+\newblock {NMEA Reference Manual}.
+\newblock
+  \url{http://www.micro-modular.com/docs/AddlRsrc/NMEA%20Reference%20Manual-Rev2.1-Dec07.pdf},
+  desember 2007.
+\newblock Rev 2.1.
+
+\bibitem{quadmod}
+{Ken Gentile}.
+\newblock {Fundamentals of Digital Quadrature Modulation}.
+\newblock
+  \url{http://www.rfengineer.net/fundamentals-of-digital-quadrature-modulation/},
+  februar 2009.
+\newblock Rev.
+
+\bibitem{MN5010HS-design-guide}
+Micro Modular Technologies~Pte. Ltd.
+\newblock {MN5010HS Design Guidelines}.
+\newblock
+  \url{http://www.micro-modular.com/docs/MN5010HS/MN5010HS_DG_090129.pdf},
+  august 2005.
+
+\bibitem{MN5010HS-datasheet}
+Micro Modular Technologies~Pte. Ltd.
+\newblock {MN5010HS GPS Receiver Module}.
+\newblock
+  \url{http://www.micro-modular.com/docs/MN5010HS/MN5010HS_DS_090129.pdf},
+  august 2005.
+
+\bibitem{maxim-hs-circuit}
+{Maxim Integrated Products}.
+\newblock {High-Side Current-Sense Measurement: Circuits and Principles}.
+\newblock \url{http://www.maxim-ic.com/appnotes.cfm/an_pk/746/}, november 2001.
+
+\bibitem{maxim-lin-reg}
+{Maxim Integrated Products}.
+\newblock {Linear Regulators in Portable Applications}.
+\newblock \url{http://www.maxim-ic.com/appnotes.cfm/an_pk/751}, juli 2002.
+
+\bibitem{mikrostripekalk}
+Dan McMahill.
+\newblock {Microstrip Analysis/Synthesis Calculator}.
+\newblock \url{http://mcalc.sourceforge.net/}, august 2002.
+
+\bibitem{Microstrip}
+{Microwaves101}.
+\newblock {Microstrip calculator}.
+\newblock \url{http://www.microwaves101.com/encyclopedia/calmstrip.cfm}.
+
+\bibitem{Splitter}
+{Mini-Circuits}.
+\newblock {Power Splitter/Combiner, QCN-12AD}.
+\newblock \url{http://www.minicircuits.com/products/psc_sm_2_90.html}, juni
+  2004.
+\newblock Rev 1.
+
+\bibitem{RFfilter}
+{Mini-Circuits}.
+\newblock {Low Pass Filter, LFCN-900}.
+\newblock
+  \url{http://www.minicircuits.com/cgi-bin/modelsearch?model=LFCN-900&x=0&y=0},
+  mars 2009.
+\newblock Rev E.
+
+\bibitem{molex-ds}
+{Molex}.
+\newblock {1.25mm PitchPicoBlade Wire-to-Board Header}.
+\newblock \url{http://www.molex.com/catalog/pdf/MX53261.pdf}, 2007.
+\newblock Rev A-52.
+
+\bibitem{EMI-filter}
+{Murata}.
+\newblock {EMI-filter}.
+\newblock
+  \url{http://search.murata.co.jp/Ceramy/image/img/PDF/ENG/L0111S0109NFM21C.pdf},
+  mars 2005.
+\newblock Rev 1.
+
+\bibitem{lp2985-ds}
+{National Semiconductor}.
+\newblock {LP2985 Datasheet}.
+\newblock \url{http://www.national.com/ds/LP/LP2985.pdf}, juli 2007.
+
+\bibitem{led-ds}
+{ROHM Semiconductor}.
+\newblock {SML-210 0805 LED Datasheet}.
+\newblock \url{http://www.rohm.com/products/databook/led/pdf/sml-210.pdf},
+  2007.
+\newblock Rev D.
+
+\bibitem{CansatTX}
+{Steffen Kirknes}.
+\newblock {Technical Note Cansat TX}, mars 2009.
+\newblock Rev 2.
+
+\bibitem{Bolgeutbredelse}
+{Stein Øvstedal}.
+\newblock {Forelesningsnotat: Bølgeutbredelse}.
+
+\bibitem{Frekvenssyntese}
+{Stein Øvstedal}.
+\newblock {Forelesningsnotat: Frekvenssyntese}.
+
+\bibitem{Satelittkomm}
+{Stein Øvstedal}.
+\newblock {Forelesningsnotat: Satellittkommunikasjon}.
+
+\bibitem{REG113}
+{Texas Instruments}.
+\newblock {Low-Dropout Regulator REG113}.
+\newblock \url{http://www.datasheetcatalog.org/datasheets/270/351988_DS.pdf},
+  mars 2005.
+\newblock Rev E.
+
+\bibitem{ti-current-shunt}
+{Thomas Kuehl, Texas Instruments}.
+\newblock {A dual-polarity, bidirectional current shunt monitor}.
+\newblock \url{http://focus.ti.com/lit/an/slyt311/slyt311.pdf}, oktober 2008.
+
+\bibitem{smdtherm}
+{Vishay BComponents}.
+\newblock {Surface Mount, NTC Thermistors}.
+\newblock \url{http://www.farnell.com/datasheets/18218.pdf}, mai 2006.
+\newblock Rev 5.
+
+\bibitem{tsop348-ds}
+{Vishay Semiconductors}.
+\newblock {IR Receiver Modules for Remote Control Systems}.
+\newblock \url{http://www.vishay.com/docs/81732/tsop348.pdf}, januar 2009.
+
+\bibitem{dosonchip-ds}
+{Wearable Inc.}
+\newblock {DOSonCHip Datasheet}.
+\newblock
+  \url{http://dosonchip.com/support/assets/DOSonCHIP_CD17B10_Datasheet.pdf},
+  april 2009.
+
+\bibitem{I2C-bussen}
+Wikipedia.
+\newblock {I$^{2}$C}.
+\newblock \url{http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus}.
+
+\bibitem{SPI-bussen}
+Wikipedia.
+\newblock {Serial Peripheral Interface Bus}.
+\newblock \url{http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus}.
+
+\end{thebibliography}

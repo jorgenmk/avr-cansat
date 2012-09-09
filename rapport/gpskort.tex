@@ -1,0 +1,249 @@
+\chapter{GPSkort}
+\label{chap:gpskort}
+
+De viktigste oppgavene til GPS-kortet er å motta informasjon som posisjon, fart og tid fra GPS-satellittene, lese sitt eget strømtrekk, gjøre om dataene til lesbare tekststrenger og sende disse dataene til hovedkortet på forespørsel. Den største utfordringen med dette kortet var å designe en strømforsyning som skulle forsyne en aktive antennen uten å endre impedansen på antennelinjen.
+
+\section{Teori}
+  
+\subsection{NMEA-0183 Protokollen}\cite{NMEArefman}
+\label{avsnitt:NMEA}
+\acs{NMEA}-0183 er data protokoll og elektronisk interface for kommunikasjon mellom marint elektronisk utstyr som ekkolodd, GPS, autopilot osv. Protokollen er definert og vidreutviklet av \acl{NMEA}, som er et ikkeprofiterende forbund bestående av produsenter, distributører, forhandlere, utdanningsinstitusjoner og andre som interesserer seg for marint utstyr. NMEA bruker enkel seriell kommunikasjon (\acs{UART}) for å overføre data mellom enhetene se tabell \ref{tab:NMEA-seriellkonf}
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{ll}
+    \hline
+    \emph{\textbf{Seriell konfigurasjon}} \\
+    \hline
+    Baud rate & 4800  \\
+    Data bit & 8 \\
+    Paritet & ingen \\
+    Stopp bit & 1 \\
+    Handshake & ingen \\
+    \hline
+  \end{tabular}
+  \caption{Standard Seriell konfigurasjon av NMEA-protokollen}
+  \label{tab:NMEA-seriellkonf}
+\end{table}
+
+På applikasjonsnivå starter hver NMEA melding med et dollartegn etterfulgt av en identifikasjon på fem byte, der de to første identifiserer hva slags enhet som sender og de tre neste er hvilken type melding som etterfølger. Hver datasekvens er avskilt med et komma, som etter siste sekvens avsluttes med stjernetegn. Rett etter stjernetegnet følger en sjekksum på to byte som er en bitvis <<eksklusiv-eller>> (XOR) av alle data mellom dollartegnet og stjernetegnet, dermed kan man også følge med på at det med stor sannsynlighet ikke har skjedd feil under overføringen. Et eksempel på en slik melding er GPSmeldingen \ac{GGA}:
+{\footnotesize
+\begin{verbatim}
+$GPGGA,002153.000,3342.6618,N,11751.3858,W,1,10,1.2,27.0,M,-34.2,M,,0000*5E
+\end{verbatim}
+\label{kode:GGAeks}}
+Forklaring på meldingen ligger i tabell \ref{tab:GGA-melding}
+%\clearpage
+\begin{table}[htb]
+  \footnotesize
+  \centering
+  \begin{tabular}{llll}
+    \hline
+    \emph{\textbf{Navn}} & \emph{\textbf{Eksempel}} & \emph{\textbf{Enhet}} & \emph{\textbf{Beskrivelse}} \\
+    \hline
+      Meldings-ID	&	\$GPGGA		&			&	GGA protokoll header\\
+      UTC Tid		&	002153.000	&			&	hhmmss.sss\\
+      Breddegrad	&	3342.6618	&			&	ddmm.mmmm\\
+      N/S Indikator	&	N		&			&	N=nord or S=sør\\    
+      Lengdegrad	&	11751.3858	&			&	dddmm.mmmm\\
+      E/W Indikator	&	W		&			&	E=øst or W=vest\\
+      Possisjon <<Fix>> Indikator & 1		&			&	1= gyldig <<fix>> eller 0 er\\
+			&			&			&	ikke gyldig\\
+      Satellitter Brukt	&	10		&			&	Mellom 0 og 12\\
+      HDOP		&	1.2		&			&	Horisontalt nøyaktighetsavvik\\
+      MSL Høyde	&	27.0			&	meters		& \\
+      Enhet		&	M		&	meters		& \\
+      Geoid Separation	&	-34.2		&	meters		&	Geoide-til-ellipsoide separasjon.\\
+			&			&			&	Ellipsoide høyde = MSL Høyde\\
+			&			&			&	+ Geoide Separasjon.\\
+      Enhet		&	M		&	meters		& \\
+      Age of Diff. Corr.&			&	sec		&	Null når DGPS ikke blir brukt\\
+      Diff. Ref. Station ID &	0000		&			& \\
+      Checksum		&	*5E		&			& \\
+      <CR> <LF> 	&			&			&	Meldingsterminering\\
+      \hline
+  \end{tabular}
+  \caption{\ac{GGA} Dataformat med eksempel}
+  \label{tab:GGA-melding}
+\end{table}
+
+\subsection{\texorpdfstring{Kvartbølgestubb\cite{kvartbolgetriks}}{Kvartbolgestubb}}
+En kvartbølgestubb er en bit transmissjonslinje som er en kvart bølgelengde lang i forhold til frekvensen til det signalet som blir sendt på linja. Kvartbølgestubben kan brukes til flere formål. Hvis den har åpen ende kan den brukes som et <<notch-filter>> for på dempe enkelte frekvenser. Men man må da huske at den ikke bare demper bærefrekvensen og frekvensbåndet rundt bærefrekvensen, men også frekvensbåndet rundt de odde harmoniske til bærefrekvensen.
+Når kvartbølgestubben er AC-jordet i enden, har linja høy impedans på grunnfrekvensen til signalet og de odde harmoniske. Mens linja har lav impedans for like harmoniske. En AC-jordet stubb kan brukes til å konstruere en <<bias tee>>-krets som leverer \acs{DC}-spenning til RF-enheter på samme linje som RF-signalet går\footnote{<<Bias tee>>-kretsen fungerer som en slags multiplexer}. Se figur \ref{fig:biastee}. 
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.2,keepaspectratio=true]{./bias-tee.pdf}
+ % bias-tee.pdf: 612x792 pixel, 72dpi, 21.59x27.94 cm, bb=0 0 612 792
+ \caption{<<Bias tee>>-krets}
+ \label{fig:biastee}
+\end{figure}
+Kvartbølgestubben må designes slik at stubben har høy impedans for frekvensen til RF-signalet, slik at dette signalet ikke går nedover i stubben. Stubben transformerer RF kortslutning i C$_{2}$ til RF brudd på toppen av stubben, C$_{1}$ skiller RF-signalet fra \acs{DC}-spenningen og C$_2$ definerer lengden på stubben og verdien skal velges slik at kondensatoren skal være selv-resonant rundt bærefrekvensen. Når kondensatoren er selv-resonant, har den ingen reaktiv komponent som betyr at resistansen er nær null ohm. 
+
+
+\section{Utførelse}
+
+\subsection{Slagplan}
+Før designprosessen kunne starte måtte det foreligge en plan på hvordan kortet skulle bygges opp. Det første som ble gjort var å plukke ut kandidater til de mest sentrale komponetene, som GPS-modul og mikrokontroller. Helt fra starten av var det bestemt at det skulle brukes en av Atmel sine AVR mikrokontrollere. Dette skyltes at de var lett tilgjengelige og at alle på gruppa hadde god erfaring med AVR fra tidligere. Til GPS-kortet ble det besluttet at det skulle brukes en ATMega16\cite{atmega16} som er en relativt liten mikrokontroller. ATMega16 har 16kB flashminne som vil være mer enn nok programminne, et UART interface for å lese data fra GPS'en, et TWI interface til å kommunisere med hovedkortet, en 10bit analog-til-digital konverterer for å lese strømtrekk og den kan kjøres opp til 16\mega\hertz\ noe som vil være mer enn raskt nok til at mikrokontrollern skal rekke å lese og prosessere dataene før den skal sende de til hovedprosessoren.
+
+Det ble også relativt fort bestemt at det skulle brukes en GPS-modul fra Micro Modular Technologies. Valget falt på MN5010HS\cite{MN5010HS-datasheet} fordi dette er en liten modul på bare en ganger en centimeter, den får gyldige GPS'data på under førti sekunder, trekker lite strøm og den kan forsynes med 3,3\volt. På grunn av størrelsen på denne modulen kommer den ikke med integrert antenne, noe som betyr at vi selv må designe utlegget mellom GPS-modulen og antennen. Og siden GPS-signalet ligger på 1,575\giga\hertz\ noe som er en relativt høy frekvens stilles det større krav til designet. Siden ingen på gruppen hadde erfaring med høyfrekvensdesign fra før valgte vi å prøve to ulike antenner, en liten passiv chip-antenne som får plass på kretskortet og en større aktiv patch-antenne som også må forsynes med spenning. Og siden den passive antennen virket enklest å implementere i utlegget ble den valgt til å prøves ut i første utgave.
+\subsection{Designprosess}
+Først ble det laget kretskjema og valgt komponenter, så startet designet av utlegget og plassering av komponentene. Første revisjon av et GPS-kortet som skulle bruke en liten passiv antenne fungerte veldig dårlig, dermed er ikke dette kortet tatt med i rapporten. Litt om hva som gikk galt under avsnitt \ref{avsnitt:rev1} på side \pageref{avsnitt:rev1}.
+\subsubsection{Kretsskjema}
+Det er brukt samme spenningsregulator og strømmålings-IC som på hovedkortet, det er også brukt samme framgangsmåte for å beregne $R_{shunt}$. Se avsnitt \ref{avsnitt:strommåling}, \ref{avsnitt:shunt} og \ref{avsnitt:spenningsreg} under kapitelet om Hovedkortet.
+\paragraph{GPS-moduloppkobling}
+Det var ganske enkelt å sette opp kretsskjemaet, fordi det på forhånd var fastlagt hvordan de mest sentrale delene av systemet skulle være. Siden det allerede var valgt hvilken GPS-modul som skulle brukes var det bare å koble opp slik det var foreslått i databladet\cite{MN5010HS-datasheet} og designguiden\cite{MN5010HS-design-guide}. 
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.7\textwidth]{GPS-modul-oppkobling.pdf}
+ % GPS-modul-oppkobling.pdf: 595x842 pixel, 72dpi, 20.99x29.70 cm, bb=0 0 595 842
+ \caption{Oppkobling av GPS-modul}
+ \label{fig:GPS-modul}
+\end{figure}
+
+\textbf{NAV-pinnen} på GPS-modulen toggles med periodetid på ca. et sekund så lenge den har gyldige data. Derfor ble en lysdiode koblet til denne utgangen som dermed blinker når GPS'en har <<fix>>. Dette medfører at det enkelt kan fastslås at GPS'en virker og får gyldige data uten å ha resten av systemet på plass. Noe som igjen betyr at GPS-modulen kan testes nesten med en gang den er loddet fast på kortet.
+
+\textbf{GPS-modulens OPT1 og OPT2} innganger brukes til å sette standard konfigurering ved oppstart. Det kan da velges hvilken hastighet modulen skal kommunisere med, om den skal sende fra seg data i <<NMEA>> eller <<SiRF Binary>> protokollen, hvilke strenger den skal sende ut og diverse funksjoner som statisk filter og <<\ac{DR}>>. Se tabell \ref{tab:GPS-konfig}. Det ble valgt å trekke OPT2 lav med en <<pull-down-motstand>> og lage en loddebryter på OPT1 slik at det det underveis kunne velges om den skal trekkes høy eller lav. Se SJ1 i figur \ref{fig:GPS-modul}. Dette ble gjort fordi det var bestemt at NMEA protokollen skulle brukes og da var det ingen vits i å ha mulighet til å velge SiRF protokollen.
+\begin{table}[htb]
+  \centering
+  \begin{minipage}{\textwidth}
+  \centering
+  \begin{tabular}{ccl}
+    \hline
+    \emph{\textbf{OPT1}} & \emph{\textbf{OPT2}} & \emph{\textbf{Beskrivelse}} \\
+    \hline
+    0 & 0 & NMEA 4800 Baud, GGA \footnote{Global Positioning Fixed Data}, GSA \footnote{GNSS DOP and Active Satellites}, GSV \footnote{GNSS Satellites in View}(5 sek),\\ 
+      &   & RMC \footnote{Recommended Minimum Specific GNSS Data}, VTG \footnote{Course Over Ground and Ground Speed}, SBAS Av, Statisk Filter Av, \\
+      &   & Intern <<\ac{DR}>> Av, Track Smoothing On\\
+      %&   & \\
+    0 & 1 & SiRF Binary 57600 BPS \\
+      %&   & \\
+    1 & 0 & NMEA 57600 BPS, GGA, GSA, GSV, RMC, VTG,\\
+      &   & EE SiRF Proprietary Static Filter On, \\
+      &   & Intern \ac{DR} På (15 sekunder timeout),\\
+      &   & <<Track Smoothing>> På,  \\ 
+      &   & NB! modulen startes i hibernate modus \\
+      %&   & \\
+    1 & 1 & Reservert \\
+    \hline
+  \end{tabular}
+  \end{minipage}
+  \caption{Standard konfigurering av GPS-modul}
+  \label{tab:GPS-konfig}
+\end{table}
+
+\textbf{ONOFF} inngangen brukes til å skru modulen enten av eller på. Hvis denne pinnen er flytende eller koblet til jord skrus modulen på så lenge den er koblet til forsyningsspenningen. ONOFF brukes dersom GPS-modulen skal være avskrudd mens mikrokontrolleren er på, da tar gps-modulen vare på posisjon og klokke slik at den raskere får <<fix>> neste gang den skrus på\footnote{Hotstart}. Dette fungerer veldig bra dersom GPS'en ikke blir flyttet mens den er avslått, men siden CanSat'en slippes fra raketten ca. 6\kilo\meter\ vekk fra der den blir skutt opp, vil ikke denne løsningen på <<hotstart>> fungere veldig bra i dette tilfellet. Denne funksjonen kommer nok ikke til å bli brukt, men det kan være kjekt å ha under testingen. Det er mye bedre å regne ut ca. posisjon og tid for slipp-punktet og <<mate>> modulen med disse dataene fra mikrokontrolleren. 
+
+\textbf{1PPS} er en utgang som pulser høyt i et mikrosekund med periodetid på et sekund, pulsingen er synkronisert så lenge GPS'en har <<fix>> i 3D navigeringsmodus. Dette signalet kan kobles til en av avbruddsinngangene på mikrokontrolleren slik at den kan følge med på når data ankommer fra GPS-modulen.
+
+\textbf{VIO-pinnen} forsyner eksterne kretser med 1,8~\volt~fra en spenningsregulator internt i GPS-modulen, denne pinnen er koblet som forsyning til en nivåkonverterer.
+
+\textbf{RX-inngangen} på modulen tåler spenningsnivået fra mikrokontrolleren og er derfor koblet til mikrokontrolleren gjennom en diode som hindrer at det går strøm inn i GPS-modulen. TX utgangen fra modulen er koblet gjennom en spenningsnivåkonverterer før den går til RX inngangen på mikrokontrolleren.
+
+\textbf{TX-linja} på GPS-modulen som er 1,8~\volt\ må konverteres til 3,3~\volt\ som går til RX-inngangen på mikrokontrolleren. Siden det ble valgt en GPS-modul som internt operer på 1,8~\volt\ vil ikke logisk høyt fra GPS-modulen være høyt nok til å bli registrert som logisk høyt nivå hos mikrokontrolleren. Derfor måtte vi konvertere signalene slik at mikrokontrolleren og GPS-modulen kunne kommunisere med hverandre. Det er flere metoder som kan benyttes for å få til en slik konvertering. Og siden vi ikke trenger stille store krav til hastighet når det kun skal mottas GPS-strenger i 4800~Baud. Ble det valgt en enkel og komponenteffektiv løsning bestående av to motstander og en transistor. Se figur \ref{fig:GPS-modul} og \ref{fig:nivakonv}.
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.5\textwidth]{nivakonv.pdf}
+ % nivakonv.png: 286x189 pixel, 150dpi, 4.84x3.20 cm, bb=0 0 137 91
+ \caption{Kretsskjema Nivåkonverterer}
+ \label{fig:nivakonv}
+\end{figure}
+\textbf{Nivåkonvertereren} fungerer slik at når TX-linja fra GPS'en er høy\footnote{Høy for GPS'en er 1,8~\volt} er det ingen spenning over $R_{4}$\footnote{Spenningen over $R_{4}$ er samme som $V_{GS}$} og transistoren sperrer, da drar $R_{3}$ RX-linja til mikrokontrolleren høy \footnote{Høy for mikrokontrolleren er 3,3~\volt}. Når TX-linja fra GPS'en er lav får vi et spenningsfall over $R_{4}$ som åpner transistoren og RX-linja til mikrokontrolleren blir dratt lav.
+
+\textbf{Forsyning til aktiv antenne}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.4\textwidth]{kvartbolgestub}
+ % kvartbolgestub.png: 266x285 pixel, 150dpi, 4.50x4.83 cm, bb=0 0 128 137
+ \caption{Kretsskjema Forsyning til aktiv antenne}
+ \label{fig:kvartbolgestubbskjema}
+\end{figure}
+De fleste aktive GPS-antenner krever at RF-signalet skal ligge oppå forsyningsspenningen på samme linje. Derfor lønner det seg å bruke en kvartbølgestubb til å forsyne antennen for ikke å forstyrre impedansmatchingen mellom antenneutgangen og GPS-modulen. Kvartbølgestubben transformerer RF-kortslutning i den ene enden til RF-brudd i den andre, dermed ser man ideelt uendelig motstand inn i stubben fra GPS-signalets side. Derfor vil GPS-signalet gå inn på antenneinngangen på GPS-modulen og ikke langs stubben til forsyningsspenningen. Det er også brukt en induktans $L_{2}$ som sammen med en kondensator $C_{3}$ danner et LC-filter som sikrer stabil forsyningsstrøm til antennen. LC-filteret dobbeltsikrer også at ikke høyfrekvent støy fra GPS'en skal komme inn på forsyningslinjene til hele GPS-kortet. Se figur \ref{fig:kvartbolgestubbskjema}.
+
+\paragraph{Mikrokontrolleroppkobling}
+
+Det var også bestemt på forhånd hvilken mikrokontroller som skulle brukes, det var valgt en AVR ATMega16 fra Atmel. For å få koblet opp denne riktig ble databladet\cite{atmega16} til mikrokontrolleren brukt sammen med endel kunnskap gruppen hadde tilegnet seg fra tidligere prosjekter. Se figur \ref{fig:ATMega16-oppkobling}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.3,keepaspectratio=true]{ATMega16-sch}
+ % ATMega16-sch.pdf: 612x792 pixel, 72dpi, 21.59x27.94 cm, bb=0 0 612 792
+ \caption{Oppkoblingen av mikrokontrolleren}
+ \label{fig:ATMega16-oppkobling}
+\end{figure}
+
+\textbf{\ac{ISP}} brukes for å programmere mikrokontrolleren mens den sitter på kortet. \ac{ISP} bruker \ac{SPI}-bussen til å overføre programmet til mikrokontrolleren. Pinnene \ac{MISO}, \ac{MOSI}, \ac{SCLK} ble koblet til kontakten som vist i figur \ref{fig:Progkontakt}. Når vi skal programmere en \acs{AVR} må den være i programmeringsmodus før data påtrykkes \ac{SPI} bussen, dette gjøres ved å bruke <<reset>> pinnen som en $\overline{\text{\acs{SS}}}$-inngang. Dermed går mikrokontrolleren i reset-modus og data som kommer inn via \ac{SPI}-interfacet blir lagret i programminnet. Se forøvrig avsnitt \ref{avsnitt:avrprog} side \pageref{avsnitt:avrprog}.
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.2,keepaspectratio=true]{programmeringsplugg}
+ % programmeringsplugg.pdf: 649x459 pixel, 72dpi, 22.90x16.19 cm, bb=0 0 649 459
+ \caption{Tilkobling til programmeringskontakten}
+ \label{fig:Progkontakt}
+\end{figure}
+
+$\overline{\textbf{RESET}}$-pinnen på mikrokontrolleren brukes ikke bare til \ac{ISP}-programmeringen, men også for å starte mikrokontrolleren på nytt. $\overline{\text{RESET}}$ er aktiv lav med en intern <<pull-up>>-motstand, men for å være på den sikre siden og unngå at prosessoren skal restartes ukontrollert er også en ekstern <<pull-up>>-motstand koblet inn.
+
+\textbf{Forsyning til \acs{ADC}} ble laget med et LC-filter bestående av L$_1$  og C$_{11}$ i figur \ref{fig:ATMega16-oppkobling}. L$_1$ sikrer stabil strøm inn til AVCC som er den analoge forsyningspinnen til mikrokontrolleren. Dette gjøres slik at avlesningene med \acs{ADC} skal bli mer nøyaktig. 
+
+\textbf{Krystall}
+ATMega16 mikrokontrolleren har mulighet til å forsyne seg selv med klokkesignal fra en intern RC-oscillator, men også fra et eksternt krystall. På grunn av at mikrokontrolleren skal kommunisere med GPS'en over UART i 4800 Baud er det lurt å velge en klokkefrekvens som kan nedskaleres slik at den treffer den riktige baudraten. Når den interne RC-ocillatoren blir brukt kan det forventes en feilprosent på 0,2\% ved 4800 baud, men med et eksternt krystall helt ned til 0,0 \%  så lenge det har riktig frekvens. På GPS-kortet ble det valgt å bruke et krystall på 1,8432\mega\hertz, men siden Farnell ikke hadde dette da bestillingen skulle sendes ble det i stedet bestillt et på 3,6864\mega\hertz. Dette vil ikke ha noen betydning for andre deler av systemet siden ingen andre komponenter må byttes ut. Den eneste forskjellen er at prosessoren kjører dobbelt så raskt som planlagt, dette betyr igjen at prosessoren utfører instruksjonene dobbelt så raskt og den kan utføre flere instruksjoner mellom hver gang hovedkortet ber om data.
+
+\textbf{Feilsøkingings-LED} På PA0 er en lysdiode koblet inn via en transistor, som kan brukes til feilsøking under utvikling av software. Når software er ferdigutviklet vil denne lysdioden bli brukt som indikator for å fortelle at mikroprosessoren fungerer og ikke har krasjet. Lysdioden er koblet opp som vist i figur \ref{fig:LED}
+\begin{figure}[h!]
+ \centering
+ \includegraphics[scale=0.2,keepaspectratio=true]{./LED.pdf}
+ % LED.pdf: 459x649 pixel, 72dpi, 16.19x22.90 cm, bb=0 0 459 649
+ \caption{Oppkobling av feilsøkingslysdiode}
+ \label{fig:LED}
+\end{figure}
+
+\textbf{\ac{SDA}} og \textbf{\ac{SCL}} kobles direkte til I$^{2}$C-bussen, som er hovedkommunikasjonsmetode mellom alle kortene. I teoridelen om I$^{2}$C fortelles det hvordan denne virker. Se avsnitt \ref{avsnitt:I2C} på side \pageref{avsnitt:I2C}.
+
+\subsubsection{Utlegg}
+Så fort kretsskjemaet var ferdig designet begynte jobben med å få laget utlegget. Det vanskeligste med dette var å plasere komponentene riktig i forhold til hverandre slik at færrest baner krysset hverandre. En annen ting som måtte tas hensyn til var å få riktig lengde og tykkelse på kvartbølgestubben. For å regne ut disse verdiene ble en ferdig mikrostripekalkulator\cite{mikrostripekalk} brukt. Da var det bare å legge inn verdier for kretskortets tykkelse(H), dielektrisitetskonstanten til kretskortmaterialet($\epsilon_{r}$), relativ resistans for kobber (Rho), tykkelsen på kobberet (Tmet), ruheten til kobberlaget(Rough), frekvensen til GPS-signalet, impedansen du ønsker i linja($Z_0$) og siden dette skal være en kvart bølgelengde må <<Electrical Lenghth>> være en kvart periode altså 90 grader. Se figur \ref{fig:mikrostripekalkulator}.\footnote{Verdiene i figuren stemmer med de verdiene som ble brukt når kvartbølgestubben ble designet.}
+\begin{figure}[htb]
+ \includegraphics[width=\textwidth]{mikrostripekalkulator}
+ % mikrostripekalkulator.png: 1059x562 pixel, 72dpi, 37.35x19.82 cm, bb=0 0 1059 562
+ \caption{Mikrostripekalkulator på internett}
+ \label{fig:mikrostripekalkulator}
+\end{figure}
+%\footnote{Verdiene i figuren stemmer med de verdiene som ble brukt når kvartbølgestub'en ble designet}
+
+For å spare plass på utlegget ble kvartbølgestubben brettet. Som en tommelfingerregel må den brettes i rette vinkler og avstanden mellom hver brett skal ikke være minde en fem ganger bredden til kvartbølgestubben. Siden det er et jordplan på komponentsiden av kortet måtte det passes på at ikke også dette kom nærmere enn fem ganger bredden på stubben. For å være på den sikre siden ble det valgt fem milimeter mellom hver brett, og enda større avstand til jordplanet, når det kunne vært nok med 3,35 \milli\meter. Se figur \ref{fig:kvartbolgestubbutlegg}.
+\begin{figure}[htb]
+ \centering
+ \includegraphics{kvartbolgestubutlegg.png}
+ % kvartbølgestubutlegg.png: 1443x1539 pixel, 500dpi, 7.33x7.82 cm, bb=0 0 208 222
+\caption{Kretsutlegg Forsyning til aktiv antenne}
+\label{fig:kvartbolgestubbutlegg}
+\end{figure}
+
+Lengden av kvartbølgestubben bestemmes av hvor AC jordingskondesatoren $C_{4}$ blir koblet til. Siden noen av parametrene som $\epsilon_{r}$, Rho og Rough er litt usikre ble det valgt å lage ca 10 \% slingringsmonn. Dette ble gjort ved å lage ekstra lange <<pad'er>> på <<footprintet>> til $C_{4}$. Se figur \ref{fig:kvartbolgestubbutlegg}. Dermed kan vi finjustere <<stubben>> slik at den har helt riktig karakeristikk for riktig frekvens bare ved å flytte kondesatoren $C_{4}$. 
+
+GPS-modulen bør også skjermes så godt som mulig, derfor ble det brukt et jordplan under kortet og et på komponentsiden koblet sammen med mange via-hull slik at høyfrekvens delen av kretskortet ble best mulig skjermet fra resten av kortet. Dermed er det mindre sannsynlig at det vil oppstå interferens mellom GPS-delen og mikrokontroller-delen av kortet.
+
+\subsection{Produksjon}
+Produksjonen består av å etse kortet og lodde på komponentene.
+\subsubsection{Etse kortet}
+Før etseprosessen kunne starte måtte utlegget skrives ut på en transparent. Så ble det laget en lomme av transparentene, slik at topp og bunn lå nøyaktig over hverandre. Deretter ble kretskortet kuttet i riktig størrelse før det ble lagt i transparentlommen og belyst i en UV-belyser. Dette gjøres fordi fotoresisten skal kunne vaskes vekk med lut der det ikke skal være baner på kretskortet. Etter fotoresisten var vasket vekk der den ikke skulle være ble kortet lagt i natriumpersulfat som etset vekk kobberet bare der det ikke var fotoresist. Så var det bare å vaske vekk resten av fotoresiten med aceton og kortet var klart til lodding. 
+\subsubsection{Lodde komponenter}
+Før komponentene ble loddet på kortet måtte det bestemmes hvilken metode som skulle brukes. Mulighetene var enten å bruke loddebolt, varmluftsstasjon eller IR-ovn. Etter en del testing ble det bestemt at IR-ovnen var det beste alternativet. Det ble brukt et mikroskop for å legge på tinn/loddepasta på <<pad>>ene, så ble komponentene plasert på riktig plass med en pinsett. Etter en del finjusteringer ble kortet plassert i IR-ovnen der det ble varmet opp helt til tinnet smeltet, så ble kortet tatt forsiktig ut og kjølt ned. Når kortet var kaldt og tinnet hadde stivnet ble alle viahullene loddet med vanlig loddebolt.
+\subsection{Testing}
+\subsubsection{revisjon 1}
+\label{avsnitt:rev1}
+For å teste GPS-kortet ble det først benyttet et multimeter for å måle motstanden mellom de forskjellige banene slik at det kunne fastslås at det ikke fantes kortslutninger. Så ble spenningsforsyning med strømbegrenser koblet til slik at ingen av komponentene skulle bli ødelagt hvis det skulle være noe galt og det dermed skulle gå for mye strøm. Deretter ble multimetert benyttet på nytt for å se om spenningene rundt om på kortet stemte. Da dette også så bra ut ble GPS-kortet plassert ved vinduet for å se om GPSen fikk gyldige data fra satellittene. For å sjekke om GPS'en har gyldig <<fix>>  er en lysdiode koblet til NAV-pinnen på GPS-modulen, som gir ut et pulserende signal hver gang den har gyldige data. Etter cirka ti minutter begynte lysdioden å blinke, noe som er alt for tregt til denne bruken. Antagelig skyldes dette både dårlig RF-design og at den passive antennen var for dårlig. For å løse dette problemet ble GPS-kortet redesignet slik at den aktive antennen kunne brukes. Det er ikke tatt med mye om revisjon 1 i denne rapporten, siden dette kortet ikke fungerte spesielt godt.
+
+\subsubsection{revisjon 2}
+For å teste revisjon 2 av GPS-kortet ble samme prossedyre som over fulgt og etter sirka 40 sekunder begynte lysdioden å blinke. Noe som betydde at GPS-modulen fungerte. Etter dette ble mikroprosessoren koblet til en AVR Dragon\footnote{En Atmel prorammerer og debugger} for å sjekke om det ble oppnådd kontakt med den, noe som også var velykket. Dermed kunne det konkluderes med at det ikke var noen alvorlige hardware feil på GPS-kortet.
+
+
+\subsection{Software}
+Utvikling av software har har pågått parallelt med designprosessen, produksjonen og testingen av GPS-kortet. Så fort kretsskjemaet var ferdig begynte softwareutviklingen med AVRStudio som programmeringsgrensesnitt og simulator. Det ble laget et flytskjema for å enkelt kunne se hvordan programmet fungerer, se figur \ref{fig:GPS-Software}. Se også avsnitt \ref{avsnitt:NMEA} på side \pageref{avsnitt:NMEA} for oppbygning av en NMEA-melding.  
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.8,keepaspectratio=true]{GPS-Software-flytskjema}
+ % GPS-Software-flytskjema.pdf: 612x792 pixel, 72dpi, 21.59x27.94 cm, bb=0 0 612 792
+ \caption{Flytskjema over GPS-kortets software}
+ \label{fig:GPS-Software}
+\end{figure}
+
+

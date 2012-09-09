@@ -1,0 +1,107 @@
+\select@language {norsk}
+\contentsline {chapter}{\numberline {1}Innledning}{ix}{chapter.1}
+\contentsline {section}{\numberline {1.1}Bakgrunn}{ix}{section.1.1}
+\contentsline {section}{\numberline {1.2}Oppgavebeskrivelse}{x}{section.1.2}
+\contentsline {section}{\numberline {1.3}M\r al}{x}{section.1.3}
+\contentsline {subsubsection}{Effektm\r al}{x}{section*.11}
+\contentsline {subsubsection}{Resultatm\r al}{x}{section*.12}
+\contentsline {subsubsection}{Prosessm\r al}{xi}{section*.13}
+\contentsline {subsubsection}{Oppbygning av rapporten}{xi}{section*.14}
+\contentsline {chapter}{\numberline {2}Teori}{1}{chapter.2}
+\contentsline {section}{\numberline {2.1}M\r aling av str\IeC {\o }mtrekk}{1}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Low-Side sensing}{1}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}High-Side sensing}{2}{subsection.2.1.2}
+\contentsline {paragraph}{Et regneeksempel:}{2}{section*.15}
+\contentsline {subsection}{\numberline {2.1.3}Dedikerte str\IeC {\o }mm\r alings-\acs {IC}er\cite {ti-current-shunt}}{3}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Valg av shunt-motstand\cite {maxim-hs-circuit}}{4}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Spenningsregulator}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Line\IeC {\ae }r eller Switch-regulator i batteridrevet system?\cite {national-reg-fund, maxim-lin-reg}}{5}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Valg av regulator}{6}{subsection.2.2.2}
+\contentsline {paragraph}{Maksimal laststr\IeC {\o }m}{6}{section*.21}
+\contentsline {paragraph}{Type spenningskilde}{7}{section*.22}
+\contentsline {paragraph}{N\IeC {\o }yaktighet p\r a utgangsspenningen}{7}{section*.23}
+\contentsline {paragraph}{Tomgangsstr\IeC {\o }m}{7}{section*.24}
+\contentsline {paragraph}{Ekstra funksjoner}{7}{section*.25}
+\contentsline {subsection}{\numberline {2.2.3}Innebygde beskyttelseskretser i line\IeC {\ae }re regulatorer}{7}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Den innebygde \acs {ADC}en i \acs {AVR}}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Analoge referanser\cite {atmega128, avrfreaks-adc}}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Sette i gang en enkel \ac {AD}-konvertering}{9}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Oppl\IeC {\o }sning/Hastighet}{9}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Bruke forskjellige kanaler}{10}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Busstyper}{10}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}\ac {I$^{2}$C}\cite {I2C-bussen}}{10}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}\ac {SPI}\cite {SPI-bussen}}{11}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Hovedkort}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Hardware}{13}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}DOSonChip}{13}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Mikrokontroller}{14}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Lysdioder}{14}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}\acs {USB}-interface}{15}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Programmering av mikrokontrolleren}{16}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}\acs {IR}-mottaker}{17}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Str\IeC {\o }mm\r aling}{18}{subsection.3.2.2}
+\contentsline {paragraph}{Beregning av R$_{\text {shunt}}$}{18}{section*.45}
+\contentsline {subsection}{\numberline {3.2.3}Spenningsregulator}{19}{subsection.3.2.3}
+\contentsline {paragraph}{$\text {C}_{\text {INN}}$}{20}{section*.46}
+\contentsline {paragraph}{$\text {C}_{\text {BYP}}$}{20}{section*.48}
+\contentsline {paragraph}{$\text {C}_{\text {OUT}}$}{20}{section*.49}
+\contentsline {section}{\numberline {3.3}Software}{20}{section.3.3}
+\contentsline {chapter}{\numberline {4}GPSkort}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Teori}{23}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}NMEA-0183 Protokollen}{23}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Kvartb\IeC {\o }lgestubb\cite {kvartbolgetriks}}{24}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Utf\IeC {\o }relse}{25}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Slagplan}{25}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Designprosess}{26}{subsection.4.2.2}
+\contentsline {subsubsection}{Kretsskjema}{26}{section*.50}
+\contentsline {paragraph}{GPS-moduloppkobling}{26}{section*.51}
+\contentsline {paragraph}{Mikrokontrolleroppkobling}{29}{section*.53}
+\contentsline {subsubsection}{Utlegg}{31}{section*.55}
+\contentsline {subsection}{\numberline {4.2.3}Produksjon}{33}{subsection.4.2.3}
+\contentsline {subsubsection}{Etse kortet}{33}{section*.56}
+\contentsline {subsubsection}{Lodde komponenter}{33}{section*.57}
+\contentsline {subsection}{\numberline {4.2.4}Testing}{34}{subsection.4.2.4}
+\contentsline {subsubsection}{revisjon 1}{34}{section*.58}
+\contentsline {subsubsection}{revisjon 2}{34}{section*.59}
+\contentsline {subsection}{\numberline {4.2.5}Software}{34}{subsection.4.2.5}
+\contentsline {chapter}{\numberline {5}Sensorkort}{37}{chapter.5}
+\contentsline {section}{\numberline {5.1}Konstruksjon}{37}{section.5.1}
+\contentsline {section}{\numberline {5.2}Teori}{37}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Relativ luftfuktighet}{39}{subsection.5.2.1}
+\contentsline {subsubsection}{M\r aling av relativ luftfuktighet}{39}{section*.61}
+\contentsline {subsubsection}{Fordeler og ulemper}{41}{section*.62}
+\contentsline {subsection}{\numberline {5.2.2}Temperatur}{42}{subsection.5.2.2}
+\contentsline {subsubsection}{M\r aling av temperatur}{42}{section*.65}
+\contentsline {subsubsection}{Beregning av Steinhart-Harts koeffisienter}{43}{section*.66}
+\contentsline {subsubsection}{Feilkilder}{45}{section*.67}
+\contentsline {paragraph}{\ac {ADC}-enhet}{45}{section*.68}
+\contentsline {paragraph}{Uline\IeC {\ae }re termistorer}{45}{section*.69}
+\contentsline {paragraph}{Termistor}{46}{section*.71}
+\contentsline {paragraph}{Trykksensor og akselerometer}{46}{section*.72}
+\contentsline {section}{\numberline {5.3}Utf\IeC {\o }relse}{46}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Relativ luftfuktighet}{46}{subsection.5.3.1}
+\contentsline {subsubsection}{M\r aleresultater}{47}{section*.73}
+\contentsline {subsection}{\numberline {5.3.2}Temperatur}{47}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Barometrisk lufttrykk}{47}{subsection.5.3.3}
+\contentsline {subsubsection}{M\r aling av lufttrykk}{48}{section*.74}
+\contentsline {subsection}{\numberline {5.3.4}Akselerasjonsensor}{49}{subsection.5.3.4}
+\contentsline {subsubsection}{M\r aling av akselerasjon}{49}{section*.75}
+\contentsline {chapter}{\numberline {6}Radiokort}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Oppbygning}{51}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Transmisjonsbudsjett}{52}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Teori}{55}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Frekvensmodulasjon}{55}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Fasel\r ast sl\IeC {\o }yfe}{58}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Loopfilter}{60}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Quadraturmodulering}{62}{subsection.6.2.4}
+\contentsline {subsection}{\numberline {6.2.5}Aliasfilter}{63}{subsection.6.2.5}
+\contentsline {section}{\numberline {6.3}Praksis}{70}{section.6.3}
+\contentsline {chapter}{\numberline {7}XBee-kort}{83}{chapter.7}
+\contentsline {section}{\numberline {7.1}RF-modulene}{83}{section.7.1}
+\contentsline {section}{\numberline {7.2}Spesifikasjoner}{84}{section.7.2}
+\contentsline {section}{\numberline {7.3}Design av kretskort}{84}{section.7.3}
+\contentsline {chapter}{\numberline {8}Konklusjon}{87}{chapter.8}
+\contentsline {section}{\numberline {8.1}Oppn\r adde effektm\r al}{87}{section.8.1}
+\contentsline {section}{\numberline {8.2}Oppn\r adde resultatm\r al}{87}{section.8.2}
+\contentsline {section}{\numberline {8.3}Vurdering av prosessm\r al}{88}{section.8.3}
+\contentsline {chapter}{\numberline {A}Regnskap}{97}{appendix.A}

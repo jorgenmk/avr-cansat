@@ -1,0 +1,162 @@
+\chapter{Hovedkort}
+
+\section{Hardware}
+Her beskrives de ulike delkretsene hovedkortet er bygd opp av. Kretsskjema til hovedkortet finnes i figur \ref{fig:scem_hoved} i vedlegg \ref{app:scematics} på side \pageref{fig:scem_hoved}
+\subsection{DOSonChip}
+DOSonChip CD17B10 er en minnekortkontroller fra Wearable Inc. med et integrert \acs{PC}-kompatiblet filsystem. Med denne kretsen kan lesing og skriving til \acs{PC}-kompatible filer til og fra utbredte minnekort utføres med enkle kommandoer. I tillegg kan det benyttes en integrert \ac{RTC} til å tidsmerke filer. DOSonCHIP gir også mulighet for in-system firmware oppgraderinger for fremtidige optimaliseringer og for å kunne støtte kommende minnekortstandarder. Kontrolleren støtter i dag følgende minnekortformfaktorer: \ac{MMC}, \ac{SD}, mini\ac{SD}, micro\ac{SD}, \ac{SDHC}, mini\ac{SDHC} og micro\ac{SDHC}. Brikken har et komplett instruksjonssett for både \acs{FAT}16- og \acs{FAT}32-filsystem og fungerer som en naturlig utvidelse av dette filsystemet til en mikrokontroller. Dette gjør sluttproduktet mer funksjonelt uten å måtte legge til kompleksiteten til et operativsystem.
+
+Mikrokontrolleren (verten i systemet) kan kommunisere med brikken gjennom \mbox{\acs{UART}-,} \acs{SPI}- eller \acs{I$^{2}$C}/\acs{SMBus}-interface. Den enkleste kommunikasjonen softwaremessig, oppnås gjennom å bruke \acs{UART}. Det ligger også et forslag til \ac{API} på hjemmesidene til Wearable Inc. hvor det er brukt \acs{UART}-kommunikasjon.
+I figur \ref{fig:doc-circuit} vises DOSonChip implementert på hovedkortet slik det er foreslått i databladet \cite{dosonchip-ds}. I tillegg til ordinær \acs{UART}-kommunikasjon med Rx- og Tx-linjer benyttes det flytkontroll med signalene \ac{CTS} og \ac{RTS}. På denne brikken fungerer dette litt annerledes enn hva som er vanlig; når verten ønsker å kommunisere med DOSonChip må den vente til \ac{RTS}-linjen er lav (den indikerer at DOSonChip er opptatt), og når verten ønsker data fra DOSonChip, må \ac{CTS}-linjen settes lav for å tillate DOSonChip og sende data til verten.
+I figur \ref{fig:doc-circuit} er også \ac{RTC}-finessen implementert med komponentene C1, C2, R1 og Q2. Dette muliggjør tidsmerking av filene som lagres på minnekortet. Klokken kan naturligvis leses og stilles av verten.
+Databladet skryter av brikkens plassbesparende pakke (\acs{QFN}24) vist i figur \ref{fig:doc-size}, som kan by utfordringer ved manuell montering.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.90\textwidth]{Hovedkort/doc-circuit}
+	\caption{Implementering av DOSonChip}
+	\label{fig:doc-circuit}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.40\textwidth]{Hovedkort/doc-size}
+	\caption{Footprint til DOSonChip}
+	\label{fig:doc-size}
+\end{figure}
+
+\subsection{Mikrokontroller}
+På hovedkortet er det plassert en litt kraftigere mikrokontroller enn den vi ellers har valgt å bruke på modulene i CanSaten, en ATMega128 \cite{atmega128}. Denne er valgt fordi den har et særdeles stort programminne som kan være nødvendig i senere revisjoner av CanSaten. Brikken har også to \acs{UART}-moduler som er nødvendig siden vi både kommuniserer med DOSonChip og USB-interface (mer om dette i avsnitt \ref{avsnitt:usb}). Den har også en del flere pinner, noe som forenkler bruk av evt. tilleggsperiferi.
+
+\subsection{Lysdioder}
+For å gi rask og pålitelig status på programflyten til mikrokontrolleren benyttes det to lysdioder i forskjellige farger. Ved å kombinere bruken av disse (av, på, hurtig blink, sakte blink) kan man i løpet av et øyeblikk avgjøre status på CanSaten. Lysdiodene er fremstillt i  \acs{OFM} pakke: 0805, og plassert ut mot kanten av kretskortet.
+
+Gruppen har valgt SML-210PT (grønn) og SML-210VT (rød) fra ROHM Semiconductor. Disse har en ledespenning på henholdsvis 2,1~\volt\ og 1,9~\volt\ ved 20~\milli\ampere. Formotstand bør da være:
+	\[\frac{U_{\text{CC}}-U_{\text{LED.fwd}}}{I_{\text{LED.fwd}}} = \frac{3,3~\volt - 2,1~\volt}{20~\milli\ampere} = 60\ohm
+\]
+Dette strømtrekket er helt på kanten av hva mikrokontrolleren klarer å levere uten å benytte en drivtransistor, og i tillegg det desidert høyeste strømtrekket blant resten av modulene på kortet, så vi velger å minke strømmen ved å øke formotstanden. Viser enkelt fremgangsmåten for SML-210PT:
+\begin{itemize}
+	\item Velger en større formotstand, 180~\ohm
+	\item $I_{\text{LED.fwd}} = \frac{U_{\text{CC}}-U_{\text{LED.fwd}}}{R_{\text{LED-fwd}}} = \frac{3,3~\volt - 2,1~\volt}{180~\ohm} = 6,6~\milli\ampere$
+	\item Leser fra databladet at ved $I_{\text{LED.fwd}} = 7~\milli\ampere$ er $U_{\text{LED.fwd}} = 2,0~\volt$
+	\item $I'_{\text{LED.fwd}} = \frac{U_{\text{CC}}-U'_{\text{LED.fwd}}}{R_{\text{LED-fwd}}} = \frac{3,3~\volt - 2,0~\volt}{180~\ohm} = 7,2~\milli\ampere$
+	\item Ved $I'_{\text{LED.fwd}} = 7,2~\milli\ampere $ er relativ lysstyrke minket til 40\% i følge databladet.
+	\item Vi er fornøyd med 40~\% av lysstyrken med 64~\% reduksjon i strømmen.
+\end{itemize}
+
+\label{avsnitt:usb}
+\subsection{\acs{USB}-interface}
+For å lage et effektivt og universelt interface fra CanSaten mot en \acs{PC} er det valgt å implementere et \acs{USB}-interface som vist i figur \ref{fig:ft232r-circuit}. Tanken bak å ha et \acs{PC}-interface er at man enkelt kan <<debugge>> programmet til mikrokontrolleren og lese ut måledata fra CanSaten med så lite tilleggsutstyr som mulig. Dette er meget praktisk ute i felten hvor det som regel er begrenset med tid og svært upraktisk med tilleggsutstyr.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{Hovedkort/ft232r-circuit}
+	\caption{Implementering av USB-interface mot mikrokontrolleren}
+	\label{fig:ft232r-circuit}
+\end{figure}
+
+USB-interfacet tilbyr 5~\volt\ spenningsforsyning med garantert 100~\milli\ampere\ strømtrekk.\footnote{USB}-hubben kan tilby 500~\milli\ampere\ på forespørsel hvis den har nok kapasitet. Siden CanSaten har egen strømforsyning brukes ikke \acs{USB}-spenningen til annet enn å aktivere \acs{USB}-kontrolleren når pluggen settes i.
+
+Brikken vi har valgt er en FT232R \cite{ft232r-ds}. Denne brikken oppfører seg som en virtuell serieport når den tilkobles en datamaskin, og den trenger ingen drivere for at brikken skal fungere. På den andre siden av brikken er det et \acs{UART}-interface mot mikrokontrolleren, med valgfri flytkontroll der dette kreves. Fordelen med FT232\textbf{R}-brikken er at den krever svært få eksterne komponenter og er meget enkel å implementere i et embedded-system. For å kommunisere mot en \acs{PC} trenger mikrokontrolleren kun å lese/skrive til den innebygde \acs{UART}-modulen.
+
+FT232R-brikken har mulighet for å bruke \acs{USB} til spenningsforsyning, og det er i tillegg integrert en 3,3~\volt\ regulator som kan brukes til å forsyne eventulle mikrkontrollere. Siden hovedkortet allerede har en 3,3~\volt\ spenningsregulator er den innebygde regulatoren overflødig i vårt design. Dermed blir utgangen avkoblet med en kondensator som anbefalt i databladet\cite{ft232r-ds}.
+
+\label{avsnitt:avrprog}
+\section{Programmering av mikrokontrolleren}
+Mikrokontrolleren på kortet kan programmeres på forskjellige måter:
+\begin{itemize}
+	\item \textbf{\acs{ISP}-programmering:} Her programmeres mikrokontrollerene med et \acs{SPI}-grensesnitt (mer om dette i avsnitt \ref{avsnitt:spi} på side \ref{avsnitt:spi}) som krever 6 pinner. Denne metoden er den mest brukte på AVR-kretser.
+	\item \textbf{\acs{JTAG}-interface} Dette er et standardisert interface spesifisert av \mbox{\acs{IEEE}}-gruppen og bruker 10 pinner. Fordelen med dette interfacet er at man også kan drive sanntids debugging på kretsen som er tilkoblet. Kun de større AVR-kretsene har dette interfacet.
+	\item \textbf{High Voltage programmering:} Begge de to forrige interfacene kan deaktiveres intert i \acs{AVR}-kretsen. Med High Voltage programmmering kan man få programmert kretsen uavhengig av hvilke interface som er aktivert i mikrokontrolleren. Her benyttes 8-bits parallell kommunikasjon samt 10 styresignaler\footnote{På \acs{AVR}-kretser med kun 8 pinner benyttes High Voltage seriell programmering. Her kan det være gunstig å bruke dette interfacet hvis man må deaktivere $\overline{\text{RESET}}$-pinnen (som brukes til \acs{ISP}-programmering) til fordel for en \acs{I/O}-pinne}. Ulempen er at metoden krever +12~\volt\ spenningsforsyning, samt at det kreves mange datalinjer.
+\end{itemize}
+
+På CanSaten er det valgt ISP-programmering som programmeringsgrensesnitt på grunn av lavt pinneantall og at det er allsidig. \acs{JTAG}-interfacet har blitt deaktivert til fordel for \acs{I/O}-linjer. \acs{ISP}-kontakten som er valgt er en 53261-06 fra Molex\cite{molex-ds} som vist i figur \ref{fig:molex}. Denne gir mulighet til å plugge inn en programmerer uten å måtte demontere de ulike modulene på CanSaten fra hverandre. I tillegg er kontakten relativt liten ($13~\milli\meter \times 6~\milli\meter)$, noe som gjør den plasseringsvennlig på kretskortet, samtidig som den er robust nok til å tåle en del tilkoblinger\footnote{Molex garanterer at kontakten er innenfor spesifikasjonen etter 30 til- og frakoblinger}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.30\textwidth]{Hovedkort/MX53261}
+	\caption{Skisse av ISP-plugg}
+	\label{fig:molex}
+\end{figure}
+
+
+\subsection{\acs{IR}-mottaker}
+\ac{IR}-mottakeren er ment til ekstern kommunikasjon mot hovedkortet mens det står montert i den vanntette innkapslingen. Siden inkapslingen er transparent, vil lys passere tilnærmet uhindret. Det er kun implementert en mottaker og ikke en sender siden status på CanSaten vil kunne leses av visuelt med strategisk plasserte lysdioder. \ac{IR}-mottakeren er ment å ta imot kommandoer for blant annet aktivering av radiomodul, nullstilling av moduler og kalibreing av høydemåler.
+
+På hovedkortet er det brukt en TSOP348 fra Vishay Semiconductor\cite{tsop348-ds} som vist i figur \ref{fig:tsop348-pack}. Dette er en integrert \ac{IR}-modul som tar imot \ac{IR}-signaler modulert på 38~\kilo\hertz\footnote{38~\kilo\hertz-utgaven heter TSOP348\textbf{38}}. Hensikten med en slik modulering er å stenge ut eventuelle uønskede \ac{IR}-kilder som kan introdusere ukorrekte data. I figur \ref{fig:tsop34838-circuit} vises det hvordan \ac{IR}-mottakeren er implementert i systemet. \acs{RC}-filteret på V$_{S}$ er anbefalt i databladet for å motvirke spenningsforstyrrelser.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.30\textwidth]{Hovedkort/tsop348-pack}
+	\caption{Skisse av IR-mottaker}
+	\label{fig:tsop348-pack}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{Hovedkort/tsop34838-circuit}
+	\caption{Implementering av \ac{IR}-mottaker}
+	\label{fig:tsop34838-circuit}
+\end{figure}
+
+\subsection{Strømmåling}
+\label{avsnitt:strommåling}
+Som <<Current shunt monitor>> på hovedkortet er det valgt brikken INA193 fra \ac{TI}. Denne \acs{IC}en kan måle common-mode spenninger fra $-16~\volt$ til $+80~\volt$ uavhengig av V$_{CC}$. Brikken forsterker spenningsfallet over shunten 20 ganger slik at det skal være enkelt å lese av resultatet (på f.eks en \acs{ADC}). Den interne forsyningsspenningen kan ligge i området 2,7~\volt\ til 18~\volt, og den trekker maksimalt 900~\micro\ampere. Den store fordelen med denne \acs{IC}en er at total målefeil\footnote{Dette inkluderer både gain error og offset-feil som vist i eksempelet på side \pageref{exp:current-error-explain}} er spesifisert til maksimum 3~\% over hele temperaturområdet (-40~\celsius\ til +125~\celsius).
+
+\paragraph{Beregning av R$_{\text{shunt}}$}
+\label{avsnitt:shunt}
+For å beregne korrekt verdi på shuntmotstanden må det tas hensyn til maksimalt forventet totalt strømtrekk fra kortet. I tabell \ref{tab:current-draw} er en oversikt over typisk og maksimalt strømtrekk over komponentene på kortet:
+
+\begin{table}
+	\centering
+	\begin{tabular}{lll}
+		\toprule
+		\textbf{Komponent} & \textbf{I$_{\text{typ}}$} & \textbf{I$_{\text{max}}$} \\
+		\midrule
+		ATMega128\cite{atmega128} & 2,5~\milli\ampere (3,3~\volt, 4~\mega\hertz, idle) & 6~\milli\ampere (3,3~\volt, 4~\mega\hertz, active) \\
+		ATMega128 ADC\cite{atmega128} & 0,3~\milli\ampere (\acs{ADC} ved 50~\kilo\hertz) & 0,4~\milli\ampere (\acs{ADC} ved 50~\kilo\hertz) \\
+		TSOP348\cite{tsop348-ds} & 0,4~\milli\ampere & 0,5~\milli\ampere \\
+		LP2985\cite{lp2985-ds} & 0,85~\milli\ampere (ved I$_{\text{L}}$ = 150~\milli\ampere) & 2,5~\milli\ampere (ved I$_{\text{L}}$ = 150~\milli\ampere) \\
+		INA193\cite{ina193-ds} & 0,75~\milli\ampere & 0,9~\milli\ampere \\
+		FT232R\cite{ft232r-ds} & 15~\milli\ampere & 16~\milli\ampere \\
+		DOSonChip\cite{dosonchip-ds} & 3,2~\milli\ampere & 5~\milli\ampere \\
+		2 stk. \acs{LED}s\cite{led-ds} & 25~\milli\ampere & 30~\milli\ampere \\
+		microSD-card & ? & \\
+		\bottomrule
+	\end{tabular}
+	\caption{Oversikt over komponentenes strømtrekk}
+	\label{tab:current-draw}
+\end{table}
+
+Maksimalt strømtrekk for kortet blir da $\text{I}_{\text{tot,max}} = 61~\milli\ampere$ (untatt minnekortet). Dette skal tilsvare et fullskala måleresultat for \acs{ADC}en som er AV$_{\text{CC}} = 3,3~\volt$. Siden INA193 forsterker V$_{\text{Rshunt}}$ med 20 ganger må $\text{V}_{\text{Rshunt}}$ ikke være høyere enn $\text{V}_{\text{Rshunt,max}} = 0,165~\volt$ for at INA193 ikke skal gå i metning. Verdi på $\text{R}_{\text{shunt}}$ bør da maksimalt være:
+	 \[\frac{\text{V}_{\text{Rshunt,max}}}{\text{I}_{\text{tot,max}}} = \frac{0,165~\volt}{61~\milli\ampere} = 2,7~\ohm\] For å lage litt rom for minnekortets strømtrekk velges \underline{\underline{$\text{R}_{\text{shunt}} = 2,2~\Omega$}} (som er en verdi i E6-, E12- og E24-rekken av resitorer). Maksimalt målbart strømtrekk for kortet blir da:
+	\[\frac{\text{V}_{\text{Rshunt,max}}}{\text{R}_{\text{shunt}}} = \frac{0,165~\volt}{2,2~\ohm} = 75~\milli\ampere\]
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.50\textwidth]{Hovedkort/ina193-circuit}
+	\caption{Implementering av strømmåler}
+	\label{fig:ina193-circuit}
+\end{figure}
+
+\subsection{Spenningsregulator}
+\label{avsnitt:spenningsreg}
+Regulatoren som er valgt er en LP2985 fra \acs{TI}, implementert som vist i figur \ref{fig:lp2985-circuit}. Dette er en \ac{LDO}-regulator som kan levere opptil 150~\milli\ampere. Den største fordelen med denne er at den er meget kompakt (\acs{SOT}-23), noe som er viktig i vårt design. Den kan brukes med keramiske utgangskondensatorer som tar minimalt med plass. En annen nyttig finesse er at regulatoren er utstyrt med on/off-pinne. Dette gjør at man kan skru av spenningsforsyningen til hele kortet uten ekstra komponenter. På hovedkortet er denne funksjonen forbikoblet, men på andre moduler i satelitten brukes dette til strømstyring fra mikrokontrolleren på hovedkortet.
+\paragraph{$\text{C}_{\text{INN}}$} Kondensator(er) på inngangen må være større enn 1~\micro\farad, og kan økes uten grense. Det er ingen krav til \ac{ESR}, men den bør være plassert 1~\centi\meter\ eller nærmere regulatoren. Det er valgt å supplere plastkondensatoren med en elektrolyttkondensator på 100~\micro\farad siden strømmen fra batteriet blir transportert gjennom flere kontaktpunkt på busskonnektoren.
+\paragraph{$\text{C}_{\text{BYP}}$} Bypass-kondensatoren på 10~\nano\farad\ er valgfri, men anbefales i databladet da den vil betydelig redusere støy på utgangen.\footnote{Internt i regulatoren blir $\text{C}_{\text{byp}}$ brukt til avkobling av den interne spenningsreferansen} \acs{DC}-lekkasje bør være mindre enn 100~\nano\ampere. Databladet anbefaler kondensatorer med dielektrikum NPO eller COG.
+\paragraph{$\text{C}_{\text{OUT}}$} For at regulatoren skal være stabil må \ac{ESR} til $\text{C}_{\text{OUT}}$ være i området 5~\milli\ohm\ til 0,8~\ohm. Regulatoren krever  $\text{C}_{\text{OUT}} \leq\ 2,2~\micro\farad$, kapasitansen kan økes uten grense. Siden det er plassert en del avkoblingskondensatorer rundt på kortet er 2,2~\micro\farad\ tilstrekkelig verdi på kondensatoren. $\text{C}_{\text{OUT}}$ bør plasseres så nær regulatoren som mulig, og ikke lenger unna enn 1~\centi\meter. Databladet anbefaler også å styre unna kondensatorer med dielektrikum Z5U og Y5V pga høy temperaturkoeffisient\footnote{kapasitansen kan minke med 50~\% når $\text{T}_{\text{amb}}$ går fra 25~\celsius\ til 85~\celsius}, og heller velge kondensatorer med det noe dyrere dielektrikumet X7R som holder kapasitansen innenfor $\pm 15~\%$.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.50\textwidth]{Hovedkort/lp2985-circuit}
+	\caption{Implementering av spenningsregulator}
+	\label{fig:lp2985-circuit}
+\end{figure}
+
+\section{Software}
+I figur \ref{fig:flytskjema-hovedkort} er det illustrert programets gang på hovedkortet.
+\begin{figure}
+	\centering
+		\includegraphics[width=\textwidth]{Hovedkort/flytskjema}
+	\caption{Flytskjema for programmet til mikrokontrolleren}
+	\label{fig:flytskjema-hovedkort}
+\end{figure}

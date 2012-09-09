@@ -1,0 +1,265 @@
+\chapter[CPU-kort]{Hovedkort}
+
+
+\begin{acronym}
+	\acro{ADC}{Analog-to-Digital Converter}
+	\acrodef{AD}{Analog-til-Digital}
+	\acro{AGC}{Automatic Gain Control}
+	\acro{API}{Application Programming Interface}
+	\acro{AVR}{Alf og Vegards \acs{RISC}-prosessor}
+	\acro{CAN}{Controller-Area Network}
+	\acro{CPU}{Central Processing Unit}
+	\acro{CTS}{Clear to Send}
+	\acro{DC}{Direct Current}
+	%\acro{EM}{Elektromagnetisk}
+	\acro{FAT}{File Allocation Table}
+	\acro{FET}{Field-effect transistor}
+	\acro{IC}{Integrated Circuit}
+	\acro{I$^{2}$C}{Inter-Integrated Circuit}
+	\acro{IR}{InfraRød}
+	\acro{ISP}{In-System Programming}
+	\acro{ksps}{Kilo Samples per Second}
+	\acro{LED}{Light Emitting Diode}
+	\acro{LIN}{Local Interconnect Network}
+	\acro{LDO}{Low-Dropout}
+	\acro{MMC}{Multi-Memory card}
+	\acro{NiCd}{Nickel-Cadmium}
+	\acro{NiMH}{Nickel-Metal Hydride}
+	\acro{PC}{Personal Computer}
+	\acro{QFN}{Quad Flat No leads}
+	\acro{RC}{Resistor-Capacitor}
+	\acro{RISC}{Reduced Instruction Set Computer}
+	\acro{RTC}{Real-time Clock}
+	\acro{RTS}{Request to Send}
+	\acro{SD}{Secure Digital}
+	\acro{SDHC}{Secure Digital High Capacity}
+	\acro{SMBus}{System Management Bus}
+	\acro{SPI}{Serial Peripheral Interface}
+	\acro{UART}{Universal Asynchronous Receiver/Transmitter}
+	\acro{USB}{Universal Serial Bus}
+\end{acronym}
+
+
+\section{Teori}
+\subsection{Måling av strømtrekk}
+Det finnes to grunnleggende teknikker for å måle strømtrekk:
+\begin{itemize}
+\item Måle magnetfeltet rundt en strømleder 
+\item Sette inn en liten motstand i strømveien og måle spenningsfallet over den. 
+\end{itemize} 
+
+Den første metoden gir ikke noe energitap, men krever relativt kostbar instrumentering. Derimot er det mye billigere å bruke den andre metoden med spenningsmåling over en motstand. 
+Ved å sette inn en motstand med lav verdi (shunt-motstand) i strømveien vil det skapes et lite spenningsfall over motstanden som vil være proporsjonalt med strømtrekket til kretsen. Vanligvis er spenningsfallet såpass lavt at det er fornuftig å forsterke det før det måles. Alt etter hvor shunt-motstanden plasseres skaper denne forskjellige utfordringer til forsterkeren.
+Ved å plassere shunten mellom lasten og jord (Low-Side sensing), kan spenningen forsterkes ved å bruke én enkel opamp. Den andre muligheten er å plassere shunten mellom forsyningsspenningen og lasten (High-Side sensing). Dette krever litt mer kretsteknisk. Begge prinsippene er illustrert i figur \ref{fig:hs-ls_sense}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.70\textwidth]{hs-ls_sense.png}
+	\caption{Prinsipp for High-side og Low-side sensing}
+	\label{fig:hs-ls_sense}
+\end{figure}
+
+
+Verdien på shunt-motstanden bør være så lav som mulig for å holde effekttapet til et minimum, men likevel stor nok til å skape et spenningsfall som kan forsterkes og leses av med påkrevd nøyaktighet.
+
+\subsubsection{Low-Side sensing}
+Siden spenningen som måles ved Low-Side sensing ligger nær jord, kan denne måles ved en billig opamp som ikke trenger å tåle høye spenninger. Denne måten å måle strøm på er billig og enkel, men mange kretser tåler ikke forstyrrelsen i strømveien til jord som shunten skaper. Problemet kan merkes spesielt hvis en modul med høyt strømtrekk, og dermed høyere potensial fra jord, skal kommunisere men en modul med lavt strømtrekk som har mye mindre potensial fra jord. 
+
+\subsubsection{High-Side sensing}
+Ved denne plasseringen av shunt-motstanden elimineres forstyrrelsene i strømveien til jord. Dermed unngår man problem med potensialforskjeller ved kommunikasjon mellom moduler med forskjellig strømtrekk. Derimot må inngangen til forsterkeren tåle høye spenninger opp mot forsyningsspenningen (batterispenningen).
+
+For enkle elektronikkdesign med lav spenning (5~\volt) kan en High-Side forsterker være en typisk instrumenteringsforsterker. Avhengig av arkitekturen kan denne ha begrensninger på spenningsnivå på inngangene. Ofte kan ikke disse være høyere enn forsyningsspenningen til forsterkeren. Forsterkere som tåler høyere inngangsspenning enn forsyningsspenningen pleier som regel å koste en del mer. En enkel løsning på dette problemet er å dele ned målespenningene med en spenningsdeler av motstander. Denne løsningen vil dessverre introdusere stor måleunøyaktighet. 
+
+\subsubsection{Dedikerte strømmålings-\acs{IC}er}
+Inntil nylig har strømmåling med disse teknikkene vært løst ved hjelp av diskrete komponenter. Metoden krever mange presisjonskomponenter og det finns mange kilder til unøyaktige resultater. 
+Halvlederprodusentene har forstått dette og har laget dedikerte strømmålings-\acs{IC}er (current shunt monitors). Her er differanseforsterkeren med tilhørende motstander og evt. tileggskretser kombinert i én enkel pakke. Disse finnes i både high-side og low-side utførelse, og med mulighet for bidireksjonell strømmåling. En fordel med slike \acs{IC}er er at alle deler av kretsen er tilpasset til hverandre, og motstandene er som oftest lasertrimmet. Den nye produksjonsprosessen til slike \acs{IC}er gjør at inngangene kan tåle spenninger høyere enn 80~\volt, selv om forsyningsspenningen er så lav som 2,5~\volt. Dette gjør det mulig å måle shunt-spenningen over en motstand plassert før en evt. regulator i kretsen, og samtidig forsyne strømmålings-\acs{IC}en med spenningen ut fra regulatoren. De fleste design trenger kun å måle strømmen i én retning, og dette utføres med de simpleste shunt-monitorene. Noen design kan imidlertid ha behov for å måle strømmen bidireksjonelt, og da er det ofte en egen pinne på shunt-monitoren som indikerer strømretning. De elementære komponentene i en strømmålings-\acs{IC} er illustrert i figur \ref{fig:shunt-mon}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.50\textwidth]{C0363-Figure4}
+	\caption{Prinsipp for en Current shunt monitor}
+	\label{fig:shunt-mon}
+\end{figure}
+
+
+
+\subsubsection{Valg av shunt-motstand}
+I tillegg til å velge riktig shunt-monitor, er det også flere betraktninger må tas hensyn til når man skal velge noe så enkelt som shunt-motstanden ($R_{\text{sense}}$). Følgende punkter bør betraktes:
+\begin{itemize}
+\item \textbf{Spenningsfall:} Høye verdier av $R_{\text{sense}}$ vil senke spenningen fra strømforsyningen.
+\item \textbf{Nøyaktighet:} Høye verdier av $R_{\text{sense}}$ gir større målenøyaktighet fordi offsetspenning og biasstrøm på inngangene til forsterkeren blir mindre tydelig.
+\item \textbf{Effekttap:} Ved høye strømmer kan også effekten som utvikles i $R_{\text{sense}}$ bli høy. Dette må tas hensyn til slik at man velger motstand som tåler tilstrekkelig effektutvikling.
+\item \textbf{Induktans:} Hvis strømmen som skal måles har høyfrekvente komponenter må $R_{\text{sense}}$ ha lav induktans. Viklede motstander har høyest induktans, mens motstander av metallfilm er noe bedre.
+\item \textbf{Kostnad:} Å bruke en bane på et kretskort er en alternativ måte (og kan bli billigere i store volum) å lage en shunt-motstand på. Ulempen er at spenningen ut fra instrumenteringsforsterkeren må korrigeres med et potmeter grunnet unøyaktigheter i kobbermotstanden.
+\end{itemize}
+
+
+
+\subsection {Spenningsregulator}
+En elektronisk krets er konstruert for å drives av en forsyningsspenning som vanligvis forventes å være konstant. En spenningsregulator gir ut en konstant \acs{DC}-spenning og inneholder kretser som holder utgangsspenningen konstant uavhengig av endringer i laststrømmen eller inngangsspenningen (gitt at laststrømmen og inngangsspenningen er innenfor de spesifiserte arbeidsområder for regulatoren).
+
+\subsubsection {Lineær eller Switch-regulator i batteridrevet system?}
+En sammenlikning mellom disse spenningsregulatortypene er gitt i tabell \ref{tab:lin-switch-comp}.
+
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\begin{table}[h]
+	\centering
+		\begin{tabularx}{0.9\linewidth}{lLL}
+		\toprule	& \textbf{Lineær} & \textbf{Switch} \\
+
+		\midrule
+
+		\textbf{Funksjon} & Senker spenningen; $U_\text{inn}$ må være større enn $U_\text{ut}$ & Øker, minker eller inverterer spenningen \\
+		\addlinespace
+
+		\textbf{Virkningsgrad} & Lav til medium, men opplevd batteritid avhenger av lasten og batterispenningen over tid & Høy, unntatt ved svært lav last (\micro\ampere), hvor tomgangsstrømmen som regel er større \\
+		\addlinespace
+
+		\textbf{Overskuddsvarme} & Høy, ved høy last og stor $U_\text{inn}$/$U_\text{ut}$ & Lav, komponenter er som regel kjølige ved effekter under 10\watt \\
+		\addlinespace
+
+		\textbf{Kompleksitet} & Lav, krever som regel kun regulatoren og et par avkoblingskondensatorer & Medium til høy, krever som regel spole, diode og filterkondensatorer i tillegg til \acs{IC}-en; ved større strømtrekk kreves eksterne \ac{FET}-transistorer \\
+		\addlinespace
+
+		\textbf{Størrelse} & Liten til medium, i små design, kan bli større hvis kjøling er nødvendig & Større enn lineære, men mindre ved effekter hvor lineære krever kjøling \\
+		\addlinespace
+
+		\textbf{Total kostnad} & Lav & Medium til høy, mest fordi det kreves eksterne komponenter \\ 
+		\addlinespace
+
+		\textbf{Rippel/støy} & Ingen rippel, lav støy & Medium til høy, skyldes rippel ved svitsjefrekvensen. \\
+
+		\bottomrule
+		\end{tabularx}
+	\caption{Sammenlikning mellom en lineær og switchet regulator}
+	\label{tab:lin-switch-comp}
+\end{table}
+
+
+Ved å bruke lineære regulatorer istedenfor switchere har man generelt en stor fordel med tanke på enkelhet og kostnad, men ikke når det gjelder virkningsgrad. Likevel kan virkningsgraden til lineære regulatorer være tilstrekkelig i batteridrevne system. 
+En vanlig løsning er å kombinere en switcher med en lineær regulator. Da kan switcheren øke batterispenningen tilstrekkelig, mens den lineære regulatoren tar seg av finregulering og gir minimalt med støy. Siden spenningsfallet over de lineære regulatorene ikke er for stort, vil effekttapet i disse ikke ha stor innvirkning på batteritiden.
+
+Antall battericeller som må brukes spiller som regel en stor rolle når man skal velge regulatortype. Lineære regulatorer krever tilstrekkelig antall seriekoblede celler for å få en innspenning som gjennom hele utladingskurven overstiger regulatorens utspenning. For 3,3~\volt\ forsyning kreves tre eller flere celler med alkaline-, \ac{NiCd}- eller \ac{NiMH}-kjemi. Lithiumbatterier krever færre celler siden de har en høyere cellespenning, vanligvis mellom 2,5~\volt\ og 4,2~\volt. For 5~\volt\ forsyning kreves det vanligvis et par celler ekstra enn for 3,3~\volt, og ved 12~\volt\ begynner antall celler å bli såpass mange at en switch-regulator som oftest er mer hensiktsmessig enn en lineær regulator.
+
+Hvis klemmespenningen på et batteri faller under et visst nivå, klarer ikke en lineær regulator å nyttegjøre seg av den resterende energien lagret i batteriet. En switchet regulator kan da <<booste>> spenningen opp til riktig nivå for kretsen. Det som ofte blir gjort til fordel for å bruke en switcher er å velge en lineær regulator med lavest mulig <<dropout>>-spenning. \footnote{Minste tilatte spenning over regulatoren før utgangsspenningen synker under spesifisert nivå}. Dropout-spenningen varierer blant forskjellige typer lineære regulatorer, og vi kan skille disse i 3 kategorier: \ac{LDO}, Quasi \ac{LDO} og standard drop out.
+
+\subsubsection{Valg av regulator}
+For å finne den regulatoren passer best til kretsen bør en del punkter vurderes. Disse kan være:
+\paragraph{Maksimal laststrøm} Den maksimale strømmen som kretsen trekker må tas i betraktning når man velger ut regulator. Regulatoren må klare å levere tilstrekkelig med strøm i <<worst case>> med tanke på temperatur og toleranser på komponenter, hvis kretsen skal fungere pålitelig.
+\paragraph{Type spenningskilde} I mobile kretser med batteriforsyning er som oftest \ac{LDO}-regulatorer det beste valget. De kan fungere lengre ut i utladingssyklusen til batteriet og er bedre egnet for små strømmer. Ulempen er at de som oftest er dyrere enn regulatorer med høyere dropout-spenning.
+\paragraph{Nøyaktighet på utgangsspenningen} Vanlige lineære regulatorer garanterer den regulerte spenningen innenfor 5~\% av nominell spenning. Dette er som regel tilstrekkelig for de fleste kretser. Mange nye regulatorer har større nøyaktighet på utspenningen (bedre enn 2~\% er vanlig) takket være nye og mer nøyaktige produksjonsprosesser.
+\paragraph{Tomgangsstrøm} Denne omtales gjerne som <<quiescent current>>, <<operating current>> eller <<ground current>> og er strømmen regulatoren selv trekker. I noen tilfeller trekker kretsen strøm kun i korte øyeblikk, og ellers leverer regulatoren nesten ingen strøm til kretsen. Da har tomgangsstrømmen stor innvirkning på batterilevetiden. Mange nye LDO-regulatorer har spesielt lav tomgangsstrøm (75~\micro\ampere\ til 150~\micro\ampere) og er overlegne vanlige regulatorer som ligger i \milli\ampere-området.
+\paragraph{Ekstra funksjoner}
+Mange regulatorer tilbyr finesser som gjør behovet for 
+<<hjelpekretser>> mindre. Her er noen:
+	\begin{itemize}
+		\item \textbf{Shutdown} En egen on/off-pinne gir muligheten for å skru av og på utgangsspenningen fra f.eks en mikrokontroller.
+		\item \textbf{Load-dump Protection} Regulatorer brukt i bilindustrien o.l. må ha innebygget transientbeskyttelse. Her skrus som regel utgangen av til transienten er over.
+		\item \textbf{Beskyttelse mot omvendt polaritet} Dette forhindrer skade på regulatoren hvis polariteten på inngangsspenningen blir reversert.
+		\item \textbf{Error-flag} Dette er en pinne som gir indikasjon om utspenningen er utenfor nominelt område. Det er ment som et <<advarselstegn>> til mikrokontrollere som kan fungere på uønsket måte ved slike tilstander.
+	\end{itemize}
+
+\subsubsection{Innebygde beskyttelseskretser i lineære regulatorer}
+Lineære \acs{IC}-regulatorer inneholder innebygde beskyttelseskretser som gjør de ekstremt motstandsdyktige mot skade fra overstrøm eller høy driftstemperatur. Det finnes to beskyttelseskretser i nesten alle lineære \acs{IC}-regulatorer:
+\begin{itemize}
+	\item Thermal Shutdown
+	\item Strømbegrensing
+\end{itemize}
+
+\textbf{Thermal Shutdown} hindrer temperaturen til brikken i å stige såpass høyt at den tar skade. Dette gjøres ved å måle temperaturen på silisiumsbrikken, og skru av utgangsspenningen hvis temperaturen overskrider grenseverdien (vanligvis rundt 160\celsius).
+
+\textbf{Strømbegrensing} hindrer skade på brikken når det forekommer en overbelastning på utgangen (lastimpedansen er for lav). Uten denne beskyttelsen vil regulatoren kunne gi for stor strøm og utgangstrinnet kan bli skadet.
+For å forhindre dette vil strømreguleringssløyfen overstyre spenningsreguleringssløyfen og senke pådraget til drivtransistoren slik at grensen for maks strømtrekk ikke blir overskredet.
+
+
+\subsection{Den innebygde \acs{ADC}en i \acs{AVR}}
+\cite{atmegaa128,avrfreaks-adc}Mange \acs{AVR}-kretser har en innebygd \ac{ADC}. \ac{ADC}en har en oppløsning på 10-bit\footnote{Unntaket er XMEGA-familien som har 12-bit oppløsning på \ac{ADC}} ($2^{10}$ = 1024 spenningsnivå), og avhengig av hvilken krets som brukes finnes det fra 6 til 8 innganger tilgjengelig. Med full oppløsning kan det oppnås samplingshastigheter opp til ca 15,4 \acs{ksps}.
+
+\subsubsection{Analoge referanser}
+For at \ac{ADC}en skal kunne virke må de analoge referansespenningene koples til. Disse angir grensene for spenningsområdet den skal jobbe i. De analoge referansespenningene må påtrykkes spesielle pinner på \acs{AVR}-kretsen: AGND og AREF. AGND skal kobles til jord, og AREF skal kobles til en stabil analog referanse som er mindre eller lik $AV_{\text{CC}}$ (som igjen ikke må variere mer enn 0,3~\volt\ fra $V_{\text{cc}}$). 
+
+\subsubsection{Sette i gang en enkel \ac{AD}-konvertering}
+Før en \ac{AD}-konvertering kan utføres må \ac{ADC}en være aktivert. \ac{ADC}en kan kjøres i to modi:<<Single Conversion mode>> og <<Free-Running mode>>. I <<Single Conversion mode>> må hver konvertering igangsettes manuelt, mens i <<Free-Running mode>> starter \ac{ADC}en en ny konvertering så snart den forrige er ferdig. Når en konvertering er ferdig settes et statusbit. I <<Free-Running mode>> er det en fordel å la en avbruddsrutine ta seg av avlesingen av resultatet i stedet for å <<polle>> dette bitet. Resultatet legges i ADCH/ADCL-registrene. Det er viktig å lese ADCL først for da låses innholdet i ADCH helt til det blir lest. På denne måten unngår man at et nytt konverteringsresultat legges i ADCH før det forrige har blitt lest. Fra en konvertering er startet tar det 13 \ac{ADC} klokkesykler til resultatet ligger i ADCH/ADCL. Den første konverteringen etter \ac{ADC}en har blitt aktivert tar 25 klokkesykler.
+\subsubsection{Oppløsning/Hastighet}
+Oppløsning og hastighet på konverteringen er alltid viktig når man benytter en \ac{ADC}. Dette er to faktorer som avhenger av hverandre; hvis det kreves en rask konvertering kan man benytte seg av kun 8-bits oppløsning, og hvis full oppløsning er nødvendig vil konverteringen ta lengre tid.
+Til vanlig krever \ac{ADC}-kretsen en klokkefrekvens på mellom 50~\kilo\hertz\ og 200~\kilo\hertz\ for å oppnå høyeste oppløsning. Hvis det kreves mindre enn 10-bits oppløsning kan \ac{ADC}-kretsens frekvens økes for å oppnå raskere punktprøvingshastighet. \ac{ADC}-modulen får klokkesignal fra \acs{CPU}-klokken gjennom en prescaler. Denne kan dele ned klokkefrekvensen inn til \ac{ADC}en med disse forholdene: 2, 4, 8, 16, 32, 64 og 128. På denne måten kan \ac{ADC}en få tilstrekkelig klokkefrekvens ved alle \acs{CPU}-frekvenser over 100~\kilo\hertz.
+\subsubsection{Bruke forskjellige kanaler}
+\ac{ADC}en kan kobles til flere analoge linjer gjennom en multiplekser. Inngangen til <<Sample and Hold>>-kretsen på \ac{ADC}en styres av en multiplekser. <<Sample and Hold>>-kretsen holder det punktprøvde spenningsnivået stabilt mens konverteringen foregår. Alle \ac{ADC}-kanaler deler én og samme \ac{ADC}, og den gjennomsnittlige punktprøvingshastigheten for hver kanal minker hvis flere kanaler skal benyttes.
+
+\subsection{Bus'en}
+Ettersom en modulbasert løsning valgt err det åpenbart behov for en felles bus mellom modulene. Systemet skal enkelt kunne utvides ved behov, og bus'en må være kompakt og effektiv.
+
+\begin{itemize}
+	\item \textbf{\acs{CAN}bus:} \ac{CAN}bus er en bus tiltenkt kjøretøy. Bus'en tillater mikrokontrollere å kommunisere med hverandre uten å måtte bruke en vert som styrer bus'en. Den er spesielt utviklet for bruk i kjøretøy, men brukes gjerne i andre områder hvor det kreves høy grad av pålitelighet.
+	\item \textbf{\acs{LIN}bus:} \ac{LIN}bus er også en bus tiltenkt datasystemer i kjøretøy. Dette er en liten og treg bus som brukes som en billig <<sub-bus>> til \ac{CAN}bus for å koble til små sensorer og enkle el-motorer.
+	\item \textbf{\acs{I$^{2}$C}bus:} \ac{I$^{2}$C}bussen var, når den ble designet, tiltenkt 
+\end{itemize}
+
+\ac{I$^{2}$C}bussen ble valgt fordi den er meget kompakt (trenger kun to linjer) og den kan enkelt utvides hvis det skulle være behov flere moduler.
+
+
+\subsection{Hardware}
+\subsubsection{DOSonChip}
+DOSonChip CD17B10 er en minnekortkontroller fra Wearable Inc. med et integrert \acs{PC}-kompatiblet filsystem. Med denne kretsen kan lesing og skriving til \acs{PC}-kompatible filer til og fra utbredte minnekort utføres med enkle kommandoer. I tillegg kan det benyttes en integrert \ac{RTC} til å tidsmerke filer. DOSonCHIP gir også mulighet for in-system firmware oppgraderinger for fremtidige optimaliseringer og for å kunne støtte kommende minnekortstandarder. Kontrolleren støtter i dag følgende minnekortformfaktorer: \ac{MMC}, \ac{SD}, mini\ac{SD}, micro\ac{SD}, \ac{SDHC}, mini\ac{SDHC} og micro\ac{SDHC}. Brikken har et komplett instruksjonssett for både \acs{FAT}16- og \acs{FAT}32-filsystem og fungerer som en naturlig utvidelse av dette filsystemet til en mikrokontroller. Dette gjør sluttproduktet mer funksjonelt uten å måtte legge til kompleksiteten til et operativsystem.
+
+Mikrokontrolleren (verten i systemet) kan kommunisere med brikken gjennom \acs{UART}-, \acs{SPI}- eller \acs{I$^{2}$C}/\acs{SMBus}-interface. Den enkleste kommunikasjonen softwaremessig, oppnås gjennom å bruke \acs{UART}. Det ligger også et forslag til \ac{API} på hjemmesidene til Wearable Inc. hvor det er brukt \acs{UART}-kommunikasjon. 
+I figur \ref{fig:doc-circuit} vises DOSonChip implementert på hovedkortet slik det er foreslått på figur 6.1 i databladet \cite{dosonchip-ds}. I tillegg til ordinær \acs{UART}-kommunikasjon med Rx- og Tx-linjer benyttes det flytkontroll med signalene \ac{CTS} og \ac{RTS}. På denne brikken fungerer dette litt annerledes enn hva som er vanlig; når verten ønsker å kommunisere med DOSonChip må den vente til \ac{RTS}-linjen er lav (den indikerer at DOSonChip er opptatt), og når verten ønsker data fra DOSonChip, må \ac{CTS}-linjen settes lav for å tillate DOSonChip og sende data til verten.
+I figur \ref{fig:doc-circuit} er også \ac{RTC}-finessen implementert med komponentene C1, C2, Q2 og R1. Dette muliggjør tidsmerking av filene som lagres på minnekortet. Klokken kan naturligvis settes og leses av verten. 
+Databladet skryter av brikkens plassbesparende pakke (\acs{QFN}24) vist i figur \ref{fig:doc-size}, som kan by utfordringer ved manuell montering.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{doc-circuit}
+	\caption{Implementering av DOSonChip}
+	\label{fig:doc-circuit}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.40\textwidth]{doc-size}
+	\caption{Footprint til DOSonChip}
+	\label{fig:doc-size}
+\end{figure}
+
+\subsubsection{\acs{USB}-interface}
+Her vil det stå litt om \ac{USB}-interfacet som er implementert på hovedkortet
+\subsubsection{\acs{ISP}-plugg}
+Her vil det stå litt om \ac{ISP}-pluggen som vi har valgt med et bilde.
+\subsubsection{\acs{IR}-mottaker}
+\ac{IR}-mottakeren er ment til ekstern kommunikasjon mot hovedkortet mens det står montert i den vanntette innkapslingen. Siden inkapslingen er transparent, vil lys passere tilnærmet uhindret. Det er kun implementert en mottaker og ikke en sender siden status på CanSaten vil kunne leses av visuelt med strategisk plasserte lysdioder. \ac{IR}-mottakeren er ment å ta imot kommandoer for blant annet aktivering av radiomodul, nullstilling av moduler og kalibreing av høydemåler.
+
+På hovedkortet er det brukt en TSOP348 fra Vishay Semiconductor\cite{tsop348} som vist i figur \ref{fig:tsop348-pack}. Dette er en integrert \ac{IR}-modul som tar imot \ac{IR}-signaler modulert på 38~\kilo\hertz\footnote{38~\kilo\hertz-utgaven heter TSOP348\textbf{38}}. Hensikten med en slik modulering er å stenge ut eventuelle uønskede \ac{IR}-kilder som kan introdusere ukorrekte data. I figur \ref{fig:tsop34838-circuit} vises det hvordan \ac{IR}-mottakeren er implementert i systemet. \acs{RC}-filteret på V$_{S}$ er anbefalt i databladet for å motvirke spenningsforstyrrelser. 
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.30\textwidth]{tsop348-pack}
+	\caption{Skisse av IR-mottaker}
+	\label{fig:tsop348-pack}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{tsop34838-circuit}
+	\caption{Implementering av \ac{IR}-mottaker}
+	\label{fig:tsop34838-circuit}
+\end{figure}
+
+\subsubsection{Strømmåling}
+Her står litt om INA193 og Rshunt
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.70\textwidth]{ina193-circuit}
+	\caption{Implementering av strømmåler}
+	\label{fig:ina193-circuit}
+\end{figure}
+
+\subsubsection{Spenningsregulator}
+Her står litt om LP2985? og og kondensatorer++
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.70\textwidth]{lp2985-circuit}
+	\caption{Implementering av spenningsregulator}
+	\label{fig:lp2985-circuit}
+\end{figure}

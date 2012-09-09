@@ -1,0 +1,66 @@
+\documentclass[pdftex,a4paper,10pt,twocolumn,final]{article}
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps}
+
+\date{\today}
+
+\usepackage{mystyle}
+\usepackage[font=small,labelfont=bf,up,textfont=it,up]{caption}
+%\usepackage{multicol}
+\pagestyle{empty}
+
+\begin{document}
+\section*{HiST-studenter bygger\\satellittmodell}
+%\begin{multicols}{2}
+{\bfseries Trondheim: En gruppe bestående av fire elektronikkstudenter ved Høyskolen i Sør-Trøndelag har i løpet av våren 2009 bygd en satellittmodell for NAROM, det norske romfartssenteret på Andøya.}
+
+\noindent {\scriptsize \bfseries{Tekst og foto:} Jørgen M. Kvalvaag}
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.45\textwidth]{./cansat1.png}
+ % cansat1.png: 2400x2000 pixel, 300dpi, 20.32x16.93 cm, bb=0 0 576 480
+ \caption*{\small CanSat modulær oppbygning\\En 20pins buss forbinder kortene, dette gir rom for framtidige oppgraderinger.}
+\end{figure}
+
+NAROM inviterer studenter på videregående og høyskole/universitetsnivå til å bygge små satellittmodeller kjent som CanSat. Denne type prosjekt har vært vanlig i USA og Japan, og interessen er økende i Europa. NAROMs langsiktige mål med dette initiativet er å fremme interessen for romfart og teknologi blant studenter og elever i Norge. Ordet CanSat er en sammensmelting av ordene can (mineralvannsboks) og satellitt.
+
+En CanSat er mindre enn en 0,33 liters brusboks, og inneholder elektronikk som gjør den i stand til å registrere vær- og posisjonsdata. Den skytes ut med en rakett fra Andøya Rakettfelt og når en høyde på mellom fem og åtte kilometer. Under den kontrollerte nedfarten i hjemmesydd fallskjerm samles atmosfæriske data og sendes til bakken via radiolink.
+
+\subsubsection*{Spennende prosjekt}
+Med bakgrunn i et audioforsterkerprosjekt to semester tidligere hadde studentene godt kunnskapsgrunnlag for å møte utfordringen. De hadde fått god innsikt i arbeid med kretskort, komponenter, design, planlegging og gruppearbeid.
+
+\subsubsection*{Rett fokus}
+Den sentrale problemstillingen i oppstartsfasen var å definere prosjektets omfang. Her var det mange muligheter, fra videokamera til styrbar fallskjerm for presisjonslanding av CanSaten. For å holde prosjektet innenfor rimelighetens grenser måtte de villeste ideene legges til side og fokus ble satt på kjernefunksjonalitet. Et av hovedmålene var at satellitten skulle være bygd opp av moduler, det skal være enkelt å senere oppgradere enheten med for eksempel en kameramodul.
+
+Til forskjell fra utstyr utviklet for bruk på landjorden settes det spesielle krav til kvaliteten på sluttproduktet. Når det først er skutt opp må man være 100\% sikker på at alt fungerer som planlagt da neste rakettoppskytning først finner sted flere måneder eller kanskje år fram i tid. Dette må alltid ligge i bakhodet, spesielt under programmeringsfasen da en liten programvarefeil kan få hele satelitten til å låse seg.
+
+Prosjektets mål ble konstruksjon av en CanSat med følgende egenskaper: GPS-posisjonering, temperaturføler, barometer, fuktsensor og akselerasjonsmåler.
+
+\subsubsection*{Utfordringer i kø}
+Konstruksjonsfasen startet med at hver student fikk ansvar for design av ett kretskort hver. Den ferdige modellen består av fem kort stablet oppå hverandre. Kortene kobles sammen via en 20 pins gjennomgående buss. Her finnes grensesnitt for kommunikasjon mellom kort i tillegg til strømforsyning fra batterienheten.
+\begin{figure}[h!]
+\centering
+ \includegraphics[width=0.45\textwidth]{./radiokort.jpg}
+ % radiokort.jpg: 1684x1472 pixel, 300dpi, 14.26x12.46 cm, bb=0 0 404 353
+ \caption*{CanSatens radiokrets\\Kommunikasjon med bakken foregår på 860 mHz. Konstruksjonen krevde spesialutstyr fra Norbit i Trondheim}
+\end{figure}
+Maskinvaren er bygget rundt AVR mikrokontrollere fra Atmel. For å opprettholde målet om modularitet er hvert kort utstyrt med en AVR mikrokontroller og all kommunikasjon går via disse.
+
+Eksempelvis vil en AVR lese en temperatursensor, regne om til lesbare tall, sende dataene til hovedkortets AVR, som sender videre til radiokortets AVR som igjen sender dataene til radiokretsen. Oppbygningen er komplisert, men det gir veldig gode muligheter for senere modifikasjoner. Atmels serie av mikrokontrollere løser et bredt spekter av oppgaver, derfor falt valget på denne arkitekturen.
+
+\subsubsection*{Programmering og radiokommunikasjon}
+Den største enkeltutfordringen var selve programmeringen av systemet. Den modulære oppbygningen forenklet feilsøkingen, hvis ett kort fungerer mot hovedkortet fungerer det også mot den felles databussen. Gruppen erfarte at programmering og feilsøking er en meget tidkrevende prosess som avhenger av god kommunikasjon, grundig planlegging, analytisk tenkemåte og fokus på problemløsing.
+
+Radiokommunikasjon medførte også store utfordringer da dette var et fagområde ingen på gruppen hadde god erfaring med. En av gruppemedlemmene fikk derfor fullt ansvar for å konstruere en fungerende radiokrets. Høyskolens utstyr var ikke rustet til oppgaven, men heldigvis stilte Norbit i Trondheim med topp faglig kompetanse, materiell og utstyr.
+
+\subsubsection*{Ferdigstilt modell}
+Veien fra idé til fungerende prototype var lengre enn ventet. Etter lang tids blod, svette og tårer kunne endelig strømmen kobles til og gleden var stor første gangen korrekte data strømmet nedover dataskjermen til mottakerenheten.
+
+Den ferdige prototypen inneholder alt av utstyr som ble definert i innledningsfasen. Med mer tid til rådighet ville både videokamera og styrbar fallskjerm blitt implementert.
+
+\subsubsection*{En lærerik oppgave}
+Dette prosjektet har demonstrert at avansert teknisk utstyr kan produseres uten bruk av dyre spesiallagde systemer. Alt av komponenter og utstyr er fritt tilgjengelig på det åpne markedet, og kostnadene blir en brøkdel av hva som forventes når produktet anvendes innenfor romfart.
+
+Mot slutten av prosjektet kom det tydelig fram at mye burde vært gjort annerledes. Selv om flere løsninger ble forkastet og forbedret underveis er det fremdeles mye som kan gjøres bedre, enklere og billigere. Slik vil situasjonen arte seg for mange oppgaver som gjennomføres på denne måten, og akkurat dette er en av de viktigste erfaringene gruppemedlemmene bringer med seg videre ut i arbeidslivet og nye studier.
+
+\end{document}

@@ -1,0 +1,53 @@
+[General]
+def_graphic_ext=eps
+img_extIsRegExp=false
+img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
+kileprversion=2
+kileversion=2.1
+lastDocument=fagartikkel.tex
+masterDocument=
+name=Cansat fagartikkel
+pkg_extIsRegExp=false
+pkg_extensions=.cls .sty
+src_extIsRegExp=false
+src_extensions=.tex .ltx .latex .dtx .ins
+
+[Tools]
+MakeIndex=
+QuickBuild=
+
+[item:cansat1.png]
+archive=true
+column=32699
+encoding=
+highlight=
+line=0
+open=false
+order=-1
+
+[item:cansatfagartikkel.kilepr]
+archive=true
+column=0
+encoding=
+highlight=
+line=0
+open=false
+order=-1
+
+[item:fagartikkel.tex]
+archive=true
+column=174
+encoding=ISO-8859-1
+highlight=LaTeX
+line=58
+open=false
+order=0
+
+[item:radiokort.jpg]
+archive=true
+column=0
+encoding=
+highlight=
+line=0
+open=false
+order=-1

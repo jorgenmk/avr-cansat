@@ -1,0 +1,176 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdftex 2012.4.24)  24 APR 2012 00:11
+entering extended mode
+**C:/test/githost-cansat/rapport/bibliografi.bib
+(C:/test/githost-cansat/rapport/bibliografi.bib
+! Undefined control sequence.
+l.7 howpublished = {\url
+                        {http://www.atmel.com/dyn/resources/prod_documents/d...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.7 ...rl{http://www.atmel.com/dyn/resources/prod_
+                                                  documents/doc2466.pdf}}
+? 
+! Extra }, or forgotten $.
+l.7 ...m/dyn/resources/prod_documents/doc2466.pdf}
+                                                  }
+? 
+! Extra }, or forgotten $.
+l.7 .../dyn/resources/prod_documents/doc2466.pdf}}
+                                                  
+? 
+! Extra }, or forgotten $.
+l.8 }
+     
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   \par 
+l.9 
+    
+? 
+
+Overfull \hbox (46.07802pt too wide) in paragraph at lines 1--9
+\tenrm year = 2007, note = "Rev 2466P", how-pub-lished = http://www.atmel.com/d
+yn/resources/prod$[]\teni ocuments=doc\tenrm 2466\teni :pdf$ |
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm y
+.\kern-0.27779
+.\tenrm e
+.\tenrm a
+.\tenrm r
+.etc.
+
+! Undefined control sequence.
+l.14 howpublished = {\url
+                         {http://www.microwaves101.com/encyclopedia/quarterw...
+
+? 
+! Undefined control sequence.
+l.20 howpublished = {\url
+                         {http://en.wikipedia.org/wiki/Serial_Peripheral_Int...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.20 ...{\url{http://en.wikipedia.org/wiki/Serial_
+                                                  Peripheral_Interface_Bus}}
+? 
+! Extra }, or forgotten $.
+l.20 ....org/wiki/Serial_Peripheral_Interface_Bus}
+                                                  }
+? 
+! Extra }, or forgotten $.
+l.20 ...org/wiki/Serial_Peripheral_Interface_Bus}}
+                                                  
+? 
+! Extra }, or forgotten $.
+l.21 }
+      
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   \par 
+l.22 
+     
+? 
+! Undefined control sequence.
+l.26 howpublished = {\url
+                         {http://en.wikipedia.org/wiki/Serial_Peripheral_Int...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.26 ...{\url{http://en.wikipedia.org/wiki/Serial_
+                                                  Peripheral_Interface_Bus}}
+? 
+! Extra }, or forgotten $.
+l.26 ....org/wiki/Serial_Peripheral_Interface_Bus}
+                                                  }
+? 
+! Extra }, or forgotten $.
+l.26 ...org/wiki/Serial_Peripheral_Interface_Bus}}
+                                                  
+? 
+! Extra }, or forgotten $.
+l.27 }
+      
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   \par 
+l.28 
+     
+? 
+
+Overfull \hbox (129.12201pt too wide) in paragraph at lines 23--28
+[]\tenrm @MiscI2C-bussen, ti-tle = "I$[]$C", au-thor = "Wikipedia", how-pub-lis
+hed = http://en.wikipedia.org/wiki/Serial$[]\teni eripheral[]nterface[]us$ |
+
+\hbox(8.14003+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm @
+.\tenrm M
+.\tenrm i
+.\tenrm s
+.etc.
+
+! Undefined control sequence.
+l.35 howpublished = {\url
+                         {http://www.micro-modular.com/docs/AddlRsrc/NMEA%20...
+
+? 
+
+Overfull \hbox (48.63495pt too wide) in paragraph at lines 29--37
+\tenrm "de-sem-ber", year = "2007", note = "Rev 2.1", how-pub-lished = http://w
+ww.micro-modular.com/docs/AddlRsrc/NMEA |
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm "
+.\tenrm d
+.\tenrm e
+.\discretionary
+..\tenrm -
+.\tenrm s
+.etc.
+
+! Undefined control sequence.
+l.43 howpublished = {\url
+                         {http://www.micro-modular.com/docs/MN5010HS/MN5010H...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.43 ....micro-modular.com/docs/MN5010HS/MN5010HS_
+                                                  DG_090129.pdf}}
+? 
+! Emergency stop.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.43 ....micro-modular.com/docs/MN5010HS/MN5010HS_
+                                                  DG_090129.pdf}}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

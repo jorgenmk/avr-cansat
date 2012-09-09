@@ -1,0 +1,383 @@
+\chapter{Sensorkort}
+\label{chap:sensorkort}
+
+Sensorkortet har som hovedansvar å samle inn data fra omgivelsene, preparere dem som lesbare og loggbare tekststrenger og å sende dem til hovedkortet på oppfordring. Kretsskjema til sensorkortet finnes i figur \ref{fig:scem_sensorkort} i vedlegg \ref{app:scematics} på side \pageref{fig:scem_sensorkort}
+
+Følgende data skal samles inn:
+\begin{itemize}
+ \item \ac{RH}
+ \item Barometrisk lufttrykk
+ \item Temperatur
+ \item Akselerasjonskrefter
+\end{itemize}
+
+\section{Konstruksjon}
+Sensorkortet er delt opp i to deler. Den ene delen er et vanlig 64 mm diameter rundt kort mens det andre er ca 20 x 13 mm. Det lille kortet skal plasseres utenfor det vanntette kammeret og inneholder alle sensorene som foretar atmosfærsike målinger. Det andre kortet sitter inne i cansaten og måler innvendig temperatur og akselerasjonskrefter da disse sensorene ikke trenger kontakt med utsiden. Her ligger også mikrokontrolleren, strømforsyning og de andre nødvendige komponentene.
+
+Kortene er koblet sammen via en seksleders flatkabel, fem av lederne brukes. En grønn lysdiode blinker kort ca en gang hvert sekund for å indikere at sensorkortet opererer feilfritt. Hvis lysdioden lyser lengre enn det har et problem oppstått og kortet omstartes automatisk.
+
+\begin{figure}[htbp]
+ \includegraphics[width=1\textwidth,trim = 20mm 80mm 10mm 20mm, clip]{./sensorkort/flytskjema.pdf}
+ % flytskjema.pdf: 612x792 pixel, 72dpi, 21.59x27.94 cm, bb=0 0 612 792
+ \caption{Flytskjema sensorkort}
+ \label{fig:flytskjema_sensorkort}
+\end{figure}
+
+Figur \ref{fig:flytskjema_sensorkort} side \pageref{fig:flytskjema_sensorkort} viser en prinsippiell skisse over programflyten til sensorkortet. En grundig gjennomgang av programvaren finnes i kildekodens dokumentasjon.
+
+\section{Teori}
+
+Den teoretiske bakgrunnen for funksjonaliteten til fuktsensoren og temperatursensorene gjennomgås i denne delen.
+
+\subsection{Relativ luftfuktighet}
+\label{ssec:rh}
+Luft har evnen til å holde på fuktighet. Mengden vann lufta kan inneholde er bestemt av temperaturen\footnote{Lufttrykket spiller også inn, men er ikke relevant her}; varm luft kan holde betraktelig mer vann en kald luft. På grunn av dette kan det bli meningsløst å snakke om antall gram vann per kubikkmeter luft, da en liten temperaturforandring kan medføre betydelige endringer til luftas egenskaper (f.eks med tanke på kondensdannelse).
+
+Derfor brukes begrepet \ac{RH} når luftas innhold av vann skal måles. 100~\%\ac{RH} betyr at lufta er mettet med vann, hvis temperaturen synker vil noe av vannet kondensere til damp. Hvis temperaturen øker vil luftas evne til å oppta vann øke, og den relative luftfuktigheten synker. Som eksempel kan det nevnes at RH vanligvis ligger i området 45 til 65~\%\ utendørs i Norge, og i tropiske land kan den ligge nærmere 100~\%.
+
+Fuktsensoren på sensorkortet er av type HCH-1000 som produseres av Honeywell S\&C. Sensoren er av type variabel kapasitans, det vil si at kapasitansen mellom to elektroder varierer proposjonalt med \ac{RH} i lufta rundt den.
+
+De viktigste spesifikasjonene fra produsentens datablad\cite{hch1000}:
+
+\begin{tabular}{ll}
+ Arbeidsområde: & 0 til 100 \%\ac{RH}\\
+ Arbeidstemperatur: & fra -40 \celsius\ til 120 \celsius\\
+ Maks frekvens: & 100 kHz\\
+ Responstid: & 15 sekunder\\
+ Nominell kapasitans: & 330 pF(ved 55 \% \ac{RH})\\
+ Sensitivitet: & 0,60 pF/\%\ac{RH}
+\end{tabular}
+
+
+
+\subsubsection{Måling av relativ luftfuktighet}
+
+For å måle relativ luftfuktighet må man konstruere en krets som kan måle kapasitans. Det finnes mange gode målemetoder som gir presis beregning av kapasitans. For dette formålet falt valget på en metode som kan konstrueres på et relativt lite kretskortområde.
+
+For å måle kapasitansen i sensoren konstrueres et RC-nettverk (se figur \ref{fig:hch1000} side \pageref{fig:hch1000}) Motstanden R må være en kjent størrelse, og sensoren settes inn som kapasitansen C. Mikrokontrolleren brukes for å måle tiden det tar fra et spenningssprang påføres sensoren til spenningen når 63~\% av $\volt_{cc}$. Denne tiden kalles tau($\tau$) og er bestemt av kapasitansen C til sensoren og motstanden R fra formelen
+\begin{equation*}
+ \tau = R \cdot C
+\end{equation*}
+
+Med en god måling av $\tau$ og kjennskap til den nøyaktige motstanden i R kan vi beregne C med tilstrekkelig presisjon. Databladet til sensoren inneholder formelen for å beregne relativ luftfuktighet fra C.
+
+Når et spenningssprang påføres en kondensator stiger spenningen med hensyn på tid etter funksjonen
+\begin{equation*}
+ \volt(t)=\volt_{0}+\volt_{\textrm{cc}}\times(1-e^{\frac{-t}{\tau}})
+\end{equation*}
+\noindent der $\volt_{0}$ er spenningen over kondensatoren ved $t = 0$, i dette tilfellet ligger den nær null. Tidsforløpet til denne funksjonen er illustrert i figur \ref{fig:rc_sprang}.
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=1\textwidth]{sensorkort/sprangrespons.pdf}
+ \caption{Sprangrespons RC-ledd}
+\label{fig:rc_sprang}
+\end{figure}
+
+Utgangspinnene til mikrokontrolleren(PORTD7 i figur \ref{fig:hch1000} i dette tilfellet) brukes for å sette spenningsspranget på RC-nettverket. De er ikke garantert å ligge på nøyaktig 0 volt selv om de er satt lave i software og dette medfører en utfordring. Hvis spenningen ligger noen tidels volt høyere vil dette forkorte den målte tiden $\tau$, og beregningen for C blir dermed feil. Ifølge databladet til mikrokontrolleren\cite{atmega16} s. 291 er spenningen garantert å ligge under 0,3 volt ved 3 volts forsyningsspenning. Dermed må vi ta utgangspunkt i at spenningen ligger mellom 0 og 0,3 volt når pinnen er satt lav.
+
+For å unngå dette problemet måles ikke tiden fra start til $\tau$, men tiden fra $\frac{\tau}{2}$ til $\tau$. Tiden $\tau$ kan nå regnes ut fra følgende formel:
+\begin{equation}
+ \tau = 2 \times \left(\tau - \frac{\tau}{2}\right)
+ \label{taulign}
+\end{equation}
+Såfremt spenningen ligger godt under $\frac{\tau}{2}$ ved $t = 0$ er feilkilden eliminert.
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.7\textwidth]{sensorkort/hch1000-scem}
+ % hch1000-scem.png: 1121x724 pixel, 300dpi, 9.49x6.13 cm, bb=0 0 269 174
+ \caption{Kretsskjema måling av luftfuktighet}
+ \label{fig:hch1000}
+\end{figure}
+
+Figur \ref{fig:hch1000} viser skjematisk oppbygningen til fuktsensoren. De to spenningsreferansene 63~\% og 39~\% av $\volt_{\text{cc}}$ konstrueres fra faste spenningsdelere. Utgangen PORTD7 styres via programvaren i mikrokontrolleren og brukes som nevnt for å sette spenningsspranget på sensoren.
+
+Når mikrokontrolleren igangsetter lesing av luftfuktighet er handlingsforløpet som følger:
+\begin{enumerate}
+ \item Utgangen PORTD7 settes fra lav til høy
+ \item Telleren begynner å telle oppover
+ \item Når spenningen over kondensatoren når 39~\% av $\tau$ vil komparatoren trigge, og tellervariabelen lagres unna. Telleren fortsetter uforstyrret gjennom prosessen
+ \item Inngangen til komparatoren skifter referanse til 63~\% av $V_{\text{cc}}$
+ \item Når spenningen når 63~\% av $\volt_{\text{cc}}$ trigger komparatoren igjen og lagrer den nye tellervariablen
+ \item Telleren og komparatoren nullstilles
+ \item Spenningen på PORTD7 settes lav
+\end{enumerate}
+
+Mikroprosessoren har nå målt tiden (i antall klokkesykluser) mellom $\frac{\tau}{2}$ og $\tau$ og kan regne seg fram til verdien av $\tau$ med ligning \ref{taulign} side \pageref{taulign}.
+
+\subsubsection{Fordeler og ulemper}
+
+Denne metoden har følgende fordeler:
+
+\begin{itemize}
+ \item Billig, få komponenter(fem motstander i tillegg til sensoren)
+ \item Krever derfor lite plass på kretskort
+ \item Alle nødvendige moduler finnes innebygd i AVRen
+ \item Effektgjerrig
+\end{itemize}
+
+\noindent Metoden har følgende ulemper:
+
+\begin{itemize}
+ \item Lav oppløsning
+ \item Vanskelig å oppnå høy nøyaktighet
+ \item Benytter relativt mye prosessortid
+\end{itemize}
+
+Den lave oppløsningen kan bedres ved å kjøre prosessoren på høyere klokkefrekvens. Dette vil føre til at telleren i prosessoren teller flere ganger i løpet av det aktuelle tidsrommet, men en høyere klokkefrekvens medfører økt strømbruk og større sannsynlighet for forstyrrende støy. Med tanke på at et kort som skal produsere radiosignaler i 800MHz-båndet skal kobles til sensorkortet vil det være fornuftig å begrense sannsynligheten for at forstyrrende støy skal oppstå.
+
+En alternativ måte å øke oppløsningen på er å øke størrelsen på motstanden R i RC-nettverket. Da vil måletiden øke proporsjonalt med økningen i resistans. Slik gjennomfører prosessoren flere tellinger før spenningen når 63~\% av $\volt_{\text{cc}}$. Baksiden med denne metoden er at forbruk av prosessortid øker tilsvarende.
+
+\subsection{Temperatur}
+
+På sensorkortet er det integrert to termistorer som skal måle temperatur. Den ene sensoren er en \ac{SMD} montert direkte på kretskortet mens den andre er montert på utsiden av cansaten for å få en god måling av lufttemperaturen i atmosfæren. Den interne er produsert av Vishay Components og den eksterne er en Betatherm Precision Thermistor type 2,2k3A1B.
+
+Thermistorene er av type \ac{NTC}, det vil si at motstanden stiger eksponensielt med synkende temperatur. Betatherm har en motstand på $2252~\Omega$ mens Vishay-modellen er på $2200~\Omega$ ved 25~\celsius.
+
+\subsubsection{Måling av temperatur}
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.3\textwidth]{sensorkort/vdiv-therm.png}
+ % vdiv-therm.png: 397x610 pixel, 300dpi, 3.36x5.16 cm, bb=0 0 95 146
+ \caption{Spenningsdeler thermistor}
+ \label{fig:vdiv}
+\end{figure}
+
+Figur \ref{fig:vdiv} viser hvordan termistorene kobles til mikrokontrolleren. Ettersom motstanden i termistoren varierer med temperatur vil den målte spenningen i noden mellom motstandene variere.
+
+For at mikrokontrolleren skal finne temperaturen i termistoren må den vite hvor mange ohm motstand den yter,
+for å beregne dette benyttes ligning \ref{rtherm}:
+\begin{align}
+ &U_{\textrm{ut}} = \volt_{cc}\cdot \frac{R_{1}}{R_{\textrm{termistor}}+R_{1}} \nonumber \\
+ \Rightarrow &R_{\textrm{termistor}} = R_{1}\left( \frac{V_{cc} - U_{\textrm{ut}}}{U_{\textrm{ut}}}\right)
+ \label{rtherm}
+\end{align}
+Når motstanden er funnet må den gjøres om til en temperatur. Utfordringen med thermistorer er at motstanden ikke endrer seg lineært med temperaturen.
+
+Det er to vanlige måter å regne ut dette på. Den første baserer seg på å legge en tabell med kjente motstander og korresponderende temperaturer inn i programmet til mikrokontrolleren, deretter benyttes lineær interpolasjon for beregning av temperaturer mellom punktene. Den andre metoden heter Steinhart-Harts metode, den gir høyere nøyaktighet, bruker mer prosessortid men bruker mindre lagringsplass da den unngår store tabeller. Sensorkortet benytter seg av sistnevnte.
+
+Steinhart-Harts metode tar for seg fire\footnote{Kan også bruke tre verdier med minimalt avvik} kjente temperatur- og motstandspar. Det er viktig at det velges ut fire par som ligger i temperaturområdet man ønsker å måle. Målinger utført utenfor dette området kan medføre større avvik. Metoden gir dermed mulighet til å konsentrere seg om veldig nøyaktige målinger i et lite område eller mindre nøyaktige målinger i et større område.
+
+Fra disse fire kjente verdiene konstrueres en tredjegradsligning som gir et presist estimat av temperaturen fra motstanden vi fant i ligning \ref{rtherm}. Denne ligningen kalles Steinhart-Harts ligning:
+\begin{equation}
+ \frac{1}{T} = A + B\cdot \ln(R) + C(\ln(R))^{2} + D(\ln(R))^{3}\\
+ \label{ssh}
+\end{equation}
+\noindent hvor $T = \textrm{temperatur i Kelvin}$ og $A, B, C, D = \textrm{Steinhart-Hart koeffisienter}$
+
+\subsubsection{Beregning av Steinhart-Harts koeffisienter}
+
+For å beregne Steinhart-Hart koeffisienter tar vi utgangspunkt i ligning \ref{ssh} og fire temperatur/motstandspar. Tabell \ref{tab:tmp} viser noen relevante temperatur/motstandspar for Vishay SMD termistoren som skal måle temperaturen inne i cansaten. Disse tallene brukes her for å demonstrere framgangsmåten. Motstandsverdiene er hentet fra databladet\cite{smdtherm} til termistoren.
+
+\begin{table}[htb]
+\centering
+ \begin{tabular}{ccc}
+\toprule
+\textbf{Temperatur[\celsius]} & \textbf{Kelvin[K]} & \textbf{Motstand[$\Omega$]}\\
+\midrule
+$-15$ & 258,15 & 14257\\
+$-25$ & 248,15 & 24633\\
+$-35$ & 238,15 & 44130\\
+$-40$ & 233,15 & 59909\\
+\bottomrule
+\end{tabular}
+\caption{Temperatur/motstand for Vishay SMD Thermistor\cite{smdtherm}}
+\label{tab:tmp}
+\end{table}
+De fire parene settes inn i ligning \ref{ssh} og vi får fire ligninger med tilsammen fire ukjente variabler:
+\begin{align*}
+ \frac{1}{258,15} = A + B\cdot \ln(14257) + C(\ln(14257))^{2} + D(\ln(14257))^{3}\\
+ \frac{1}{248,15} = A + B\cdot \ln(24633) + C(\ln(24633))^{2} + D(\ln(24633))^{3}\\
+ \frac{1}{238,15} = A + B\cdot \ln(44130) + C(\ln(44130))^{2} + D(\ln(44130))^{3}\\
+ \frac{1}{233,15} = A + B\cdot \ln(59909) + C(\ln(59909))^{2} + D(\ln(59909))^{3}\\
+\end{align*}
+Logaritmene regnes ut og resultatet settes opp på matriseform:
+\begin{equation*}
+ \begin{bmatrix}
+ 1 & 9,57 & 91,49 & 875,1 \\
+ 1 & 10,11 & 102,25 & 1033,93 \\
+ 1 & 10,69 & 114,38 & 1223,29 \\
+ 1 & 11 & 121,01 & 1331,21 \\
+ \end{bmatrix}
+\cdot
+ \begin{bmatrix}
+  A\\
+  B\\
+  C\\
+  D\\
+ \end{bmatrix}
+ =
+\begin{bmatrix}
+\frac{1}{258,15}\\
+\frac{1}{248,15}\\
+\frac{1}{238,15}\\
+\frac{1}{233,15}\\
+\end{bmatrix}
+\end{equation*}
+Ved hjelp av Matlab beregnes koeffisientene A, B, C, og D:
+\begin{align*}
+A &= 1,9163\cdot 10^{-3}\\
+B &= 8,7090\cdot 10^{-5}\\
+C &= 1,6240\cdot 10^{-5}\\
+D &= -4,1347\cdot 10^{-7}
+\end{align*}
+
+Disse fire koeffisientene er alt mikroprosessoren trenger for å regne ut temperaturen med utgangspunkt i en avlest motstandsverdi. Prosessoren bruker da den inverse av ligning \ref{ssh} for å regne ut temperaturen:
+\begin{equation*}
+ T[\textrm{\celsius}] = \frac{1}{A + B\cdot \ln(R_{\text{termistor}}) + C(\ln(R_{\text{termistor}}))^{2} + D(\ln(R_{\text{termistor}}))^{3}}-273,15
+\end{equation*}
+
+\subsubsection{Feilkilder}
+
+Det er mange mulige feilkilder i forbindelse med temperaturmålingene. I denne delen skal kildene vurderes og det skal defineres en absolutt feilmargin for alle feilkilder kombinert.
+
+\paragraph{\ac{ADC}-enhet}
+
+Mikrokontrollerens innebygde \ac{ADC}-enhet har en oppløsning på 10 bit, noe som gir mulighet for $2^{10} = 1024$ forskjellige måleverdier av spenning mellom 0 og 3,3 V. Med utgangspunkt i denne informasjonen og produsentenes datablad\cite{smdtherm,bt,atmega16} skal feilkilder i forbindelse med enheten vurderes.
+
+De absolutte grensene for temperatur som skal måles antas å være mellom 25\celsius\ og -60\celsius. Først beregnes den aktuelle spenningen mellom motstandene i figur \ref{fig:vdiv} på side \pageref{fig:vdiv}. Ved 25\celsius\ er motstanden i thermistoren 2200$\Omega$, ved -60\celsius\ vil motstanden være 314 k$\Omega$ og følgende spenninger vil bli målt av \ac{ADC}-enheten:
+\begin{align}
+ (25\textrm{\celsius}):& R_{\text{termistor}}=2200\Omega \qquad U_{\textrm{ADC}} = 3,3V\cdot \frac{100~k\Omega}{102200\Omega}=3,229\volt \nonumber \\
+ (-60\textrm{\celsius}):& R_{\text{termistor}}=314k\Omega \qquad U_{\textrm{ADC}} = 3,3V\cdot \frac{100~k\Omega}{414k\Omega}=0,7971V
+\label{eqn:limit}
+\end{align}
+Med kjennskap til \ac{ADC}-enhetens oppløsning ($\dfrac{3,3V}{1024}= 3,223\frac{\milli\volt}{ADC-steg}$) kan den benyttede oppløsningen beregnes. Det vil si at \ac{ADC}-enheten aldri måler spenninger utenfor verdiene i ligningene \ref{eqn:limit}. Den høyeste spenningen (3,223V) tilsier at \ac{ADC}-enheten måler
+\begin{equation*}
+ \frac{3,223V}{3,222~\milli\volt/\textrm{ADC-steg}} = 1001\: \textrm{ADC-steg}
+\end{equation*}
+Tilsvarende for den lave spenningen måler ADC-enheten
+\begin{equation*}
+ \frac{0,7971V}{3,222~\milli\volt/\textrm{ADC-steg}} = 247\: \textrm{ADC-steg}
+\end{equation*}
+Istedet for 1024 steg sitter vi igjen med $1001-247= 754$ stegs effektiv oppløsning. Dette tilsvarer ca 9,5 bits presisjon.
+
+\paragraph{Ulineære termistorer}Termistorene representerer som nevnt ikke temperatur lineært mot motstand. Derfor vil den målte temperaturen ha høyere oppløsning når temperaturen er lavere. Dette kan illustreres ved å sammenligne temperaturberegninger i forskjellige temperaturområder:
+\begin{align*}
+(-60\textrm{\celsius})& \quad R_{\textrm{termistor}}=314815 \Omega \Rightarrow U_{ADC} = 3,3V \dfrac{100k \Omega}{414815 \Omega} = 0,7955V\\
+(-61\textrm{\celsius})&\quad R_{\textrm{termistor}}=339971\Omega \Rightarrow U_{ADC} = 3,3V \frac{100k \Omega}{439971 \Omega} = 0,7500V
+\end{align*}
+Differansen i målt spenning mellom -60 og -61 \celsius\ er 45~\milli\volt, eller 14 \ac{ADC}-steg. I dette området er det dermed teoretisk mulig å måle temperaturforandringer helt ned i 0,07\celsius\ gitt at måleutstyret er nøyaktig nok.
+\begin{align*}
+(-20\textrm{\celsius})&\quad R_{\textrm{termistor}}=21839\Omega \Rightarrow U_{ADC} = 3,3V\frac{100k\Omega}{121839\Omega}=2,7085V\\
+(-21\textrm{\celsius})&\quad R_{\textrm{termistor}}=23148\Omega \Rightarrow U_{ADC} = 3,3V\frac{100k\Omega}{123148\Omega}=2,6797V
+\end{align*}
+Her er differansen bare 28~\milli\volt, eller nesten ni \ac{ADC}-steg. Oppløsningen er 0,1 \celsius.
+\begin{align*}
+(24\textrm{\celsius})&\quad R_{\textrm{termistor}}=2353,5\Omega \Rightarrow U_{ADC} = 3,3V\frac{100k\Omega}{102353\Omega}=3,2241V\\
+(25\textrm{\celsius})&\quad R_{\textrm{termistor}}=2200\Omega \Rightarrow U_{ADC} = 3,3V\frac{100k\Omega}{102200\Omega}=3,2273V
+\end{align*}
+Differansen er nå bare 3,19~\milli\volt, det samme som ett \ac{ADC}-steg. Oppløsningen er nå 1 \celsius\ men det er ikke sannsynlig å møte slike temperaturer i atmosfæren.
+
+I tillegg har \ac{ADC}-enheten en nøyaktightesmargin på 1,5 \ac{LSB} med Noise Reduction Mode aktivert. Dette tallet er hentet fra databladet\cite{atmega16} s.297. 1,5 \ac{LSB} tilsvarer her $3,223~\milli\volt\cdot 1,5 = 4,8345~\milli\volt$.
+
+\paragraph{Termistor}
+Databladene\cite{bt,smdtherm} til termistorene har informasjon om deres nøyaktighet. Vishaytermistoren er oppgitt med en feiltoleranse på $\pm5 \%$, mens betatherm kan vise til en nøyaktighet på $\pm0,2~\textrm{\celsius}$ ved 25~\celsius.
+
+\paragraph{Trykksensor og akselerometer} Disse sensorene er ferdige integrerte kretser og er derfor kalibrert under produksjon. Det er derfor ikke hensiktsmessig å bruke tid på kalibrering og testing.
+
+Databladet til akselerasjonssensoren \cite{accl} oppgir en feiltoleranse på $\pm2,8~\milli\volt_{\text{rms}}$ på utgangspinnen. Ved 4,5 \volt spenning (utspenning ved havnivå) tilsvarer dette et avvik på $\pm0,06~\%$, ved 0,5 \volt øker avviket til 0,6 \&.
+
+Databladet til trykksensoren \cite{pressure} oppgir et maksimalt avvik på 1,5 \% i temperaturområdet 0 -- 85~\celsius.
+
+\section{Utførelse}
+Her gis en enkel forklaring på hvordan komponentene er integrert i kretsen og hvordan målingene utføres. For å få et dypere innblikk i hvordan sensorene opererer anbefales det å ta en kikk på kildekoden til sensorkortet sammen med dokumentasjonen i Doxygen-format.
+
+\subsection{Relativ luftfuktighet}
+Mikroprosessoren kjører på maks hastighet (8 MHz ved 3,3V) for å oppnå målinger med best mulig presisjon på minst mulig tid. Med utgangspunkt i kretsskjemaet til fuktsensoren(figur \ref{fig:hch1000} side \pageref{fig:hch1000}) må en passende størrelse på motstanden R beregnes.
+
+Det er to viktige variabler som spiller inn når kretsen skal planlegges:
+\begin{itemize}
+\item Telleren må telle tilstrekkelig antall ganger for å oppnå brukbar oppløsning. Hvis telleren teller 200 ganger mellom $t=\tau/2$ og $t=\tau$ vil oppløsningen bli 1\%RH.
+\item Måleprosessens tidsforbruk må også begrenses slik at ikke all prosessortiden går med til å vente på komparatoren.
+\end{itemize}
+
+Med dette utgangspunktet ble det bestemt at telleren skal telle ca 500 klokkesykluser mellom $t=0$ og $t=\tau$. Ved en prosessorfrekvens på 8 MHz tilsvarer dette at prosessoren kan gjennomføre 16000 slike målinger per sekund, eller at hver måling tar 62,5 $\mu s$. Da er oppløsningen god nok for formålet og målingen tar ikke for lang tid.
+
+Følgende utregning gir oss en pekepinn på hvor mange ohm R bør være på:
+\begin{equation}
+ R = \frac{\tau}{C}=\frac{62,5\mu s}{330pF} \approx 189k\Omega
+\end{equation}
+Valget falt dermed på en 180k$\Omega$ motstand, som er tilgjengelig i E24-serien.
+
+\subsubsection{Måleresultater}
+Den faktiske motstanden i R må måles med et multimeter og legges inn i programvaren ved beregning av $\tau$ da den har en feiltoleranse på 5\% eller $\pm9000\Omega$. Motstanden ble målt til 179200$\Omega$.
+
+Det er ikke foretatt noen videre test av nøyaktigheten på fuktsensoren. Dette kan gjøres i ettertid dersom det viser seg nødvendig. Forklaring og framgangsmåte kan finnes her: \url{http://www.smartec.nl/pdf/apphs1002.pdf}.
+
+På laben viser sensoren en stabil relativ fuktighet rundt 70\%. Det er mulig den viser litt høyere fuktighet enn realiteten, men dette kan ikke bestemmes uten videre tester eller kalibrering. Ved å blåse forsiktig mot sensoren hopper den raskt over 90\%, og faller tilbake til utgangspunktet i løpet av 10 -- 15 sekunder.
+
+\subsection{Temperatur}
+Korrekte målinger fra termistorene avhenger av nøyaktigheten til ADC-målingene, programvaren og motstanden R1 i figur \ref{fig:vdiv} side \pageref{fig:vdiv}. Ved beregning av resistansen i termistoren er det viktig at verdien til R1 er så korrekt som mulig, derfor ble motstandene målt med multimeter.
+
+Motstanden til Betatherm- og Vishaytermistoren ble målt til henholdsvis 99700 og 101200 $\Omega$.
+
+Temperatursensorene viser en temperatur rundt 5 \celsius\ over romtemperatur. En LM92 temperatursensor fra National Semiconductor ble brukt som referanse. Den er kalibrert med en presisjon på $\pm0.33$~\celsius
+
+\subsection{Barometrisk lufttrykk}
+
+Sensorkortet er utstyrt med en trykksensor av type MPXHZ6115A som produseres av Freescale Semiconductor. Dette er en egen integrert krets som tar seg av alt arbeidet med måling av lufttrykk, så denne er en del enklere i bruk enn temperatursensorene og fuktsensoren.
+
+Her er et utdrag av de viktigste egenskapene fra databladet\cite{pressure} til sensoren:
+
+\begin{tabular}{ll}
+Arbeidsområde & 15 -- 115 kPa\\
+Responstid & 1 ms\\
+Sensitivitet & 45,9~\milli\volt/kPa\\
+Feiltoleranse & $\pm1,5 \%V_{\textrm{FSS}}$\\
+Arbeidsspenning & 5 V
+\end{tabular}
+
+Kjennskap til lufttrykket er et nyttig tillegg til GPS-informasjon(se kapittel \ref{chap:gpskort}) når høyde over havet skal beregnes.
+
+\subsubsection{Måling av lufttrykk}
+\label{sssec:pressure}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=0.9\textwidth]{sensorkort/pressure_sensor.png}
+ % pressure_sensor.png: 1061x882 pixel, 300dpi, 8.98x7.47 cm, bb=0 0 255 212
+ \caption{Trykksensor koblingsskjema}
+ \label{fig:pressure_fig}
+\end{figure}
+
+Figur \ref{fig:pressure_fig} viser hvordan trykksensoren er koblet til mikrokontrolleren. Den har én enkelt utgangspinne, her ligger en referansespenning som varierer proposjonalt med lufttrykket. Denne pinnen kobles til mikrokontrollerens \ac{ADC}-enhet via en spenningsdeler da mikrokontrolleren ikke kan motta spenninger over 3,3 volt. Spenningsdeleren er konstruert slik at ved 5 volt på utgangspinnen vil ADC-enheten ``se'' 3,3 volt.
+
+For å oppnå nøyaktige spenningsmålinger gjennom spenningsdeleren må forholdet mellom motstandene R1 og R2 i figur \ref{fig:pressure_fig} være som følger:
+\begin{align*}
+ &5V \left( \frac{R_{2}}{R_{1}+R_{2}} \right)=3,3V\\
+ &\frac{R_{1}}{R_{2}} = \frac{5V - 3,3V}{3,3V}
+\end{align*}
+Valget falt dermed på presisjonsmotstander på 8,2 og 4,22 k$\Omega$.
+
+For å ytterligere bedre presisjonen ble spenningen i målepunktene P1 og P2 i figur \ref{fig:pressure_fig} målt med multimeter. Det nøyaktige forholdet mellom spenningene regnes ut, og prosessoren tar utgangspunkt i dette for å beregne utspenningen fra sensoren.
+
+Spenningene ble målt til 4,03 volt ved P1 og 2,66 volt ved P2, spenningsforholdet $\dfrac{P1}{P2}$ blir da 1,5150. Dette spenningsforholdet er lagt inn i programvaren til sensorkortet for å oppnå best mulig presisjon. Til sammenligning vil det optimale spenningsforholdet $\dfrac{5V}{3,3V}$ være 1,5152, så avviket er relativt lite.
+
+Med kjennskap til utgangsspenningen fra trykksensoren vil mikrokontrolleren regne denne om til lufttrykk uttrykt i kPa. Sammenhengen mellom spenning og lufttrykk er beskrevet i produsentens datablad\cite{pressure}
+
+\subsection{Akselerasjonsensor}
+
+For å måle hvor store akselerasjonskrefter cansaten utsettes for under de forskjellige fasene av ferden gjennom atmosfæren er den utstyrt med en akselerasjonssensor av type MMA1210 produsert av Freescale Semiconductor.
+
+Sensoren er montert flatt på sensorkortet og måler akselerasjon i Z-retning, det vil si oppover eller nedover vinkelrett på kortets overflate. Krefter i X eller Y-retning blir ikke målt.
+
+De viktigste egenskapene fra produsentens datablad\cite{accl}:
+
+\begin{tabular}{ll}
+ Arbeidsområde & 112,5 g($\pm$56,25 g) \\
+ Arbeidstemperatur & -40 \celsius\ til 125 \celsius\\
+ Sensitivitet & 20~\milli\volt/g\\
+ Utspenning ved 0 g & 2,5 V(ved $V_{\textrm{cc}}$= 5,0V)\\
+ Feiltoleranse & 2,8 $\milli\volt_{\textrm{RMS}}$
+\end{tabular}
+
+\subsubsection{Måling av akselerasjon}
+
+Akselerasjonssensoren kobles opp på nøyaktig samme måte som trykksensoren under avsnitt \ref{sssec:pressure} side \pageref{sssec:pressure}. Koblingsskjema blir dermed identisk med figur \ref{fig:pressure_fig} side \pageref{fig:pressure_fig} med unntak av navnet på sensoren.
+
+Spenning i punktene P1 og P2 ble målt til 2,47 og 1,63 volt, spenningsforholdet $\dfrac{P1}{P2}$ blir da 1,5153. Denne verdien er lagt inn i programvaren for optimal presisjon
+
+Det optimale forholdet $\dfrac{5\volt}{3,3\volt}$ = 1,5152. Avviket er lite, så det hadde sannsynligvis gått fint å brukt 5\% motstander og kompansert for avviket i programvaren.
+
+

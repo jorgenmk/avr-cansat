@@ -1,0 +1,72 @@
+\select@language {norsk}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Prinsipp for High-side og Low-side sensing}}{2}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Tradisjonell High-side str\IeC {\o }mm\r aling}}{3}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Prinsipp for en Current shunt monitor}}{4}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Prinsipp for forskjellige serieregulatorer}}{6}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Prinsipp for ADC med SAR}}{8}{figure.2.5}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces ADC-tiln\IeC {\ae }rming med SAR-teknikk}}{9}{figure.2.6}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces I$^{2}$C Overf\IeC {\o }ring}}{11}{figure.2.7}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces SPI oppkobling og ringkoblet skiftregister}}{12}{figure.2.8}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Implementering av DOSonChip}}{14}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Footprint til DOSonChip}}{15}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Implementering av USB-interface mot mikrokontrolleren}}{16}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Skisse av ISP-plugg}}{17}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Skisse av IR-mottaker}}{18}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Implementering av \ac {IR}-mottaker}}{18}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Implementering av str\IeC {\o }mm\r aler}}{19}{figure.3.7}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Implementering av spenningsregulator}}{20}{figure.3.8}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Flytskjema for programmet til mikrokontrolleren}}{21}{figure.3.9}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces <<Bias tee>>-krets}}{25}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Oppkobling av GPS-modul}}{27}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Kretsskjema Niv\r akonverterer}}{28}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Kretsskjema Forsyning til aktiv antenne}}{29}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Oppkoblingen av mikrokontrolleren}}{30}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Tilkobling til programmeringskontakten}}{30}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Oppkobling av feils\IeC {\o }kingslysdiode}}{31}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Mikrostripekalkulator p\r a internett}}{32}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Kretsutlegg Forsyning til aktiv antenne}}{33}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Flytskjema over GPS-kortets software}}{35}{figure.4.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Flytskjema sensorkort}}{38}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Sprangrespons RC-ledd}}{40}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Kretsskjema m\r aling av luftfuktighet}}{41}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Spenningsdeler thermistor}}{43}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Trykksensor koblingsskjema}}{48}{figure.5.5}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Blokkskjema radiosender}}{52}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Roterende viser}}{55}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces FM Firkantpuls}}{56}{figure.6.3}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Momentan frekvens-tids-kurve for sinus frekvensmodulert b\IeC {\o }lge}}{57}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Loopfilter}}{60}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Kretskjema over VCO}}{61}{figure.6.6}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Dobbel sideb\r and modulasjon(a)Singel sideb\r and modulasjon(b)}}{62}{figure.6.7}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Aliasfilter oppkobling}}{63}{figure.6.8}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Inngangsignal}}{63}{figure.6.9}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Puls bredde modulasjon, PWM}}{64}{figure.6.10}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Aliasfilter theveninekvivalent oppkobling}}{65}{figure.6.11}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Polplassering}}{67}{figure.6.12}
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Bodediagram}}{68}{figure.6.13}
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Simulert Bodediagram}}{69}{figure.6.14}
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Kretskjema over VCO}}{71}{figure.6.15}
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Balansert forsterkeroppkobling}}{73}{figure.6.16}
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Kretskortutlegg i Eagle}}{74}{figure.6.17}
+\contentsline {figure}{\numberline {6.18}{\ignorespaces Topp- og bunn-lag i GERBER-format}}{74}{figure.6.18}
+\contentsline {figure}{\numberline {6.19}{\ignorespaces M\r aling p\r a sinuskurve 1220~Hz}}{76}{figure.6.19}
+\contentsline {figure}{\numberline {6.20}{\ignorespaces M\r aling differensielt p\r a sinuskurve 1220~Hz}}{76}{figure.6.20}
+\contentsline {figure}{\numberline {6.21}{\ignorespaces Cosinus- og sinuskurve 1220~Hz}}{77}{figure.6.21}
+\contentsline {figure}{\numberline {6.22}{\ignorespaces Hexadesimal verdi AA overf\IeC {\o }rt ved hjelp av FSK}}{77}{figure.6.22}
+\contentsline {figure}{\numberline {6.23}{\ignorespaces B\IeC {\ae }reb\IeC {\o }lge spektrum}}{78}{figure.6.23}
+\contentsline {figure}{\numberline {6.24}{\ignorespaces Modulert signal med undertrykt b\IeC {\ae }refrekvens, nedre sideb\r and}}{78}{figure.6.24}
+\contentsline {figure}{\numberline {6.25}{\ignorespaces Modulert signal med undertrykt b\IeC {\ae }refrekvens, \IeC {\o }vre sideb\r and}}{79}{figure.6.25}
+\contentsline {figure}{\numberline {6.26}{\ignorespaces Modulert signal med punktpr\IeC {\o }vingsfrekvens 31250~Hz}}{79}{figure.6.26}
+\contentsline {figure}{\numberline {6.27}{\ignorespaces Modulert signal p\r a antenne utgangen}}{80}{figure.6.27}
+\contentsline {figure}{\numberline {6.28}{\ignorespaces Dekoding av FM signal vha MTTY}}{81}{figure.6.28}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Bilde av XBee-modulen}}{84}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Implementering av on/off-pinne}}{86}{figure.7.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

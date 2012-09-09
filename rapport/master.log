@@ -1,0 +1,1719 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.4.20)  24 APR 2012 00:13
+entering extended mode
+**C:/test/githost-cansat/rapport/master.tex
+(C:/test/githost-cansat/rapport/master.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\report.cls"
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size11.clo"
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\test\githost-cansat\rapport\mystyle.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2008/07/08 v3.8m The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\norsk.ldf"
+Language: norsk 2005/03/30 v2.0h Norsk support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+Package babel Info: Making " an active character on input line 113.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count89
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks17
+\ex@=\dimen106
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count90
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count91
+\leftroot@=\count92
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count93
+\DOTSCASE@=\count94
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count95
+\c@MaxMatrixCols=\count96
+\dotsspace@=\muskip10
+\c@parentequation=\count97
+\dspbrk@lvl=\count98
+\tag@help=\toks18
+\row@=\count99
+\column@=\count100
+\maxfields@=\count101
+\andhelp@=\toks19
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks20
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\classes\amsthm.sty"
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks22
+\thm@bodyfont=\toks23
+\thm@headfont=\toks24
+\thm@notefont=\toks25
+\thm@headpunct=\toks26
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks27
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count102
+\Gm@cntv=\count103
+\c@Gm@tempcnt=\count104
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
+\Gm@dimlist=\toks28
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\acronym\acronym.sty
+Package: acronym 2010/09/08 v1.36 Support for acronyms (Tobias Oetiker)
+
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\bigfoot\suffix.sty
+Package: suffix 2006/07/15 1.5 Variant command support
+)
+\AC@clearlist=\toks29
+)
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\siunits\SIunits.sty
+Package: SIunits 2007/12/02 v1.36 Support for the International System of units
+ (MH)
+
+
+\@qskwidth=\skip49
+\symgreek=\mathgroup6
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\siunits\SIunits.cfg)
+Option `squaren' provided!
+) (C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\booktabs\booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen123
+\lightrulewidth=\dimen124
+\cmidrulewidth=\dimen125
+\belowrulesep=\dimen126
+\belowbottomsep=\dimen127
+\aboverulesep=\dimen128
+\abovetopsep=\dimen129
+\cmidrulesep=\dimen130
+\cmidrulekern=\dimen131
+\defaultaddspace=\dimen132
+\@cmidla=\count105
+\@cmidlb=\count106
+\@aboverulesep=\dimen133
+\@belowrulesep=\dimen134
+\@thisruleclass=\count107
+\@lastruleclass=\count108
+\@thisrulewidth=\dimen135
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2011/12/04 v6.82m Hypertext links for LaTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
+Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
+Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+)
+\@linkdim=\dimen136
+\Hy@linkcounter=\count109
+\Hy@pagecounter=\count110
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2011/12/04 v6.82m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count111
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4046.
+Package hyperref Info: Link nesting OFF on input line 4051.
+Package hyperref Info: Hyper index ON on input line 4054.
+Package hyperref Info: Plain pages OFF on input line 4061.
+Package hyperref Info: Backreferencing OFF on input line 4066.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4284.
+\c@Hy@tempcnt=\count112
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4637.
+\Fld@menulength=\count113
+\Field@Width=\dimen137
+\Fld@charsize=\dimen138
+Package hyperref Info: Hyper figures OFF on input line 5757.
+Package hyperref Info: Link nesting OFF on input line 5762.
+Package hyperref Info: Hyper index ON on input line 5765.
+Package hyperref Info: backreferencing OFF on input line 5772.
+Package hyperref Info: Link coloring OFF on input line 5777.
+Package hyperref Info: Link coloring with OCG OFF on input line 5782.
+Package hyperref Info: PDF/A mode OFF on input line 5787.
+LaTeX Info: Redefining \ref on input line 5827.
+LaTeX Info: Redefining \pageref on input line 5831.
+\Hy@abspage=\count114
+\c@Item=\count115
+\c@Hfootnote=\count116
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2011/12/04 v6.82m Hyperref driver for pdfTeX
+\Fld@listcount=\count117
+\c@bookmark@seq@number=\count118
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip50
+)
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\was\icomma.sty
+Package: icomma 2002/03/10 v2.0 (WaS)
+)
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\cite\cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 373.
+Package: cite 2010/09/10  v 5.3
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen139
+\extrarowheight=\dimen140
+\NC@list=\toks30
+\extratabsurround=\skip51
+\backup@length=\skip52
+)
+\TX@col@width=\dimen141
+\TX@old@table=\dimen142
+\TX@old@col=\dimen143
+\TX@target=\dimen144
+\TX@delta=\dimen145
+\TX@cols=\count119
+\TX@ftn=\toks31
+)
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip53
+\RaggedLeftLeftskip=\skip54
+\RaggedRightLeftskip=\skip55
+\CenteringRightskip=\skip56
+\RaggedLeftRightskip=\skip57
+\RaggedRightRightskip=\skip58
+\CenteringParfillskip=\skip59
+\RaggedLeftParfillskip=\skip60
+\RaggedRightParfillskip=\skip61
+\JustifyingParfillskip=\skip62
+\CenteringParindent=\skip63
+\RaggedLeftParindent=\skip64
+\RaggedRightParindent=\skip65
+\JustifyingParindent=\skip66
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip67
+\LTright=\skip68
+\LTpre=\skip69
+\LTpost=\skip70
+\LTchunksize=\count120
+\LTcapwidth=\dimen146
+\LT@head=\box28
+\LT@firsthead=\box29
+\LT@foot=\box30
+\LT@lastfoot=\box31
+\LT@cols=\count121
+\LT@rows=\count122
+\c@LT@tables=\count123
+\c@LT@chunks=\count124
+\LT@p@ftn=\toks32
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\lmodern.sty"
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+))
+(C:\test\githost-cansat\rapport\master.aux
+(C:\test\githost-cansat\rapport\abstract.aux)
+(C:\test\githost-cansat\rapport\forord.aux)
+(C:\test\githost-cansat\rapport\innledning.aux)
+(C:\test\githost-cansat\rapport\teori.aux)
+(C:\test\githost-cansat\rapport\hovedkort.aux)
+(C:\test\githost-cansat\rapport\gpskort.aux)
+(C:\test\githost-cansat\rapport\sensorboard.aux)
+(C:\test\githost-cansat\rapport\radiokort.aux)
+(C:\test\githost-cansat\rapport\xbeekort.aux)
+(C:\test\githost-cansat\rapport\konklusjon.aux)
+(C:\test\githost-cansat\rapport\acronym.aux)
+(C:\test\githost-cansat\rapport\bibliografi.aux)
+(C:\test\githost-cansat\rapport\handlelister.aux)
+(C:\test\githost-cansat\rapport\kretsskjema.aux))
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 7.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 7.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(C:\Users\jorgen\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count125
+\scratchdimen=\dimen147
+\scratchbox=\box32
+\nofMPsegments=\count126
+\nofMParguments=\count127
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count128
+\MPscratchDim=\dimen148
+\MPnumerator=\count129
+\makeMPintoPDFobject=\count130
+\everyMPtoPDFconversion=\toks34
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=-0.56833pt
+* \evensidemargin=35.28255pt
+* \topmargin=-7.86334pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=103.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Option `squaren' provided! 
+ Command \squaren defined by SIunits package!
+
+\AtBeginShipoutBox=\box33
+Package hyperref Info: Link coloring OFF on input line 7.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count131
+)
+LaTeX Info: Redefining \ref on input line 7.
+LaTeX Info: Redefining \pageref on input line 7.
+LaTeX Info: Redefining \nameref on input line 7.
+
+(C:\test\githost-cansat\rapport\master.out)
+(C:\test\githost-cansat\rapport\master.out)
+\@outlinefile=\write3
+
+ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 7.
+
+(C:\test\githost-cansat\rapport\title.tex
+<./logo.png, id=291, 170.6375pt x 170.6375pt>
+File: ./logo.png Graphic file (type png)
+ <use ./logo.png>
+Package pdftex.def Info: ./logo.png used on input line 7.
+(pdftex.def)             Requested size: 62.73549pt x 62.7339pt.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 31.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 31.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 31.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 31.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 31.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 31.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 31.
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+) [1
+
+{C:/Users/jorgen/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/test/gi
+thost-cansat/rapport/logo.png>]) (C:\test\githost-cansat\rapport\abstract.tex
+Package acronym Info: Label `acro:NAROM' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 2.
+ [1
+
+
+])
+(C:\test\githost-cansat\rapport\forord.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 3--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--14
+
+ []
+
+[2
+
+
+] (C:\test\githost-cansat\rapport\master.toc
+Package acronym Info: Label `acro:AD' newly defined as it shall be overridden
+although it is yet undefined on input line 28.
+Package acronym Info: Label `acro:I$^{2}$C' newly defined as it shall be overri
+dden
+although it is yet undefined on input line 32.
+Package acronym Info: Label `acro:SPI' newly defined as it shall be overridden
+although it is yet undefined on input line 33.
+ [3
+
+
+] [4])
+\tf@toc=\write4
+ [5]
+(C:\test\githost-cansat\rapport\master.lof
+Package acronym Info: Label `acro:IR' newly defined as it shall be overridden
+although it is yet undefined on input line 18.
+ [6
+
+])
+\tf@lof=\write5
+ [7]
+(C:\test\githost-cansat\rapport\master.lot
+Package acronym Info: Label `acro:GGA' newly defined as it shall be overridden
+although it is yet undefined on input line 10.
+)
+\tf@lot=\write6
+ [8
+
+]
+(C:\test\githost-cansat\rapport\innledning.tex
+Kapittel 1.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9
+
+
+]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 28.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 28.
+ [10]
+
+LaTeX Warning: Reference `app:scematics' on page xi undefined on input line 50.
+
+
+) [11] (C:\test\githost-cansat\rapport\teori.tex
+Kapittel 2.
+<Hovedkort/hs-ls_sense.png, id=640, 3011.25pt x 1641.13126pt>
+File: Hovedkort/hs-ls_sense.png Graphic file (type png)
+
+<use Hovedkort/hs-ls_sense.png>
+Package pdftex.def Info: Hovedkort/hs-ls_sense.png used on input line 16.
+(pdftex.def)             Requested size: 334.60422pt x 182.35303pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.28 
+      [1
+
+
+
+]
+<Hovedkort/shunt-measure-error.pdf, id=649, 810.94301pt x 358.72318pt>
+File: Hovedkort/shunt-measure-error.pdf Graphic file (type pdf)
+
+<use Hovedkort/shunt-measure-error.pdf>
+Package pdftex.def Info: Hovedkort/shunt-measure-error.pdf used on input line 3
+7.
+(pdftex.def)             Requested size: 418.25368pt x 185.01544pt.
+Package acronym Info: Label `acro:CMRR' newly defined as it shall be overridden
+
+although it is yet undefined on input line 43.
+ [2 <C:/test/githost-cansat/rapport/Hovedkort/hs-ls_sense.png>] [3 <C:/test/git
+host-cansat/rapport/Hovedkort/shunt-measure-error.pdf>]
+<Hovedkort/C0363-Figure4.png, id=687, 2183.15625pt x 1945.2675pt>
+File: Hovedkort/C0363-Figure4.png Graphic file (type png)
+
+<use Hovedkort/C0363-Figure4.png>
+Package pdftex.def Info: Hovedkort/C0363-Figure4.png used on input line 54.
+(pdftex.def)             Requested size: 209.12683pt x 186.31613pt.
+ [4 <C:/test/githost-cansat/rapport/Hovedkort/C0363-Figure4.png>] [5]
+Package acronym Info: Label `acro:NiCd' newly defined as it shall be overridden
+
+although it is yet undefined on input line 112.
+Package acronym Info: Label `acro:NiMH' newly defined as it shall be overridden
+
+although it is yet undefined on input line 112.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 114.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 114.
+Package acronym Info: Label `acro:LDO' newly defined as it shall be overridden
+although it is yet undefined on input line 114.
+
+
+pdfTeX warning: pdflatex.EXE (file C:/test/githost-cansat/rapport/Hovedkort/f4.
+pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+
+<Hovedkort/f4.pdf, id=717, 413.22278pt x 85.31975pt>
+File: Hovedkort/f4.pdf Graphic file (type pdf)
+ <use Hovedkort/f4.pdf>
+Package pdftex.def Info: Hovedkort/f4.pdf used on input line 118.
+(pdftex.def)             Requested size: 418.25368pt x 86.3584pt.
+
+[6 <C:/test/githost-cansat/rapport/Hovedkort/f4.pdf>] [7]
+Package acronym Info: Label `acro:ADC' newly defined as it shall be overridden
+although it is yet undefined on input line 153.
+Package acronym Info: Label `acro:SAR' newly defined as it shall be overridden
+although it is yet undefined on input line 153.
+
+<Hovedkort/adc-function.png, id=769, 194.8881pt x 156.1032pt>
+File: Hovedkort/adc-function.png Graphic file (type png)
+
+<use Hovedkort/adc-function.png>
+Package pdftex.def Info: Hovedkort/adc-function.png used on input line 157.
+(pdftex.def)             Requested size: 209.12683pt x 167.51704pt.
+
+<Hovedkort/adc-sar.png, id=770, 519.9425pt x 278.03876pt>
+File: Hovedkort/adc-sar.png Graphic file (type png)
+
+<use Hovedkort/adc-sar.png>
+Package pdftex.def Info: Hovedkort/adc-sar.png used on input line 164.
+(pdftex.def)             Requested size: 334.60422pt x 178.92845pt.
+ [8 <C:/test/githost-cansat/rapport/Hovedkort/adc-function.png (PNG copy)>]
+Underfull \vbox (badness 1231) has occurred while \output is active []
+
+ [9 <C:/test/githost-cansat/rapport/Hovedkort/adc-sar.png (PNG copy)>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 183.
+Package acronym Info: Label `acro:SDA' newly defined as it shall be overridden
+although it is yet undefined on input line 185.
+Package acronym Info: Label `acro:SCL' newly defined as it shall be overridden
+although it is yet undefined on input line 185.
+Package acronym Info: Label `acro:SS' newly defined as it shall be overridden
+although it is yet undefined on input line 185.
+
+
+pdfTeX warning: pdflatex.EXE (file C:/test/githost-cansat/rapport/i2c-fig.pdf):
+ PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<i2c-fig.pdf, id=822, 405.90146pt x 142.35483pt>
+File: i2c-fig.pdf Graphic file (type pdf)
+ <use i2c-fig.pdf>
+Package pdftex.def Info: i2c-fig.pdf used on input line 204.
+(pdftex.def)             Requested size: 365.30794pt x 128.11815pt.
+ [10]
+Package acronym Info: Label `acro:CS' newly defined as it shall be overridden
+although it is yet undefined on input line 214.
+Package acronym Info: Label `acro:MISO' newly defined as it shall be overridden
+
+although it is yet undefined on input line 214.
+Package acronym Info: Label `acro:MOSI' newly defined as it shall be overridden
+
+although it is yet undefined on input line 214.
+Package acronym Info: Label `acro:SCLK' newly defined as it shall be overridden
+
+although it is yet undefined on input line 214.
+
+<SPI-skiftregister.png, id=858, 401.5pt x 160.6pt>
+File: SPI-skiftregister.png Graphic file (type png)
+ <use SPI-skiftregister.png>
+Package pdftex.def Info: SPI-skiftregister.png used on input line 219.
+(pdftex.def)             Requested size: 281.04808pt x 112.41922pt.
+
+[11 <C:/test/githost-cansat/rapport/i2c-fig.pdf>]
+Package acronym Info: Label `acro:CAN' newly defined as it shall be overridden
+although it is yet undefined on input line 229.
+Package acronym Info: Label `acro:LIN' newly defined as it shall be overridden
+although it is yet undefined on input line 230.
+) [12 <C:/test/githost-cansat/rapport/SPI-skiftregister.png>] (C:\test\githost-
+cansat\rapport\hovedkort.tex
+Kapittel 3.
+
+LaTeX Warning: Reference `fig:scem_hoved' on page 13 undefined on input line 4.
+
+
+
+LaTeX Warning: Reference `app:scematics' on page 13 undefined on input line 4.
+
+
+LaTeX Warning: Reference `fig:scem_hoved' on page 13 undefined on input line 4.
+
+
+Package acronym Info: Label `acro:RTC' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:MMC' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:SD' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:SDHC' newly defined as it shall be overridden
+
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:API' newly defined as it shall be overridden
+although it is yet undefined on input line 8.
+Package acronym Info: Label `acro:CTS' newly defined as it shall be overridden
+although it is yet undefined on input line 9.
+Package acronym Info: Label `acro:RTS' newly defined as it shall be overridden
+although it is yet undefined on input line 9.
+
+Overfull \hbox (3.8052pt too wide) in paragraph at lines 8--12
+[]\T1/lmr/m/n/10.95 Mikrokontrolleren (ver-ten i sys-te-met) kan kom-mu-ni-se-r
+e med brik-ken gjen-nom []
+ []
+
+[13
+
+
+
+
+] <Hovedkort/doc-circuit.pdf, id=954, 844.15375pt x 597.23125pt>
+File: Hovedkort/doc-circuit.pdf Graphic file (type pdf)
+
+<use Hovedkort/doc-circuit.pdf>
+Package pdftex.def Info: Hovedkort/doc-circuit.pdf used on input line 15.
+(pdftex.def)             Requested size: 376.42575pt x 266.3184pt.
+
+<Hovedkort/doc-size.jpg, id=955, 602.25pt x 602.25pt>
+File: Hovedkort/doc-size.jpg Graphic file (type jpg)
+
+<use Hovedkort/doc-size.jpg>
+Package pdftex.def Info: Hovedkort/doc-size.jpg used on input line 22.
+(pdftex.def)             Requested size: 167.2989pt x 167.29636pt.
+ [14 <C:/test/githost-cansat/rapport/Hovedkort/doc-circuit.pdf>] <Hovedkort/ft2
+32r-circuit.pdf, id=980, 626.34pt x 313.17pt>
+File: Hovedkort/ft232r-circuit.pdf Graphic file (type pdf)
+
+<use Hovedkort/ft232r-circuit.pdf>
+Package pdftex.def Info: Hovedkort/ft232r-circuit.pdf used on input line 52.
+(pdftex.def)             Requested size: 334.60422pt x 167.30774pt.
+ [15 <C:/test/githost-cansat/rapport/Hovedkort/doc-size.jpg>]
+Overfull \hbox (13.3757pt too wide) in paragraph at lines 67--68
+[][][]\T1/lmr/bx/n/10.95 -programmering: \T1/lmr/m/n/10.95 Her pro-gram-me-res 
+mikro-kon-trol-le-re-ne med et [][]-grensesnitt
+ []
+
+[16 <C:/test/githost-cansat/rapport/Hovedkort/ft232r-circuit.pdf>]
+<Hovedkort/MX53261.pdf, id=1030, 143.14589pt x 110.15956pt>
+File: Hovedkort/MX53261.pdf Graphic file (type pdf)
+
+<use Hovedkort/MX53261.pdf>
+Package pdftex.def Info: Hovedkort/MX53261.pdf used on input line 76.
+(pdftex.def)             Requested size: 125.47737pt x 96.56416pt.
+
+
+pdfTeX warning: pdflatex.EXE (file C:/test/githost-cansat/rapport/Hovedkort/tso
+p348-pack.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.
+5> allowed
+<Hovedkort/tsop348-pack.pdf, id=1043, 131.45311pt x 98.10953pt>
+File: Hovedkort/tsop348-pack.pdf Graphic file (type pdf)
+
+<use Hovedkort/tsop348-pack.pdf>
+Package pdftex.def Info: Hovedkort/tsop348-pack.pdf used on input line 89.
+(pdftex.def)             Requested size: 125.47737pt x 93.65411pt.
+
+<Hovedkort/tsop34838-circuit.pdf, id=1044, 825.25325pt x 350.13611pt>
+File: Hovedkort/tsop34838-circuit.pdf Graphic file (type pdf)
+
+<use Hovedkort/tsop34838-circuit.pdf>
+Package pdftex.def Info: Hovedkort/tsop34838-circuit.pdf used on input line 96.
+
+(pdftex.def)             Requested size: 334.60422pt x 141.96461pt.
+Package acronym Info: Label `acro:TI' newly defined as it shall be overridden
+although it is yet undefined on input line 103.
+ [17 <C:/test/githost-cansat/rapport/Hovedkort/MX53261.pdf>] [18 <C:/test/githo
+st-cansat/rapport/Hovedkort/tsop348-pack.pdf> <C:/test/githost-cansat/rapport/H
+ovedkort/tsop34838-circuit.pdf>]
+
+pdfTeX warning: pdflatex.EXE (file C:/test/githost-cansat/rapport/Hovedkort/ina
+193-circuit.pdf): PDF inclusion: found PDF version <1.6>, but at most version <
+1.5> allowed
+<Hovedkort/ina193-circuit.pdf, id=1157, 817.62134pt x 502.78432pt>
+File: Hovedkort/ina193-circuit.pdf Graphic file (type pdf)
+
+<use Hovedkort/ina193-circuit.pdf>
+Package pdftex.def Info: Hovedkort/ina193-circuit.pdf used on input line 136.
+(pdftex.def)             Requested size: 209.12683pt x 128.59573pt.
+Package acronym Info: Label `acro:ESR' newly defined as it shall be overridden
+although it is yet undefined on input line 144.
+ [19 <C:/test/githost-cansat/rapport/Hovedkort/ina193-circuit.pdf>]
+
+pdfTeX warning: pdflatex.EXE (file C:/test/githost-cansat/rapport/Hovedkort/lp2
+985-circuit.pdf): PDF inclusion: found PDF version <1.6>, but at most version <
+1.5> allowed
+<Hovedkort/lp2985-circuit.pdf, id=1185, 812.85101pt x 418.82765pt>
+File: Hovedkort/lp2985-circuit.pdf Graphic file (type pdf)
+
+<use Hovedkort/lp2985-circuit.pdf>
+Package pdftex.def Info: Hovedkort/lp2985-circuit.pdf used on input line 150.
+(pdftex.def)             Requested size: 209.12683pt x 107.74866pt.
+
+<Hovedkort/flytskjema.pdf, id=1187, 466.31674pt x 217.57285pt>
+File: Hovedkort/flytskjema.pdf Graphic file (type pdf)
+
+<use Hovedkort/flytskjema.pdf>
+Package pdftex.def Info: Hovedkort/flytskjema.pdf used on input line 159.
+(pdftex.def)             Requested size: 418.25368pt x 195.14644pt.
+) [20 <C:/test/githost-cansat/rapport/Hovedkort/lp2985-circuit.pdf>] [21 <C:/te
+st/githost-cansat/rapport/Hovedkort/flytskjema.pdf>] [22
+
+
+] (C:\test\githost-cansat\rapport\gpskort.tex
+Kapittel 4.
+[23
+
+
+]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 31.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<./bias-tee.pdf, id=1237, 614.295pt x 794.97pt>
+File: ./bias-tee.pdf Graphic file (type pdf)
+ <use ./bias-tee.pdf>
+Package pdftex.def Info: ./bias-tee.pdf used on input line 75.
+(pdftex.def)             Requested size: 122.85681pt x 158.99118pt.
+ [24]
+[25 <C:/test/githost-cansat/rapport/bias-tee.pdf>]
+<GPS-modul-oppkobling.pdf, id=1270, 614.295pt x 794.97pt>
+File: GPS-modul-oppkobling.pdf Graphic file (type pdf)
+
+<use GPS-modul-oppkobling.pdf>
+Package pdftex.def Info: GPS-modul-oppkobling.pdf used on input line 97.
+(pdftex.def)             Requested size: 292.77629pt x 378.88835pt.
+Package acronym Info: Label `acro:DR' newly defined as it shall be overridden
+although it is yet undefined on input line 105.
+ [26] [27 <C:/test/githost-cansat/rapport/GPS-modul-oppkobling.pdf>] <nivakonv.
+pdf, id=1308, 794.97pt x 614.295pt>
+File: nivakonv.pdf Graphic file (type pdf)
+
+<use nivakonv.pdf>
+Package pdftex.def Info: nivakonv.pdf used on input line 146.
+(pdftex.def)             Requested size: 209.12683pt x 161.59697pt.
+ [28 <C:/test/githost-cansat/rapport/nivakonv.pdf>]
+<kvartbolgestub.pdf, id=1333, 614.295pt x 794.97pt>
+File: kvartbolgestub.pdf Graphic file (type pdf)
+ <use kvartbolgestub.pdf>
+Package pdftex.def Info: kvartbolgestub.pdf used on input line 156.
+(pdftex.def)             Requested size: 167.2989pt x 216.50069pt.
+
+<ATMega16-sch.pdf, id=1337, 614.295pt x 794.97pt>
+File: ATMega16-sch.pdf Graphic file (type pdf)
+ <use ATMega16-sch.pdf>
+Package pdftex.def Info: ATMega16-sch.pdf used on input line 168.
+(pdftex.def)             Requested size: 184.28992pt x 238.49284pt.
+Package acronym Info: Label `acro:ISP' newly defined as it shall be overridden
+although it is yet undefined on input line 174.
+
+<programmeringsplugg.pdf, id=1354, 651.43375pt x 460.72125pt>
+File: programmeringsplugg.pdf Graphic file (type pdf)
+
+<use programmeringsplugg.pdf>
+Package pdftex.def Info: programmeringsplugg.pdf used on input line 177.
+(pdftex.def)             Requested size: 130.28444pt x 92.14261pt.
+ [29 <C:/test/githost-cansat/rapport/kvartbolgestub.pdf>]
+Overfull \hbox (1.17497pt too wide) in paragraph at lines 187--189
+[]\T1/lmr/bx/n/10.95 Krystall \T1/lmr/m/n/10.95 ATMega16 mikro-kon-trol-le-ren 
+har mu-lig-het til å for-sy-ne seg selv med klokke-
+ []
+
+[30 <C:/test/githost-cansat/rapport/ATMega16-sch.pdf> <C:/test/githost-cansat/r
+apport/programmeringsplugg.pdf>] <./LED.pdf, id=1402, 614.295pt x 794.97pt>
+File: ./LED.pdf Graphic file (type pdf)
+
+<use ./LED.pdf>
+Package pdftex.def Info: ./LED.pdf used on input line 193.
+(pdftex.def)             Requested size: 122.85681pt x 158.99118pt.
+
+<mikrostripekalkulator.png, id=1410, 1062.97125pt x 564.1075pt>
+File: mikrostripekalkulator.png Graphic file (type png)
+
+<use mikrostripekalkulator.png>
+Package pdftex.def Info: mikrostripekalkulator.png used on input line 204.
+(pdftex.def)             Requested size: 418.25368pt x 221.96356pt.
+ [31 <C:/test/githost-cansat/rapport/LED.pdf>]
+<kvartbolgestubutlegg.png, id=1428, 208.57121pt x 222.44707pt>
+File: kvartbolgestubutlegg.png Graphic file (type png)
+
+<use kvartbolgestubutlegg.png>
+Package pdftex.def Info: kvartbolgestubutlegg.png used on input line 214.
+(pdftex.def)             Requested size: 208.5707pt x 222.44652pt.
+
+Underfull \vbox (badness 7468) has occurred while \output is active []
+
+ [32 <C:/test/githost-cansat/rapport/mikrostripekalkulator.png>] [33 <C:/test/g
+ithost-cansat/rapport/kvartbolgestubutlegg.png>]
+<GPS-Software-flytskjema.pdf, id=1447, 614.295pt x 794.97pt>
+File: GPS-Software-flytskjema.pdf Graphic file (type pdf)
+
+<use GPS-Software-flytskjema.pdf>
+Package pdftex.def Info: GPS-Software-flytskjema.pdf used on input line 243.
+(pdftex.def)             Requested size: 491.43666pt x 635.97687pt.
+
+Overfull \hbox (73.18298pt too wide) in paragraph at lines 243--245
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 70.17581pt on input line 247.
+
+) [34] [35 <C:/test/githost-cansat/rapport/GPS-Software-flytskjema.pdf>]
+[36
+
+
+] (C:\test\githost-cansat\rapport\sensorboard.tex
+Kapittel 5.
+
+LaTeX Warning: Reference `fig:scem_sensorkort' on page 37 undefined on input li
+ne 4.
+
+
+LaTeX Warning: Reference `app:scematics' on page 37 undefined on input line 4.
+
+
+LaTeX Warning: Reference `fig:scem_sensorkort' on page 37 undefined on input li
+ne 4.
+
+Package acronym Info: Label `acro:RH' newly defined as it shall be overridden
+although it is yet undefined on input line 8.
+<./sensorkort/flytskjema.pdf, id=1475, 614.295pt x 794.97pt>
+File: ./sensorkort/flytskjema.pdf Graphic file (type pdf)
+
+<use ./sensorkort/flytskjema.pdf>
+Package pdftex.def Info: ./sensorkort/flytskjema.pdf used on input line 20.
+(pdftex.def)             Requested size: 418.25368pt x 403.65015pt.
+ [37
+
+
+] [38 <C:/test/githost-cansat/rapport/sensorkort/flytskjema.pdf>]
+<sensorkort/sprangrespons.pdf, id=1514, 582.175pt x 431.6125pt>
+File: sensorkort/sprangrespons.pdf Graphic file (type pdf)
+
+<use sensorkort/sprangrespons.pdf>
+Package pdftex.def Info: sensorkort/sprangrespons.pdf used on input line 72.
+(pdftex.def)             Requested size: 418.25368pt x 310.08899pt.
+ [39]
+<sensorkort/hch1000-scem.png, id=1524, 270.0489pt x 174.4116pt>
+File: sensorkort/hch1000-scem.png Graphic file (type png)
+
+<use sensorkort/hch1000-scem.png>
+Package pdftex.def Info: sensorkort/hch1000-scem.png used on input line 88.
+(pdftex.def)             Requested size: 292.77629pt x 189.10156pt.
+ [40 <C:/test/githost-cansat/rapport/sensorkort/sprangrespons.pdf>] [41 <C:/tes
+t/githost-cansat/rapport/sensorkort/hch1000-scem.png (PNG copy)>]
+Package acronym Info: Label `acro:SMD' newly defined as it shall be overridden
+although it is yet undefined on input line 134.
+Package acronym Info: Label `acro:NTC' newly defined as it shall be overridden
+although it is yet undefined on input line 136.
+
+<sensorkort/vdiv-therm.png, id=1554, 95.6373pt x 146.949pt>
+File: sensorkort/vdiv-therm.png Graphic file (type png)
+
+<use sensorkort/vdiv-therm.png>
+Package pdftex.def Info: sensorkort/vdiv-therm.png used on input line 142.
+(pdftex.def)             Requested size: 125.47737pt x 192.8073pt.
+ [42] [43 <C:/test/githost-cansat/rapport/sensorkort/vdiv-therm.png (PNG copy)>
+] [44] [45]
+Package acronym Info: Label `acro:LSB' newly defined as it shall be overridden
+although it is yet undefined on input line 273.
+ [46] [47]
+<sensorkort/pressure_sensor.png, id=1642, 255.5949pt x 212.4738pt>
+File: sensorkort/pressure_sensor.png Graphic file (type png)
+
+<use sensorkort/pressure_sensor.png>
+Package pdftex.def Info: sensorkort/pressure_sensor.png used on input line 338.
+
+(pdftex.def)             Requested size: 376.42575pt x 312.91953pt.
+ [48 <C:/test/githost-cansat/rapport/sensorkort/pressure_sensor.png>] [49]) [50
+]
+(C:\test\githost-cansat\rapport\radiokort.tex
+Kapittel 6.
+
+LaTeX Warning: Reference `fig:scem_radio' on page 51 undefined on input line 2.
+
+
+
+LaTeX Warning: Reference `app:scematics' on page 51 undefined on input line 2.
+
+
+LaTeX Warning: Reference `fig:scem_radio' on page 51 undefined on input line 2.
+
+
+Package acronym Info: Label `acro:AM' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:FM' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:PM' newly defined as it shall be overridden
+although it is yet undefined on input line 6.
+Package acronym Info: Label `acro:UHF' newly defined as it shall be overridden
+although it is yet undefined on input line 8.
+Package acronym Info: Label `acro:ERC' newly defined as it shall be overridden
+although it is yet undefined on input line 8.
+[51
+
+
+
+
+] <figurer/blokkskjemaRFsender.png, id=1706, 985.6825pt x 575.14874pt>
+File: figurer/blokkskjemaRFsender.png Graphic file (type png)
+
+<use figurer/blokkskjemaRFsender.png>
+Package pdftex.def Info: figurer/blokkskjemaRFsender.png used on input line 13.
+
+(pdftex.def)             Requested size: 376.42575pt x 219.64702pt.
+Package acronym Info: Label `acro:VCO' newly defined as it shall be overridden
+although it is yet undefined on input line 18.
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
+
+ []
+
+[52
+
+ <C:/test/githost-cansat/rapport/figurer/blokkskjemaRFsender.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 147--156
+
+ []
+
+[53] [54] <figurer/FMvinkel.png, id=1728, 786.94pt x 418.56375pt>
+File: figurer/FMvinkel.png Graphic file (type png)
+
+<use figurer/FMvinkel.png>
+Package pdftex.def Info: figurer/FMvinkel.png used on input line 164.
+(pdftex.def)             Requested size: 292.77629pt x 155.72198pt.
+
+<figurer/FMfirkant.png, id=1730, 578.16pt x 1006.76125pt>
+File: figurer/FMfirkant.png Graphic file (type png)
+
+<use figurer/FMfirkant.png>
+Package pdftex.def Info: figurer/FMfirkant.png used on input line 187.
+(pdftex.def)             Requested size: 209.12683pt x 364.15431pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[55
+
+ <C:/test/githost-cansat/rapport/figurer/FMvinkel.png>] [56 <C:/test/githost-ca
+nsat/rapport/figurer/FMfirkant.png>]
+<figurer/FMsinus.png, id=1741, 610.28pt x 631.35875pt>
+File: figurer/FMsinus.png Graphic file (type png)
+
+<use figurer/FMsinus.png>
+Package pdftex.def Info: figurer/FMsinus.png used on input line 219.
+(pdftex.def)             Requested size: 209.12683pt x 216.34503pt.
+ [57
+
+ <C:/test/githost-cansat/rapport/figurer/FMsinus.png>]
+Package acronym Info: Label `acro:PLL' newly defined as it shall be overridden
+although it is yet undefined on input line 228.
+ <figurer/PLL.png, id=1747, 715.67375pt x 316.18124pt>
+File: figurer/PLL.png Graphic file (type png)
+
+<use figurer/PLL.png>
+Package pdftex.def Info: figurer/PLL.png used on input line 232.
+(pdftex.def)             Requested size: 292.77629pt x 129.34567pt.
+ <figurer/PLL_2mod.png, id=1748, 736.7525pt x 493.845pt>
+File: figurer/PLL_2mod.png Graphic file (type png)
+
+<use figurer/PLL_2mod.png>
+Package pdftex.def Info: figurer/PLL_2mod.png used on input line 239.
+(pdftex.def)             Requested size: 292.77629pt x 196.24593pt.
+ [58
+
+ <C:/test/githost-cansat/rapport/figurer/PLL.png> <C:/test/githost-cansat/rappo
+rt/figurer/PLL_2mod.png>] [59]
+<figurer/loopfilter.png, id=1761, 490.83376pt x 195.73125pt>
+File: figurer/loopfilter.png Graphic file (type png)
+
+<use figurer/loopfilter.png>
+Package pdftex.def Info: figurer/loopfilter.png used on input line 287.
+(pdftex.def)             Requested size: 250.95476pt x 100.07248pt.
+ [60
+
+ <C:/test/githost-cansat/rapport/figurer/loopfilter.png>] <figurer/VCOutleggmL1
+L2.png, id=1766, 558.085pt x 571.13374pt>
+File: figurer/VCOutleggmL1L2.png Graphic file (type png)
+
+<use figurer/VCOutleggmL1L2.png>
+Package pdftex.def Info: figurer/VCOutleggmL1L2.png used on input line 358.
+(pdftex.def)             Requested size: 250.95476pt x 256.8248pt.
+ [61 <C:/test/githost-cansat/rapport/figurer/VCOutleggmL1L2.png>]
+<figurer/singeldobbleBandMod.png, id=1772, 753.81625pt x 741.77126pt>
+File: figurer/singeldobbleBandMod.png Graphic file (type png)
+
+<use figurer/singeldobbleBandMod.png>
+Package pdftex.def Info: figurer/singeldobbleBandMod.png used on input line 375
+.
+(pdftex.def)             Requested size: 250.95476pt x 246.93579pt.
+ [62
+
+
+ <C:/test/githost-cansat/rapport/figurer/singeldobbleBandMod.png>]
+
+! LaTeX Error: File `figurer/aliasfilter' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.393 ...idth=0.80\textwidth]{figurer/aliasfilter}
+                                                  
+? 
+
+Overfull \hbox (55.9574pt too wide) in paragraph at lines 412--415
+\T1/lmr/m/n/10.95 Både DC-verdien[] og AC-sving[] er inn-for kra-vet. Med et mi
+dt-nivå på $\OT1/lmr/m/n/10.95 654 \OML/lmm/m/it/10.95 mV [] [] \OT1/lmr/m/n/10
+.95 =$
+ []
+
+<figurer/aliasinngSig.png, id=1783, 652.4375pt x 394.47375pt>
+File: figurer/aliasinngSig.png Graphic file (type png)
+
+<use figurer/aliasinngSig.png>
+Package pdftex.def Info: figurer/aliasinngSig.png used on input line 418.
+(pdftex.def)             Requested size: 209.12683pt x 126.43883pt.
+Package acronym Info: Label `acro:PWM' newly defined as it shall be overridden
+although it is yet undefined on input line 423.
+ [63 <C:/test/githost-cansat/rapport/figurer/aliasinngSig.png>] <figurer/PWM.pn
+g, id=1794, 702.625pt x 495.8525pt>
+File: figurer/PWM.png Graphic file (type png)
+
+<use figurer/PWM.png>
+Package pdftex.def Info: figurer/PWM.png used on input line 427.
+(pdftex.def)             Requested size: 209.12683pt x 147.58415pt.
+
+<figurer/theveninekv.png, id=1796, 634.37pt x 336.25626pt>
+File: figurer/theveninekv.png Graphic file (type png)
+
+<use figurer/theveninekv.png>
+Package pdftex.def Info: figurer/theveninekv.png used on input line 448.
+(pdftex.def)             Requested size: 209.12683pt x 110.85202pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figurer/aliasfilterTH.png, id=1797, 715.67375pt x 355.3275pt>
+File: figurer/aliasfilterTH.png Graphic file (type png)
+
+<use figurer/aliasfilterTH.png>
+Package pdftex.def Info: figurer/aliasfilterTH.png used on input line 455.
+(pdftex.def)             Requested size: 209.12683pt x 103.82849pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[64 <C:/test/githost-cansat/rapport/figurer/PWM.png>] [65 <C:/test/githost-cans
+at/rapport/figurer/theveninekv.png> <C:/test/githost-cansat/rapport/figurer/ali
+asfilterTH.png>]
+<figurer/AliasfilterPole.png, id=1811, 690.32906pt x 520.19344pt>
+File: figurer/AliasfilterPole.png Graphic file (type png)
+
+<use figurer/AliasfilterPole.png>
+Package pdftex.def Info: figurer/AliasfilterPole.png used on input line 542.
+(pdftex.def)             Requested size: 334.60422pt x 252.14268pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figurer/AliasfilterBode.png, id=1813, 693.34032pt x 540.51938pt>
+File: figurer/AliasfilterBode.png Graphic file (type png)
+
+<use figurer/AliasfilterBode.png>
+Package pdftex.def Info: figurer/AliasfilterBode.png used on input line 551.
+(pdftex.def)             Requested size: 418.25368pt x 326.07088pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[66] [67 <C:/test/githost-cansat/rapport/figurer/AliasfilterPole.png (PNG copy)
+>] [68 <C:/test/githost-cansat/rapport/figurer/AliasfilterBode.png (PNG copy)>]
+<figurer/AliasfilterSimBode.png, id=1828, 956.07187pt x 635.37375pt>
+File: figurer/AliasfilterSimBode.png Graphic file (type png)
+
+<use figurer/AliasfilterSimBode.png>
+Package pdftex.def Info: figurer/AliasfilterSimBode.png used on input line 591.
+
+(pdftex.def)             Requested size: 418.25368pt x 277.95593pt.
+
+Overfull \hbox (29.74783pt too wide) in paragraph at lines 602--602
+[] 
+ []
+
+[69
+
+ <C:/test/githost-cansat/rapport/figurer/AliasfilterSimBode.png>]
+Package acronym Info: Label `acro:EMI' newly defined as it shall be overridden
+although it is yet undefined on input line 605.
+
+<figurer/VCOutlegg.png, id=1836, 558.085pt x 571.13374pt>
+File: figurer/VCOutlegg.png Graphic file (type png)
+
+<use figurer/VCOutlegg.png>
+Package pdftex.def Info: figurer/VCOutlegg.png used on input line 608.
+(pdftex.def)             Requested size: 292.77629pt x 299.63184pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[70
+
+] [71 <C:/test/githost-cansat/rapport/figurer/VCOutlegg.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 613--627
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 613--627
+
+ []
+
+
+Overfull \hbox (14.16963pt too wide) in paragraph at lines 653--653
+[] 
+ []
+
+[72
+
+] <figurer/PA.png, id=1855, 942.52126pt x 560.0925pt>
+File: figurer/PA.png Graphic file (type png)
+ <use figurer/PA.png>
+Package pdftex.def Info: figurer/PA.png used on input line 661.
+(pdftex.def)             Requested size: 418.25368pt x 248.54385pt.
+
+<figurer/kretkortutleggPCB.png, id=1856, 187.1793pt x 187.1793pt>
+File: figurer/kretkortutleggPCB.png Graphic file (type png)
+
+<use figurer/kretkortutleggPCB.png>
+Package pdftex.def Info: figurer/kretkortutleggPCB.png used on input line 669.
+(pdftex.def)             Requested size: 292.77629pt x 292.80968pt.
+
+<figurer/gerber.png, id=1857, 1636.1125pt x 826.08624pt>
+File: figurer/gerber.png Graphic file (type png)
+
+<use figurer/gerber.png>
+Package pdftex.def Info: figurer/gerber.png used on input line 675.
+(pdftex.def)             Requested size: 292.77629pt x 147.81935pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[73 <C:/test/githost-cansat/rapport/figurer/PA.png>] [74 <C:/test/githost-cansa
+t/rapport/figurer/kretkortutleggPCB.png> <C:/test/githost-cansat/rapport/figure
+r/gerber.png>] <figurer/flytskjema.png, id=1869, 381.425pt x 1032.85875pt>
+File: figurer/flytskjema.png Graphic file (type png)
+
+<use figurer/flytskjema.png>
+Package pdftex.def Info: figurer/flytskjema.png used on input line 685.
+(pdftex.def)             Requested size: 167.2989pt x 453.02509pt.
+ [75
+
+ <C:/test/githost-cansat/rapport/figurer/flytskjema.png>] <scope/sin1250HzVpp.p
+ng, id=1874, 950.55125pt x 666.49pt>
+File: scope/sin1250HzVpp.png Graphic file (type png)
+
+<use scope/sin1250HzVpp.png>
+Package pdftex.def Info: scope/sin1250HzVpp.png used on input line 693.
+(pdftex.def)             Requested size: 250.95476pt x 175.95796pt.
+
+<scope/sinus1250HzDiff.png, id=1875, 944.52875pt x 663.47874pt>
+File: scope/sinus1250HzDiff.png Graphic file (type png)
+
+<use scope/sinus1250HzDiff.png>
+Package pdftex.def Info: scope/sinus1250HzDiff.png used on input line 700.
+(pdftex.def)             Requested size: 250.95476pt x 176.2766pt.
+ [76
+
+ <C:/test/githost-cansat/rapport/scope/sin1250HzVpp.png> <C:/test/githost-cansa
+t/rapport/scope/sinus1250HzDiff.png>]
+<scope/sinCos1250HzTime2.png, id=1880, 950.55125pt x 660.4675pt>
+File: scope/sinCos1250HzTime2.png Graphic file (type png)
+
+<use scope/sinCos1250HzTime2.png>
+Package pdftex.def Info: scope/sinCos1250HzTime2.png used on input line 709.
+(pdftex.def)             Requested size: 250.95476pt x 174.36798pt.
+
+<scope/FSKDataAA.png, id=1881, 1027.84pt x 770.88pt>
+File: scope/FSKDataAA.png Graphic file (type png)
+ <use scope/FSKDataAA.png>
+Package pdftex.def Info: scope/FSKDataAA.png used on input line 716.
+(pdftex.def)             Requested size: 250.95476pt x 188.21442pt.
+
+[77
+
+ <C:/test/githost-cansat/rapport/scope/sinCos1250HzTime2.png> <C:/test/githost-
+cansat/rapport/scope/FSKDataAA.png (PNG copy)>]
+<spektrum/carrer.png, id=1886, 1791.69376pt x 1400.23125pt>
+File: spektrum/carrer.png Graphic file (type png)
+
+<use spektrum/carrer.png>
+Package pdftex.def Info: spektrum/carrer.png used on input line 726.
+(pdftex.def)             Requested size: 209.12683pt x 163.42685pt.
+
+<spektrum/modulasjonMcarrier2.png, id=1887, 1824.8175pt x 1330.9725pt>
+File: spektrum/modulasjonMcarrier2.png Graphic file (type png)
+
+<use spektrum/modulasjonMcarrier2.png>
+Package pdftex.def Info: spektrum/modulasjonMcarrier2.png used on input line 73
+6.
+(pdftex.def)             Requested size: 209.12683pt x 152.52043pt.
+ [78
+
+ <C:/test/githost-cansat/rapport/spektrum/carrer.png> <C:/test/githost-cansat/r
+apport/spektrum/modulasjonMcarrier2.png>]
+<spektrum/modulasjonMsamplfrekUpper2.png, id=1892, 2023.56pt x 1544.77126pt>
+File: spektrum/modulasjonMsamplfrekUpper2.png Graphic file (type png)
+
+<use spektrum/modulasjonMsamplfrekUpper2.png>
+Package pdftex.def Info: spektrum/modulasjonMsamplfrekUpper2.png used on input 
+line 745.
+(pdftex.def)             Requested size: 209.12683pt x 159.62471pt.
+
+<spektrum/modulasjonMsamplfrek2.png, id=1893, 1710.39pt x 1303.87125pt>
+File: spektrum/modulasjonMsamplfrek2.png Graphic file (type png)
+
+<use spektrum/modulasjonMsamplfrek2.png>
+Package pdftex.def Info: spektrum/modulasjonMsamplfrek2.png used on input line 
+755.
+(pdftex.def)             Requested size: 209.12683pt x 159.42221pt.
+
+<spektrum/modulasjonPA.png, id=1895, 1800.7275pt x 1330.9725pt>
+File: spektrum/modulasjonPA.png Graphic file (type png)
+
+<use spektrum/modulasjonPA.png>
+Package pdftex.def Info: spektrum/modulasjonPA.png used on input line 763.
+(pdftex.def)             Requested size: 209.12683pt x 154.57162pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<scope/RTTY.png, id=1896, 1405.25pt x 1053.9375pt>
+File: scope/RTTY.png Graphic file (type png)
+ <use scope/RTTY.png>
+Package pdftex.def Info: scope/RTTY.png used on input line 771.
+(pdftex.def)             Requested size: 418.25368pt x 313.69101pt.
+)
+[79
+
+ <C:/test/githost-cansat/rapport/spektrum/modulasjonMsamplfrekUpper2.png> <C:/t
+est/githost-cansat/rapport/spektrum/modulasjonMsamplfrek2.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[80 <C:/test/githost-cansat/rapport/spektrum/modulasjonPA.png>] [81 <C:/test/gi
+thost-cansat/rapport/scope/RTTY.png>] [82
+
+
+]
+(C:\test\githost-cansat\rapport\xbeekort.tex
+Kapittel 7.
+
+LaTeX Warning: Reference `fig:scem_xbee' on page 83 undefined on input line 3.
+
+
+LaTeX Warning: Reference `app:scematics' on page 83 undefined on input line 3.
+
+
+LaTeX Warning: Reference `fig:scem_xbee' on page 83 undefined on input line 3.
+
+<xbee.jpg, id=1918, 602.25pt x 498.86375pt>
+File: xbee.jpg Graphic file (type jpg)
+ <use xbee.jpg>
+Package pdftex.def Info: xbee.jpg used on input line 18.
+(pdftex.def)             Requested size: 209.12683pt x 173.22714pt.
+ [83
+
+
+] [84 <C:/test/githost-cansat/rapport/xbee.jpg>]
+<xbee-power.pdf, id=1940, 844.15375pt x 597.23125pt>
+File: xbee-power.pdf Graphic file (type pdf)
+ <use xbee-power.pdf>
+Package pdftex.def Info: xbee-power.pdf used on input line 99.
+(pdftex.def)             Requested size: 250.95476pt x 177.54863pt.
+)
+[85] [86 <C:/test/githost-cansat/rapport/xbee-power.pdf>]
+(C:\test\githost-cansat\rapport\konklusjon.tex
+Kapittel 8.
+[87
+
+
+
+
+]) [88] (C:\test\githost-cansat\rapport\acronym.tex [89
+
+
+
+
+] [90] [91]) [92]
+(C:\test\githost-cansat\rapport\bibliografi.tex
+(C:\test\githost-cansat\rapport\master.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+[]\T1/lmr/m/n/10.95 Quarter-wave tricks.  []$\T1/lmtt/m/n/10.95 http : / / www 
+. microwaves101 . com / encyclopedia /$
+ []
+
+
+Underfull \hbox (badness 2277) in paragraph at lines 17--23
+[]\T1/lmr/m/n/10.95 Analog De-vices,.  In-te-gra-ted Synt-he-sizer and VCO, ADF
+4360-7.  []$\T1/lmtt/m/n/10.95 http :$
+ []
+
+
+Underfull \hbox (badness 1205) in paragraph at lines 25--31
+[]\T1/lmr/m/n/10.95 Analog De-vices.  Single-Supply, Dif-fe-ren-ti-al 18-Bit AD
+C Dri-ver, ADA4941-
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 46--51
+[]\T1/lmr/m/n/10.95 Atmel Cor-po-ra-tion.  ATMega168 Datashe-et.  []$\T1/lmtt/m
+/n/10.95 http : / / www . atmel . com / dyn /$
+ []
+
+[93
+
+
+
+
+]
+Underfull \hbox (badness 2635) in paragraph at lines 110--116
+[]\T1/lmr/m/n/10.95 Freescale Se-micon-duc-tor.  MPXAZ6115A In-te-gra-ted Si-li
+-con Pres-sure Sen-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--142
+$\T1/lmtt/m/n/10.95 com / docs / AddlRsrc / NMEA % 20Reference % 20Manual-[]Rev
+2 . 1-[]Dec07 . pdf$[]\T1/lmr/m/n/10.95 , de-sem-
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 159--164
+[]\T1/lmr/m/n/10.95 Micro Mo-du-lar Tech-no-lo-gies Pte. Ltd.  MN5010HS GPS Re-
+ce-i-ver Mo-du-le.
+ []
+
+
+Underfull \hbox (badness 1337) in paragraph at lines 176--179
+[]\T1/lmr/m/n/10.95 Dan Mc-Ma-hill.  Micro-strip Ana-ly-sis/Synthesis Cal-cu-la
+-tor.  []$\T1/lmtt/m/n/10.95 http : / / mcalc .$
+ []
+
+[94]
+Underfull \hbox (badness 3547) in paragraph at lines 181--184
+[]\T1/lmr/m/n/10.95 Microwaves101.  Micro-strip cal-cu-la-tor.  []$\T1/lmtt/m/n
+/10.95 http : / / www . microwaves101 . com /$
+ []
+
+
+Underfull \hbox (badness 7667) in paragraph at lines 244--249
+[]\T1/lmr/m/n/10.95 Texas In-stru-ments.  Low-Dropout Re-gu-la-tor REG113.  []$
+\T1/lmtt/m/n/10.95 http : / / www .$
+ []
+
+
+Underfull \hbox (badness 6691) in paragraph at lines 274--277
+[]\T1/lmr/m/n/10.95 Wikipedia.  I$[]$C.  []$\T1/lmtt/m/n/10.95 http : / / en . 
+wikipedia . org / wiki / Serial _ Peripheral _$
+ []
+
+[95])) [96] (C:\test\githost-cansat\rapport\handlelister.tex
+Tillegg A.
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 60--66
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 66--71
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 71--75
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 75--78
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 78--101
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 101--121
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (65.64053pt too wide) in alignment at lines 121--134
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+[97
+
+
+
+
+]
+Overfull \hbox (13.9816pt too wide) in paragraph at lines 177--195
+ [][] 
+ []
+
+) [98] [99] [100] [101]
+No file kretsskjema.tex.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 46.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 46.
+(C:\test\githost-cansat\rapport\master.aux
+(C:\test\githost-cansat\rapport\abstract.aux)
+(C:\test\githost-cansat\rapport\forord.aux)
+(C:\test\githost-cansat\rapport\innledning.aux)
+(C:\test\githost-cansat\rapport\teori.aux)
+(C:\test\githost-cansat\rapport\hovedkort.aux)
+(C:\test\githost-cansat\rapport\gpskort.aux)
+(C:\test\githost-cansat\rapport\sensorboard.aux)
+(C:\test\githost-cansat\rapport\radiokort.aux)
+(C:\test\githost-cansat\rapport\xbeekort.aux)
+(C:\test\githost-cansat\rapport\konklusjon.aux)
+(C:\test\githost-cansat\rapport\acronym.aux)
+(C:\test\githost-cansat\rapport\bibliografi.aux)
+(C:\test\githost-cansat\rapport\handlelister.aux)
+(C:\test\githost-cansat\rapport\kretsskjema.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 46.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 46.
+Package rerunfilecheck Info: File `master.out' has not changed.
+(rerunfilecheck)             Checksum: 3378EFC6904000A7244EB15C3A87C31D;4761.
+
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 9659 strings out of 494045
+ 139621 string characters out of 3145966
+ 257489 words of memory out of 3000000
+ 12065 multiletter control sequences out of 15000+200000
+ 126343 words of font info for 84 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 36i,18n,36p,1493b,489s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/
+MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files (x86)/MiKTeX 2.9/font
+s/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips
+/lm/lm-mathex.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
+s/euler/eurm10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmb
+x10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx8.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx9.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
+nts/type1/public/lm/lmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
+public/lm/lmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/l
+mmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi6.pfb><C
+:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi9.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/lm/lmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr8.p
+fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/public/lm/lmri7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmri8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm
+/lmro10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb
+><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy6.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9
+/fonts/type1/public/lm/lmtt9.pfb>
+Output written on master.pdf (113 pages, 12488642 bytes).
+PDF statistics:
+ 2323 PDF objects out of 2487 (max. 8388607)
+ 515 named destinations out of 1000 (max. 500000)
+ 913 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,236 @@
+\chapter{Teori}
+\section{Måling av strømtrekk}
+
+Det finnes to grunnleggende teknikker for å måle strømtrekk:
+\begin{itemize}
+\item Måle magnetfeltet rundt en strømleder 
+\item Sette inn en liten motstand i strømveien og måle spenningsfallet over den. 
+\end{itemize} 
+
+Den første metoden gir ikke noe energitap, men krever relativt kostbar instrumentering. Derimot er det mye billigere å bruke den andre metoden med spenningsmåling over en motstand. 
+Ved å sette inn en motstand med lav verdi (shunt-motstand) i strømveien vil det skapes et lite spenningsfall over motstanden som vil være proporsjonalt med strømtrekket til kretsen. Vanligvis er spenningsfallet såpass lavt at det er fornuftig å forsterke det før det måles. Alt etter hvor shunt-motstanden plasseres skaper denne forskjellige utfordringer til forsterkeren.
+Ved å plassere shunten mellom lasten og jord (Low-Side sensing), kan spenningen forsterkes ved å bruke én enkel opamp. Den andre muligheten er å plassere shunten mellom forsyningsspenningen og lasten (High-Side sensing). Dette krever litt mer kretsteknisk. Begge prinsippene er illustrert i figur \ref{fig:hs-ls_sense}\cite{analog-hs-ls, maxim-hs-circuit}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{Hovedkort/hs-ls_sense}
+	\caption{Prinsipp for High-side og Low-side sensing}
+	\label{fig:hs-ls_sense}
+\end{figure}
+
+Verdien på shunt-motstanden bør være så lav som mulig for å holde effekttapet til et minimum, men likevel stor nok til å skape et spenningsfall som kan forsterkes og leses av med påkrevd nøyaktighet.
+
+\subsection{Low-Side sensing}
+Siden spenningen som måles ved Low-Side sensing ligger nær jord, kan denne måles ved en billig opamp som ikke trenger å tåle høye spenninger. Denne måten å måle strøm på er billig og enkel, men endel kretser tåler ikke forstyrrelsen i strømveien til jord som shunten skaper. Problemet kan merkes spesielt hvis en modul med høyt strømtrekk, og dermed høyere potensial fra jord, skal kommunisere men en modul med lavt strømtrekk som har mye mindre potensial fra jord. 
+
+\subsection{High-Side sensing}
+Ved denne plasseringen av shunt-motstanden elimineres forstyrrelsene i strømveien til jord. Dermed unngår man problem med potensialforskjeller ved kommunikasjon mellom moduler med forskjellig strømtrekk. Derimot må inngangen til forsterkeren tåle høye spenninger opp mot forsyningsspenningen (batterispenningen).
+
+For enkle elektronikkdesign med lav spenning (5~\volt) kan en High-Side forsterker være en typisk differanseforsterker. Avhengig av arkitekturen kan denne ha begrensninger på spenningsnivå på inngangene. Ofte kan ikke disse være høyere enn forsyningsspenningen til forsterkeren. Forsterkere som tåler høyere inngangsspenning enn forsyningsspenningen pleier som regel å koste en del mer. En enkel løsning på dette problemet er å dele ned målespenningene med en spenningsdeler. Denne løsningen vil dessverre introdusere stor måleunøyaktighet. 
+
+\paragraph{Et regneeksempel:}
+En krets er gitt i figur \ref{fig:shunt-measure-error}. Her skal det måles en 100~\milli\volt\ spenning over $R_{\text{sense}}$ som er koblet mellom en 10~\volt\ \acs{DC}-spenning og lasten. Fullskala måleresultat er 2,5~\volt\ og kravet til nøyaktighet er 1~\%. Batterispenningen på 10~\volt\ deles ned til $1/10$ med en enkel spenningsdeler av $R_{1}$ og $R_{2}$. $A_{1}$, konfigurert som en differanseforsterker, vil tåle inngangsspenningen på 1~\volt, men nå er også $U_{\text{sense}}$ skalert ned med 10 slik at $U_{+,-}$ på opampen nå kun er 10~\milli\volt. Siden fullskala måleresultat skal være 2,5~\volt, må en ekstra opamp $A_{2}$ til for å forsterke signalet 250 ganger.
+Offsetspenningen på inngangene til $A_{1}$, ligger på utgangen av $A_{1}$ med ingen forsterking, men på utgangen av $A_{2}$ med 250 ganger forsterkning. Ved å anta 1~\milli\volt\ offsetspenning på $A_{1}$ og $A_{2}$ blir den resulterende offsetspenningen: $(U_{\text{tot.off}})^{2} = (U_{\text{A1.off}})^{2} + (U_{\text{A2.off}})^{2}$ og da er $U_{\text{tot.off}} = \sqrt{(1~\milli\volt)^{2} + (1~\milli\volt)^{2}} = 1,4~\milli\volt$. Dermed kan kretsen i figur \ref{fig:shunt-measure-error} gi en feil på $250\cdot1,4~\milli\volt = 350~\milli\volt$ kun fra offset på inngangene til $A_{1}$ og $A_{2}$. Dette vil gi et avvik på 14~\% alene.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{Hovedkort/shunt-measure-error}
+	\caption{Tradisjonell High-side strømmåling}
+	\label{fig:shunt-measure-error}
+\end{figure}
+
+\label{exp:current-error-explain}
+En annen potensiell feilkilde kommer fra spenningsdelerne til $A_{1}$. \ac{CMRR} til $A_{1}$ er meget avhengig av forholdene $R_{2}/R_{1}$ og $R_{4}/R_{3}$.Om man benytter resistorer med toleranse 1~\% kan forholdet mellom $R_{2}/R_{1}$ og $R_{4}/R_{3}$ variere med så mye som $\pm 2~\%$. Antar vi 1~\% forskjell oversettes dette til en common-mode feil på $90~\micro\volt/\volt$ \cite{analog-hs-ls}. Med en målespenning på 10~\volt\ kan det legges til så mye som 0,9~\milli\volt\ på utgangen av $A_{1}$. Med $A_{2}$ sin forsterkning på 250 ganger kan det resultere i en feilspenning på opptil $0,9~\milli\volt \cdot 250 = 225~\milli\volt$. Denne feilkilden kan altså gi et avvik på 9~\%.
+
+I denne feilanalysen er kretsens påvirknig fra temperaturvariasjoner untatt.
+Den totale feilspenningen på utgangen kan forbedres ved å bruke motstander med høyere presisjon (0,1~\%) og opamper med lavere offsetspenning, men dette vil øke prisen på en allerede kompleks krets betydelig.
+
+\subsection{\texorpdfstring{Dedikerte strømmålings-\acs{IC}er\cite{ti-current-shunt}}{Dedikerte strømmålings-ICer}}
+Inntil nylig har strømmåling vært løst ved hjelp av diskrete komponenter. Metoden krever mange presisjonskomponenter og det finns mange kilder til unøyaktige resultater. 
+Halvlederprodusentene har forstått dette og har laget dedikerte strømmålings-\acs{IC}er (current shunt monitors). Her er differanseforsterkeren med tilhørende motstander og evt. tileggskretser kombinert i én enkel pakke. Disse finnes i både high-side og low-side utførelse, og med mulighet for bidireksjonell strømmåling. En fordel med slike \acs{IC}er er at alle deler av kretsen er tilpasset til hverandre, og motstandene er som oftest lasertrimmet. Den nye produksjonsprosessen til slike \acs{IC}er gjør at inngangene kan tåle spenninger høyere enn 80~\volt, selv om forsyningsspenningen er så lav som 2,5~\volt. Dette gjør det mulig å måle shunt-spenningen over en motstand plassert før en evt. regulator i kretsen, og samtidig forsyne strømmålings-\acs{IC}en med spenningen ut fra regulatoren. De fleste design trenger kun å måle strømmen i én retning, og dette utføres med de simpleste shunt-monitorene. Noen design kan imidlertid ha behov for å måle strømmen bidireksjonelt, og da er det ofte en egen pinne på shunt-monitoren som indikerer strømretning. De elementære komponentene i en strømmålings-\acs{IC} er illustrert i figur \ref{fig:shunt-mon}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.50\textwidth]{Hovedkort/C0363-Figure4}
+	\caption{Prinsipp for en Current shunt monitor}
+	\label{fig:shunt-mon}
+\end{figure}
+
+\subsection{\texorpdfstring{Valg av shunt-motstand\cite{maxim-hs-circuit}}{Valg av shunt-motstand}}
+I tillegg til å velge riktig shunt-monitor, er det også flere betraktninger må tas hensyn til når man skal velge noe så enkelt som shunt-motstanden ($R_{\text{sense}}$). Følgende punkter bør betraktes:
+\begin{itemize}
+\item \textbf{Spenningsfall:} Høye verdier av $R_{\text{sense}}$ vil senke spenningen fra strømforsyningen.
+\item \textbf{Nøyaktighet:} Høye verdier av $R_{\text{sense}}$ gir større målenøyaktighet fordi offsetspenning og biasstrøm på inngangene til forsterkeren blir mindre tydelig.
+\item \textbf{Effekttap:} Ved høye strømmer kan også effekten som utvikles i $R_{\text{sense}}$ bli høy. Dette må tas hensyn til slik at man velger motstand som tåler tilstrekkelig effektutvikling.
+\item \textbf{Induktans:} Hvis strømmen som skal måles har høyfrekvente komponenter må $R_{\text{sense}}$ ha lav induktans. Viklede motstander har høyest induktans, mens motstander av metallfilm er noe bedre.
+\item \textbf{Kostnad:} Å bruke en bane på et kretskort er en alternativ måte (og kan bli billigere i store volum) å lage en shunt-motstand på. Ulempen er at spenningen ut fra instrumenteringsforsterkeren må korrigeres med et potmeter grunnet unøyaktigheter i kobbermotstanden.
+\end{itemize}
+
+\section{Spenningsregulator}
+En elektronisk krets er konstruert for å drives av en forsyningsspenning som vanligvis forventes å være konstant. En spenningsregulator gir ut en konstant \acs{DC}-spenning og inneholder kretser som holder utgangsspenningen konstant, uavhengig av endringer i laststrømmen eller inngangsspenningen (gitt at laststrømmen og inngangsspenningen er innenfor de spesifiserte arbeidsområder for regulatoren).
+
+\subsection{\texorpdfstring{Lineær eller Switch-regulator i batteridrevet system?\cite{national-reg-fund, maxim-lin-reg}}{Lineær eller Switch-regulator i batteridrevet system?}}
+En sammenlikning mellom disse spenningsregulatortypene er gitt i tabell \ref{tab:lin-switch-comp}.
+
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\begin{table}
+	\centering
+		\begin{tabularx}{1.0\linewidth}{lLL}
+		\toprule	& \textbf{Lineær} & \textbf{Switch} \\
+
+		\midrule
+
+		\textbf{Funksjon} & Senker spenningen; $U_\text{inn}$ må være større enn $U_\text{ut}$ & Øker, minker eller inverterer spenningen \\
+		\addlinespace
+
+		\textbf{Virkningsgrad} & Lav til medium, men opplevd batteritid avhenger av lasten og batterispenningen over tid & Høy, unntatt ved svært lav last (\micro\ampere), hvor tomgangsstrømmen som regel er større \\
+		\addlinespace
+
+		\textbf{Overskuddsvarme} & Høy, ved høy last og stor $U_\text{inn}$/$U_\text{ut}$ & Lav, komponenter er som regel kjølige ved effekter under 10~\watt \\
+		\addlinespace
+
+		\textbf{Kompleksitet} & Lav, krever som regel kun regulatoren og et par avkoblingskondensatorer & Medium til høy, krever som regel spole, diode og filterkondensatorer i tillegg til \acs{IC}-en; ved større strømtrekk kreves eksterne \ac{FET}-transistorer \\
+		\addlinespace
+
+		\textbf{Størrelse} & Liten til medium, i små design, kan bli større hvis kjøling er nødvendig & Større enn lineære, men mindre ved effekter hvor lineære krever kjøling \\
+		\addlinespace
+
+		\textbf{Total kostnad} & Lav & Medium til høy, mest fordi det kreves eksterne komponenter \\ 
+		\addlinespace
+
+		\textbf{Rippel/støy} & Ingen rippel, lav støy & Medium til høy, skyldes rippel ved svitsjefrekvensen. \\
+
+		\bottomrule
+		\end{tabularx}
+	\caption{Sammenlikning mellom en lineær og switchet regulator}
+	\label{tab:lin-switch-comp}
+\end{table}
+
+Ved å bruke lineære regulatorer istedenfor switchere har man generelt en stor fordel med tanke på enkelhet og kostnad, men ikke når det gjelder virkningsgrad. Likevel kan virkningsgraden til lineære regulatorer være tilstrekkelig i batteridrevne system. 
+En vanlig løsning er å kombinere en switcher med en lineær regulator. Da kan switcheren øke batterispenningen tilstrekkelig, mens den lineære regulatoren tar seg av finregulering og gir minimalt med støy. Siden spenningsfallet over de lineære regulatorene ikke er for stort, vil effekttapet i disse ikke ha stor innvirkning på batteritiden.
+
+Antall battericeller som må brukes spiller som regel en stor rolle når man skal velge regulatortype. Lineære regulatorer krever tilstrekkelig antall seriekoblede celler for å få en innspenning som gjennom hele utladingskurven overstiger regulatorens utspenning. For 3,3~\volt\ forsyning kreves tre eller flere celler med alkaline-, \ac{NiCd}- eller \ac{NiMH}-kjemi. Lithiumbatterier krever færre celler siden de har en høyere cellespenning, vanligvis mellom 2,5~\volt\ og 4,2~\volt. For 5~\volt\ forsyning kreves det vanligvis et par celler ekstra enn for 3,3~\volt, og ved 12~\volt\ begynner antall celler å bli såpass mange at en switch-regulator som oftest er mer hensiktsmessig enn en lineær regulator.
+
+Hvis klemmespenningen på et batteri faller under et visst nivå, klarer ikke en lineær regulator å nyttegjøre seg av den resterende energien lagret i batteriet. En switchet regulator kan da <<booste>> spenningen opp til riktig nivå for kretsen. Det som ofte blir gjort til fordel for å bruke en switcher er å velge en lineær regulator med lavest mulig <<dropout>>-spenning. \footnote{Minste tilatte spenning over regulatoren før utgangsspenningen synker under spesifisert nivå}. Dropout-spenningen varierer blant forskjellige typer lineære regulatorer, og vi kan skille disse i 3 kategorier: \ac{LDO}, Quasi \ac{LDO} og standard drop out. Prinsippet for disse er vist i figur \ref{fig:reg-types}. \acs{LDO}-regulatorer har typisk <<Cut-off>>-spenning på 0,1~\volt\ til 0,7~\volt. Quasi-\acs{LDO} ligger på 0,9~\volt\ til 1,5~\volt\ og standard  drop-out ligger på 1,7~\volt til 2,5~\volt.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{Hovedkort/f4}
+	\caption{Prinsipp for forskjellige serieregulatorer}
+	\label{fig:reg-types}
+\end{figure}
+
+\subsection{Valg av regulator}
+For å finne den regulatoren passer best til kretsen bør en del punkter vurderes. Disse kan være:
+\paragraph{Maksimal laststrøm} Den maksimale strømmen som kretsen trekker må tas i betraktning når man velger ut regulator. Regulatoren må klare å levere tilstrekkelig med strøm i <<worst case>> med tanke på temperatur og toleranser på komponenter, hvis kretsen skal fungere pålitelig.
+\paragraph{Type spenningskilde} I mobile kretser med batteriforsyning er som oftest \ac{LDO}-regulatorer det beste valget. De kan fungere lengre ut i utladingssyklusen til batteriet og er bedre egnet for små strømmer. Ulempen er at de som oftest er dyrere enn regulatorer med høyere dropout-spenning.
+\paragraph{Nøyaktighet på utgangsspenningen} Vanlige lineære regulatorer garanterer den regulerte spenningen innenfor 5~\% av nominell spenning. Dette er som regel tilstrekkelig for de fleste kretser. Mange nye regulatorer har større nøyaktighet på utspenningen (bedre enn 2~\% er vanlig) takket være nye og mer nøyaktige produksjonsprosesser.
+\paragraph{Tomgangsstrøm} Denne omtales gjerne som <<quiescent current>>, <<operating current>> eller <<ground current>> og er strømmen regulatoren selv trekker. I noen tilfeller trekker kretsen strøm kun i korte øyeblikk, og ellers leverer regulatoren nesten ingen strøm til kretsen. Da har tomgangsstrømmen stor innvirkning på batterilevetiden. Mange nye LDO-regulatorer har spesielt lav tomgangsstrøm (75~\micro\ampere\ til 150~\micro\ampere) og er overlegne vanlige regulatorer som ligger i \milli\ampere-området.
+\paragraph{Ekstra funksjoner}
+Mange regulatorer tilbyr finesser som gjør behovet for 
+<<hjelpekretser>> mindre. Her er noen:
+	\begin{itemize}
+		\item \textbf{Shutdown} En egen on/off-pinne gir muligheten for å skru av og på utgangsspenningen fra f.eks en mikrokontroller.
+		\item \textbf{Load-dump Protection} Regulatorer brukt i bilindustrien o.l. må ha innebygget transientbeskyttelse. Her skrus som regel utgangen av til transienten er over.
+		\item \textbf{Beskyttelse mot omvendt polaritet} Dette forhindrer skade på regulatoren hvis polariteten på inngangsspenningen blir reversert.
+		\item \textbf{Error-flag} Dette er en pinne som gir indikasjon om utspenningen er utenfor nominelt område. Det er ment som et <<advarselstegn>> til mikrokontrollere som kan fungere på uønsket måte ved slike tilstander.
+	\end{itemize}
+
+\subsection{Innebygde beskyttelseskretser i lineære regulatorer}
+Lineære \acs{IC}-regulatorer inneholder innebygde beskyttelseskretser som gjør de ekstremt motstandsdyktige mot skade fra overstrøm eller høy driftstemperatur. Det finnes to beskyttelseskretser i nesten alle lineære \acs{IC}-regulatorer:
+\begin{itemize}
+	\item Thermal Shutdown
+	\item Strømbegrensing
+\end{itemize}
+
+\textbf{Thermal Shutdown} hindrer temperaturen til brikken i å stige såpass høyt at den tar skade. Dette gjøres ved å måle temperaturen på silisiumsbrikken, og skru av utgangsspenningen hvis temperaturen overskrider grenseverdien (vanligvis rundt 160\celsius).
+
+\textbf{Strømbegrensing} hindrer skade på brikken når det forekommer en overbelastning på utgangen (lastimpedansen er for lav). Uten denne beskyttelsen vil regulatoren kunne gi for stor strøm og utgangstrinnet kan bli skadet.
+For å forhindre dette vil strømreguleringssløyfen overstyre spenningsreguleringssløyfen og senke pådraget til drivtransistoren slik at grensen for maks strømtrekk ikke blir overskredet.
+
+
+\section{Den innebygde \acs{ADC}en i \acs{AVR}}
+ Mange \acs{AVR}-kretser har en innebygd \ac{ADC}. \ac{ADC}en har en oppløsning på 10-bit\footnote{Unntaket er XMEGA-familien som har 12-bit oppløsning på \ac{ADC}} ($2^{10}$ = 1024 spenningsnivå), og avhengig av hvilken krets som brukes finnes det fra 6 til 8 innganger tilgjengelig. Med full oppløsning kan det oppnås samplingshastigheter opp til ca 15,4 \acs{ksps}. \acs{ADC}en benytter et \ac{SAR} som bestemmer bittene fra i  rekkefølge fra fra \acs{MSB} til \acs{LSB}. Registeret sender verdien inn på en \acs{DAC} som sender den analoge spenningen ut til en komparator. Denne avgjør om verdien fra \acs{SAR}-registeret er for lav eller høy. En slik krets er illustrert i figur \ref{fig:adc-function} og gangen i en konvertering er vist i figur \ref{fig:adc-sar}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.50\textwidth]{Hovedkort/adc-function}
+	\caption{Prinsipp for ADC med SAR}
+	\label{fig:adc-function}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.80\textwidth]{Hovedkort/adc-sar}
+	\caption{ADC-tilnærming med SAR-teknikk}
+	\label{fig:adc-sar}
+\end{figure}
+
+\subsection{\texorpdfstring{Analoge referanser\cite{atmega128, avrfreaks-adc}}{Analoge referanser}}
+For at \ac{ADC}en skal kunne virke må de analoge referansespenningene koples til. Disse angir grensene for spenningsområdet den skal jobbe i. De analoge referansespenningene må påtrykkes spesielle pinner på \acs{AVR}-kretsen: AGND og AREF. AGND skal kobles til jord, og AREF skal kobles til en stabil analog referanse som er mindre eller lik $\text{AV}_{\text{CC}}$ (som igjen ikke må variere mer enn 0,3~\volt\ fra $\text{V}_{\text{CC}}$). 
+
+\subsection{Sette i gang en enkel \ac{AD}-konvertering}
+Før en \ac{AD}-konvertering kan utføres må \ac{ADC}en være aktivert. \ac{ADC}en kan kjøres i to modi:<<Single Conversion mode>> og <<Free-Running mode>>. I <<Single Conversion mode>> må hver konvertering igangsettes manuelt, mens i <<Free-Running mode>> starter \ac{ADC}en en ny konvertering så snart den forrige er ferdig. Når en konvertering er ferdig settes et statusbit. I <<Free-Running mode>> er det en fordel å la en avbruddsrutine ta seg av avlesingen av resultatet i stedet for å <<polle>> dette bitet. Resultatet legges i ADCH/ADCL-registrene. Det er viktig å lese ADCL først for da låses innholdet i ADCH helt til det blir lest. På denne måten unngår man at et nytt konverteringsresultat legges i ADCH før det forrige har blitt lest. Fra en konvertering er startet tar det 13 \ac{ADC} klokkesykler til resultatet ligger i ADCH/ADCL. Den første konverteringen etter \ac{ADC}en har blitt aktivert tar 25 klokkesykler.
+\subsection{Oppløsning/Hastighet}
+Oppløsning og hastighet på konverteringen er alltid viktig når man benytter en \ac{ADC}. Dette er to faktorer som avhenger av hverandre; hvis det kreves en rask konvertering kan man benytte seg av kun 8-bits oppløsning, og hvis full oppløsning er nødvendig vil konverteringen ta lengre tid.
+Til vanlig krever \ac{ADC}-kretsen en klokkefrekvens på mellom 50~\kilo\hertz\ og 200~\kilo\hertz\ for å oppnå høyeste oppløsning. Hvis det kreves mindre enn 10-bits oppløsning kan \ac{ADC}-kretsens frekvens økes for å oppnå raskere punktprøvingshastighet. \ac{ADC}-modulen får klokkesignal fra \acs{CPU}-klokken gjennom en prescaler. Denne kan dele ned klokkefrekvensen inn til \ac{ADC}en med disse forholdene: 2, 4, 8, 16, 32, 64 og 128. På denne måten kan \ac{ADC}en få tilstrekkelig klokkefrekvens ved alle \acs{CPU}-frekvenser over 100~\kilo\hertz.
+\subsection{Bruke forskjellige kanaler}
+\ac{ADC}en kan kobles til flere analoge linjer gjennom en multiplekser. Inngangen til <<Sample and Hold>>-kretsen på \ac{ADC}en styres av en multiplekser. <<Sample and Hold>>-kretsen holder det punktprøvde spenningsnivået stabilt mens konverteringen foregår. Alle \ac{ADC}-kanaler deler én og samme \ac{ADC}, og den gjennomsnittlige punktprøvingshastigheten for hver kanal minker hvis flere kanaler skal benyttes.
+
+\section{Busstyper}
+Ettersom en modulbasert løsning er valgt er det åpenbart behov for en felles buss mellom modulene. Systemet skal enkelt kunne utvides ved behov, og bussen må være kompakt og effektiv.
+
+\subsection{\texorpdfstring{\ac{I$^{2}$C}\cite{I2C-bussen}}{I2C-bussen}}
+\label{avsnitt:I2C}
+\ac{I$^{2}$C}-bussen er en multimaster seriell databuss fra Philips som oftest brukes til å kommunisere med periferienheter i <<embedded>>-system, hovedkort, mobiltelefoner osv. Hovedformålet med bussen er at enheter på samme kretskort enkelt skal kunne kommunisere med hverandre ved å bruke kun to linjer, \ac{SDA} og \ac{SCL}. Siden denne bussen ikke har en egen \ac{SS} linje slik som \ac{SPI}-bussen har, må hver enhet som kobles til bussen ha egen adresse. Denne adressen er 7-bit og man har dermed 128 mulige adresser, men siden adresse 0 brukes som kringkastningsadresse kan opp til 127 enheter kobles sammen. I$^{2}$C-buss spesifikkasjonen har blitt utvidet flere ganger siden den kom ut tidlig på 80-tallet, noe som har resultert i flere modi som <<high-speed-mode>> som kan takle opp til 3,4 Mbit/s. Se tabell \ref{tab:I2C-modus}. Enkelte I$^{2}$C-enheter takler nå også 10-bits adressering, som betyr at det kan kobles opp til 1024 slaver på bussen. 
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{lc}
+    \hline
+    \emph{\textbf{Modus}} & \emph{\textbf{Overføringshastighet}} \\
+    \hline
+    Standard-modus & 100 kbit/s  \\
+    Fast-modus & 400 kbit/s \\
+    High-Speed modus & 3,4 Mbit/s \\
+  \end{tabular}
+  \caption{I$^{2}$C-modusene og overføringshastighetene}
+  \label{tab:I2C-modus}
+\end{table}
+
+I$^{2}$C protokollen bruker også master/slave modus, men i motsetning til \ac{SPI} kan man her ha flere master-enheter på samme buss. Det er alltid master som starter en overføring, det skjer på følgende måte: Master sender ut en startbetingelse, som forteller alle slavene at de skal lytte på datalinja for videre instruksjoner. Så sender masteren ut adressa til den slaven den vil opprette kommunikasjon med, sammen med et skrive/lese flagg som forteller om slaven skal ta imot eller sende data. Slaven med den matchende adressen trekker da \ac{SDA} lav for å bekrefte at den er tilstede og klar for overføring. Så fortsetter kommunikasjonen mellom master og slave i åtte bit av gangen etterfulgt av en bekreftelse fra den enheten som mottar. Slik fortsetter det helt til all data er overført. Når overføringen er ferdig sender master ut en stoppbetingelse som forteller slaven den kommuniserer med at overføringen er ferdig. Se figur \ref{fig:I2C-protokollen}.
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.9,keepaspectratio=true]{i2c-fig}
+ % i2c-fig.pdf: 612x792 pixel, 72dpi, 21.59x27.94 cm, bb=0 0 612 792
+ \caption{I$^{2}$C Overføring}
+ \label{fig:I2C-protokollen}
+\end{figure}
+
+På hardwarenivå er både \acs{SDA}- og \acs{SCL}-pinnene på hver enhet designet med en \acs{MOSFET} transistor som <<open-drain>>. Dette betyr at når en I$^{2}$C-enhet skal sende en 0'er, trekkes linjen lav gjennom \acs{MOSFET}'en. Men når den skal sende en 1'er, blir \ac{SDA}-pinnen høyimpedans og det må være en ekstern <<pull-up>>-motstand som trekker linjen høy. Dette betyr at ingen I$^{2}$C-enhet kan tvinge verken \ac{SDA} eller \ac{SCL} høy. Det er akkurat dette som brukes som meglingsmetode når det er mer enn én master tilkoblet bussen. Hvis begge master-enhetene prøver å kommunisere samtidig vil da den som først oppdager at linja er lav da den selv mener at den skal være høy måtte gi seg, og prøve på nytt senere. Når data overføres endres \ac{SDA} kun mens klokkesignalet er lavt, mens endring på \ac{SDA} når klokkesignalet er høyt indikerer start- og stoppbit.
+
+\subsection{\texorpdfstring{\ac{SPI}\cite{SPI-bussen}}{SPI-bussen}}
+\label{avsnitt:spi}
+\ac{SPI}-bussen er en synkron seriell datalink fra Motorola som oppererer i full-duplex modus, noe som betyr at det kan overføres data i begge retningene samtidig. Enhetene kommuniserer med hverandre i master/slave modus, som vil si at det alltid er masteren som setter igang en overføring uavhengig av hvilken retning dataene skal. Det kan kobles mange slave-enheter til bussen, men bare én master som styrer all kommunikajonen. For å bestemme hvilken slave masteren skal kommunisere med, må hver slave ha en \ac{SS}\footnote{Også ofte kallt \ac{CS}}-inngang slik at masteren kan si fra direkte til slaven den prøver å oppnå kontakt med. På hardwarenivå består bussen av fire linjer, \ac{MISO}, \ac{MOSI}, \ac{SCLK} og \ac{SS}. 
+
+For å starte en overføring må masteren først konfigurere klokka slik at klokkefrekvensen er mindre eller lik makshastigheten til slaven den skal kommunisere med. Så sier masteren fra til den ønskede slaven ved å trekke den korresponderende \ac{SS}-linjen lav. For hver klokkeperiode blir et og et bit skiftet ut på \ac{MISO}- og \ac{MOSI}-linjene fra et skiftregister i både masteren og slaven som går inn på motsatt ende av skiftregisteret i den andre enheten\footnote{Ringkoblet skiftregister}. Se figur \ref{fig:SPI-skiftreg}.
+\begin{figure}[htb]
+ \centering
+ \includegraphics[scale=0.7,keepaspectratio=true]{SPI-skiftregister}
+ % SPI-skiftregister.svg: 500x200 pixel, 72dpi, 17.64x7.06 cm, bb=0 0 500 200
+ \caption{SPI oppkobling og ringkoblet skiftregister}
+ \label{fig:SPI-skiftreg}
+\end{figure}
+
+Det mest signifikante bittet i registeret blir skiftet ut, mens bittet som skal mottas blir skiftet inn til den minst signifikante enden av skiftregisteret. Når det har gått åtte klokkeperioder vil data som lå i skiftregisteret til masteren ligge i skiftregisteret til slaven og omvendt. Enhetene kan da lese byten den andre sendte og lagre den til minnet. Hvis det er flere data som skal overføres legger enhetene inn nye data i skiftregistrene og prosessen gjentas. Når bussen skal brukes til enveiskommunikkasjon vil data likevel bli klokket begge veier, men bare dataene som går den ene veien er gyldige. Når overføringen er ferdig skrur masteren av klokkesignalet og setter den aktuelle \ac{SS}-linjen høy igjen.
+
+To andre busstyper som er nevneverdige er \acs{CAN}buss og \acs{LIN}buss.
+\begin{itemize}
+	\item \textbf{\acs{CAN}buss:} \ac{CAN}bussen er tiltenkt kjøretøy. Bussen tillater mikrokontrollere å kommunisere med hverandre uten å måtte bruke en vert som styrer den. Den er spesielt utviklet for bruk i kjøretøy, men brukes gjerne i andre områder hvor det kreves høy grad av pålitelighet.
+	\item \textbf{\acs{LIN}buss:} \ac{LIN}bussen er også tiltenkt datasystemer i kjøretøy. Dette er en liten og treg buss som brukes som en billig <<sub-buss>> til \ac{CAN}bussen for å koble til små sensorer og enkle el-motorer.
+\end{itemize}
+Disse bussene blir ikke vurdert til CanSaten fordi de ikke er harwarestøttet i mikrokontrollerene vi har tenkt å bruke.
+ 
+
+
+

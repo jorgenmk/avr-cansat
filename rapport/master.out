@@ -1,0 +1,72 @@
+\BOOKMARK [0][-]{chapter.1}{Innledning}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Bakgrunn}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Oppgavebeskrivelse}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{M\345l}{chapter.1}% 4
+\BOOKMARK [0][-]{chapter.2}{Teori}{}% 5
+\BOOKMARK [1][-]{section.2.1}{M\345ling av str\370mtrekk}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.1.1}{Low-Side sensing}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.2}{High-Side sensing}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.3}{Dedikerte str\370mm\345lings-ICer}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.4}{Valg av shunt-motstand}{section.2.1}% 10
+\BOOKMARK [1][-]{section.2.2}{Spenningsregulator}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.1}{Line\346r eller Switch-regulator i batteridrevet system?}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.2}{Valg av regulator}{section.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.2.3}{Innebygde beskyttelseskretser i line\346re regulatorer}{section.2.2}% 14
+\BOOKMARK [1][-]{section.2.3}{Den innebygde ADCen i AVR}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.3.1}{Analoge referanser}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.2}{Sette i gang en enkel AD-konvertering}{section.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.3.3}{Oppl\370sning/Hastighet}{section.2.3}% 18
+\BOOKMARK [2][-]{subsection.2.3.4}{Bruke forskjellige kanaler}{section.2.3}% 19
+\BOOKMARK [1][-]{section.2.4}{Busstyper}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.4.1}{I2C-bussen}{section.2.4}% 21
+\BOOKMARK [2][-]{subsection.2.4.2}{SPI-bussen}{section.2.4}% 22
+\BOOKMARK [0][-]{chapter.3}{Hovedkort}{}% 23
+\BOOKMARK [1][-]{section.3.1}{Hardware}{chapter.3}% 24
+\BOOKMARK [2][-]{subsection.3.1.1}{DOSonChip}{section.3.1}% 25
+\BOOKMARK [2][-]{subsection.3.1.2}{Mikrokontroller}{section.3.1}% 26
+\BOOKMARK [2][-]{subsection.3.1.3}{Lysdioder}{section.3.1}% 27
+\BOOKMARK [2][-]{subsection.3.1.4}{USB-interface}{section.3.1}% 28
+\BOOKMARK [1][-]{section.3.2}{Programmering av mikrokontrolleren}{chapter.3}% 29
+\BOOKMARK [2][-]{subsection.3.2.1}{IR-mottaker}{section.3.2}% 30
+\BOOKMARK [2][-]{subsection.3.2.2}{Str\370mm\345ling}{section.3.2}% 31
+\BOOKMARK [2][-]{subsection.3.2.3}{Spenningsregulator}{section.3.2}% 32
+\BOOKMARK [1][-]{section.3.3}{Software}{chapter.3}% 33
+\BOOKMARK [0][-]{chapter.4}{GPSkort}{}% 34
+\BOOKMARK [1][-]{section.4.1}{Teori}{chapter.4}% 35
+\BOOKMARK [2][-]{subsection.4.1.1}{NMEA-0183 Protokollen}{section.4.1}% 36
+\BOOKMARK [2][-]{subsection.4.1.2}{Kvartbolgestubb}{section.4.1}% 37
+\BOOKMARK [1][-]{section.4.2}{Utf\370relse}{chapter.4}% 38
+\BOOKMARK [2][-]{subsection.4.2.1}{Slagplan}{section.4.2}% 39
+\BOOKMARK [2][-]{subsection.4.2.2}{Designprosess}{section.4.2}% 40
+\BOOKMARK [2][-]{subsection.4.2.3}{Produksjon}{section.4.2}% 41
+\BOOKMARK [2][-]{subsection.4.2.4}{Testing}{section.4.2}% 42
+\BOOKMARK [2][-]{subsection.4.2.5}{Software}{section.4.2}% 43
+\BOOKMARK [0][-]{chapter.5}{Sensorkort}{}% 44
+\BOOKMARK [1][-]{section.5.1}{Konstruksjon}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.2}{Teori}{chapter.5}% 46
+\BOOKMARK [2][-]{subsection.5.2.1}{Relativ luftfuktighet}{section.5.2}% 47
+\BOOKMARK [2][-]{subsection.5.2.2}{Temperatur}{section.5.2}% 48
+\BOOKMARK [1][-]{section.5.3}{Utf\370relse}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.3.1}{Relativ luftfuktighet}{section.5.3}% 50
+\BOOKMARK [2][-]{subsection.5.3.2}{Temperatur}{section.5.3}% 51
+\BOOKMARK [2][-]{subsection.5.3.3}{Barometrisk lufttrykk}{section.5.3}% 52
+\BOOKMARK [2][-]{subsection.5.3.4}{Akselerasjonsensor}{section.5.3}% 53
+\BOOKMARK [0][-]{chapter.6}{Radiokort}{}% 54
+\BOOKMARK [1][-]{section.6.1}{Oppbygning}{chapter.6}% 55
+\BOOKMARK [2][-]{subsection.6.1.1}{Transmisjonsbudsjett}{section.6.1}% 56
+\BOOKMARK [1][-]{section.6.2}{Teori}{chapter.6}% 57
+\BOOKMARK [2][-]{subsection.6.2.1}{Frekvensmodulasjon}{section.6.2}% 58
+\BOOKMARK [2][-]{subsection.6.2.2}{Fasel\345st sl\370yfe}{section.6.2}% 59
+\BOOKMARK [2][-]{subsection.6.2.3}{Loopfilter}{section.6.2}% 60
+\BOOKMARK [2][-]{subsection.6.2.4}{Quadraturmodulering}{section.6.2}% 61
+\BOOKMARK [2][-]{subsection.6.2.5}{Aliasfilter}{section.6.2}% 62
+\BOOKMARK [1][-]{section.6.3}{Praksis}{chapter.6}% 63
+\BOOKMARK [0][-]{chapter.7}{XBee-kort}{}% 64
+\BOOKMARK [1][-]{section.7.1}{RF-modulene}{chapter.7}% 65
+\BOOKMARK [1][-]{section.7.2}{Spesifikasjoner}{chapter.7}% 66
+\BOOKMARK [1][-]{section.7.3}{Design av kretskort}{chapter.7}% 67
+\BOOKMARK [0][-]{chapter.8}{Konklusjon}{}% 68
+\BOOKMARK [1][-]{section.8.1}{Oppn\345dde effektm\345l}{chapter.8}% 69
+\BOOKMARK [1][-]{section.8.2}{Oppn\345dde resultatm\345l}{chapter.8}% 70
+\BOOKMARK [1][-]{section.8.3}{Vurdering av prosessm\345l}{chapter.8}% 71
+\BOOKMARK [0][-]{appendix.A}{Regnskap}{}% 72

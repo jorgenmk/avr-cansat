@@ -1,0 +1,775 @@
+\chapter{Radiokort} \label{Radiokort}
+Kretsskjema til radiokortet finnes i figur \ref{fig:scem_radio} i vedlegg \ref{app:scematics} på side \pageref{fig:scem_radio}
+
+\section{Oppbygning}
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+En radiosender består i hovedsak av tre blokker. Først en frekvenskilde som generere bærefrekvensen man ønsker og sende på. Deretter en modulator som summerer informasjonssignalet sammen med bærefrekvensen. Og til slutt en forsterker som forsterker opp det modulerte signalet som skal sendes ut på en antenne. Moduleringen kan foregå på mange forskjellige måter. De mest kjente er  \ac{AM} , \ac{FM} og \ac{PM}.
+
+Når frekvensen på det modulerte signalet ligger i området fra 300~MHz til 3000~MHz, kalles dette for \ac{UHF}. For å unngå fullstendig kaos er det restriksjoner på hva slags frekvens man kan sende på, og hvor stor effekt man kan sende. I Norge er det post og teletilsynet, som håndhever reglementet. Det finnes to såkalte frie frekvensbånd i Norge, hvor man ikke trenger lisens og kan sende på 0,5~W. Det ene er 430 MHz båndet og det andre er 860~MHz båndet. I følge \ac{ERC} \cite{ERC} har man lov til å send inntil 0,5~W eller 27~dBm på 869.400~MHz til 869.650~MHz.
+\footnote{Terorien til radiokortet er hentet fra \cite{Bolgeutbredelse}, \cite{Satelittkomm}, \cite{ELcom}, \cite{quadmod}, \cite{Microstrip}, \cite{CansatTX} og \cite{Frekvenssyntese}.}
+\clearpage
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.90\textwidth]{figurer/blokkskjemaRFsender}
+	\label{fig:blokkskjemaRFsender}
+	\caption{Blokkskjema radiosender}
+\end{figure}
+
+Figur:\ref{fig:blokkskjemaRFsender} er blokkskjema over en radiosender som består av en faselåst sløyfe med en \ac{VCO} som genererer bærefrekvensen. En quadraturmodulator som modellerer bærefrekvensen sammen med informasjonssignalet fra en mikrokontroller. Det modulerte signalet går så inn på en forsterker som sender radiosignalet ut på antenneutgangen.
+\\
+
+
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+\subsection{Transmisjonsbudsjett}
+Når man designer en radiosender som skal sende over en gitt avstand, bør man sette opp et transmisjonsbudsjett. Der går man igjennom faktorene som bidrar til tap av sendereffekt.
+\\
+\underline{Sendereffekt og antenneforsterkning:}I CanSaten sitt tilfelle er forsterkningen gitt av utgangsforsterkeren minus litt tap i RFfilteret som sitter mellom PA-trinnet og antennen. Fra databladene er sendereffekten for Avago, ALM-1522 \cite{ALM-1522} lik 27,7~dBm minus ca 0,7-0,8~dB dempning i RFfilteret.
+\\
+\underline{Transmisjonstap i fritt rom, effekt per areal er:}
+\begin{align*}
+p_{di}=
+\frac{P_{T}}
+{4 \pi d^{2}}
+\left[ \frac{W}{m^{2}}
+\right]
+\text{,isotrop og d er avstanden fra kilden.}
+\end{align*}
+Alle antenner har direksjonelle egenskaper. Direktiv forsterkning $G_{T} $(vinning, gain, antenneforsterkning) er forholdet mellom utstrålt effekt i maksimal stråleretning for en antenne sammenlignet med en isotrop antenne.
+\begin{align*}
+p_{d}=
+p_{di} \cdot G_{T}=
+\frac{P_{T} \cdot G_{T}}
+{4 \pi d^{2}}
+\left[ \frac{W}{m^{2}}
+\right]
+\end{align*}
+\\
+Mottatt effekt $P_{R}$, sett at antennen har et effektivt areal,
+$A_{eff}$ (aperture, $A_{c}$-oppfanging-/capture- areal) blir:
+
+\begin{align*}
+P_{R}=
+p_{d} \cdot A_{eff}=
+\frac{P_{T} \cdot G_{T}}
+{4 \pi d^{2}}
+\cdot{A_{eff}}
+\left[W \right]
+\end{align*}
+Sammenheng mellom effektivt areal og antennevinning er
+$A_{eff}=\frac{G_{R}\lambda^{2}}{4\pi}$, hvor $G_{R}$ er maksimal
+antennevinning. Ved å sette inn i uttrykket for $A_{eff}$ kan man finne
+forholdet mellom utsendt og mottatt effekt:
+
+\begin{align*}
+P_{R}
+=p_{d} \cdot A_{eff}
+=\frac{P_{T} \cdot G_{T}}{4 \pi d^{2}}
+\cdot{\frac{G_{R}\lambda^{2}}{4\pi}}
+=P_{T} G_{T} G_{R}
+\frac{ \lambda ^{2}}{(4 \pi)^{2}d_{2}}
+=P_{T} G_{T} G_{R} \left( \frac{ \lambda}{4 \pi d} \right)^{2}
+\end{align*}
+
+\begin{align*}
+&\frac{P_{R}}{P_{T}}
+=G_{T} G_{R} \left( \frac{ \lambda}{4 \pi d} \right)^{2}
+=G_{T} G_{R} \left( \frac{\frac{C}{f}}{4 \pi d} \right)^{2}
+=G_{T} G_{R} \left( \frac{C}{4 \pi d f} \right)^{2}
+&\\
+&\text{,hvor C er lyshastigheten $3\cdot 10^{8}$}
+\end{align*}
+
+I dB blir dette:
+
+\begin{align*}
+\frac{P_{R}}{P_{T}}\left[\text{dB}\right]
+=10\cdot log \left(G_{T} G_{R} \left( \frac{C}{4 \pi d f} \right)^{2}
+\right)
+=20\cdot log\left(G_{T} G_{R} \left( \frac{C}{4 \pi d f} \right)
+\right)
+\end{align*}
+CanSaten skal sende fra en teoretisk avstand på 9~km, for å ha litt margin brukes 10000~m. Transmisjonstapet blir da kalkulert fra utbredelse i fritt rom:
+
+\begin{align*}
+&\frac{P_{R}}{P_{T}}\left[\text{dB}\right]
+=20\cdot log\left(G_{T} G_{R} \left( \frac{C}{4 \pi d f} \right)
+\right)
+=20\cdot log\left( \frac{3\cdot 10^{8}}{4 \pi \cdot 10000\text{m}
+\cdot 860\text{MHz}} \right)
+\\
+&=-111,1\text{dB}
+\end{align*}
+\\
+\underline{Termisk støy:}
+Formelen for termisk støy er gitt av $P=\cdot k \cdot T \cdot B$, hvor k=Boltsmanns konstand, T=abs temperatur og B=båndbredde.
+
+\begin{align*}
+P=\cdot k \cdot T \cdot B
+=20\cdot log\left(1,38 \cdot 10^{-23} \cdot 300\right)
+=-203,8 \frac{\text{dB}}{\text{Hz}}
+=-173,8 \frac{\text{dBm}}{\text{Hz}}
+\end{align*}
+\\
+\underline{Mottaker båndbredde:}
+Mottaker båndbredden er gitt ved $10 \cdot log (5 \text{kHz})=37 \text{dB}$.
+Signal-til-støy og mottakerstøyforhold er to typiske tall som er valgt til signal-til-støy=10 og mottakerstøyforhold=5. Mottakerstøyforhold kan utledes fra Friis' formel:
+$
+F=
+F_{1}
++\frac{F_{2}-1}{G_{1}}
++\frac{F_{3}-1}{G_{1}G_{2}}...
+$, men dette krever at men kjenner mottakerradioen.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|r|r|c|}
+\hline \emph{} & \emph{[dB]} & \emph{[dBm]} & \emph{Kommentar:}\\
+\hline Sender effekt &  & 27 & 0,5W \\
+Antenne gain & 0& 27 & \\
+Transmisjonstap fritt rom &-111,1 & 27-111,1=-84,1 &10km, 860MHz \\
+Mottaker antenne gain &0 &0-84,1=-84,1 & \\
+\hline Sender signalnivå & & -84,1 &Signaleffekt ved mottaker \\
+\hline & & &\\
+Termisk støy& &-173,8 & ktb\\
+Mottaker båndbredde& 37&-173,8+37=-136,8 &5kHz\\
+Signal-til-støy &10 &-136,8+10=-126,8 &Støyeffekt ved mottaker\\
+Mottaker støyforhold&5 &-126,8+5=-121,8 &Avhengig av BER\\
+\hline Sender følsomhet& &-121,8 &\\
+\hline & & &\\
+\hline Margin& &37,7 &Sender signal \\
+ & & &nivå-sender følsomhet\\
+\hline
+\end{tabular}
+\caption{Transmisjonsbudsjett}
+\label{tab:transm}
+\end{table}
+Det er ca 37,7~dBm margin ved å sende på 27~dBm (0,5~W), som burde holde for å sende over en avstand på 10000~m. Med utgangspunkt i blokkskjema Figur:\ref{fig:blokkskjemaRFsender} og transmisjonsbudsjetet \ref{tab:transm} kan det utarbeides følgende spesifikasjoner:
+
+\begin{tabular}{ lr }
+Frekvens: & 860~MHz båndet\\
+Nøyaktighet: &$\pm2~ppm$\\
+Sendereffekt: & 27~dBm\\
+Strømforsyning & 5~V, 240~mA\\
+ & \ 3,3~V, 84~mA\\
+Modulasjon & FM, FSK\\
+\end{tabular}
+\\
+\clearpage
+\section{Teori}
+\subsection{Frekvensmodulasjon}
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+Fordelen med frekvensmodulasjon er at den har gode støyegenskaper, for selv om amplituden på FM-signalet skulle dempes, betyr det ingenting. Det er forskjellen i frekvens som utgjør informasjonssignalet. FM er fortsatt den mest utbredte modulasjonsmetoden, og det er ganske enkelt og få tak i sender- og mottakerutstyr. Frekvensmodulasjon bruker et modellert signal $e_{m}(t)$ til å variere frekvensen rundt en bærefrekvens. I veldesignede modulatorer er forandringen i frekvens proporsjonal til den modulerende spenningen, som kan representeres ved $ke_{m}(t)$, eller kjent som frekvensdivisjonskonstanten. Enheten for $k$ er $hertz/volt$. Den momentane frekvensen er derfor $f_{i}(t)=f_{c}(t)+ke_{m}(t)$, hvor $f_{c}(t)$ er den umodulerte bærefrekvensen, med momentan vinkelfrekvens $\omega_{i}(t)=2\pi f_{i}(t)$.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/FMvinkel}
+	\label{fig:FMvinkel}
+	\caption{Roterende viser}
+\end{figure}
+
+Figur \ref{fig:FMvinkel} viser roterende viser representert ved en bærer av amplitude $E_{maks}$ roterende (a) ved momentan vinkelfrekvens $\omega_{i}(t)$ og (b) ved konstant vinkelfrekvens $\omega_{c}(t)$. Viseren med konstant lengde $E_{maks}$, roterer med klokken med vinkelfrekvens $\omega_{i}(t)=2\pi f_{i}(t)$. Vinkelen i tid er vist ved $\theta(t)$, hvor x-aksen for ordens skyld er satt som referanseakse. Vinkelen $\theta(t)$ er forandring vinkelfrekvensen per tid, og skrives som:
+\begin{align*}
+\frac{d\theta(t)}{dt}
+=\omega_{i}(t)
+\end{align*}
+
+Hvorpå:
+\begin{align*}
+&\theta(t)=\int_{0}^{t}\omega_{i}(t)dt
+\\
+&=\int_{0}^{t}2\pi (f_{c}(t)+ke_{m}(t))dt
+\\
+&=2\pi f_{c}(t)+2\pi k\int_{0}^{t} e_{m}(t)dt
+\end{align*}
+
+Det betyr at det modellerte signalet indirekte ligger i vinkelen.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/FMfirkant}
+	\label{fig:FMfirkant}
+	\caption{FM Firkantpuls}
+\end{figure}
+\clearpage
+Mange viktige karakteristikker ved FM kan ses ved å analysere sinusmodulasjon.
+For sinusmodulasjon blir $e_{m}(t)=E_{maks}cos(2\pi f_{m}\cdot t)$ og dermed:
+\begin{align*}
+&f_{i}=f_{c}+ke_{m}(t)
+\\
+&=f_{c}+kE_{maks}cos(2\pi f_{m}\cdot t)
+\\
+&=f_{c}+\Delta fcos(2\pi f_{m}\cdot t)
+\end{align*}
+\\
+Hvor $\Delta f$ er proporsjonal med toppen på modeleringsignalet:
+$\Delta f=kE_{maks}$
+Den momentane frekvensen som funksjon av tid er vist i fig:\ref{fig:test}, uttrykt ved:
+\begin{align*}
+&e_{t}=E_{maks}cos\theta(t)
+\\
+&=E_{maks}cos(2\pi f_{c}t + 2\pi \Delta f \int_{0}^{t} cos2\pi f_{m}t dt)
+\\
+&=E_{maks}cos(2\pi f_{c}t + \frac{\Delta f}{f_{m}} sin2\pi f_{m}t)
+\end{align*}
+Modulasjonsindeksen for FM er vanligvis kalt $\beta$, og er definert som $\beta= \frac{\Delta f}{f_{m}}$ og uttrykket for sinusmodulert bølge blir:
+\begin{align*}
+e_{t}=E_{maks}cos(2\pi f_{c}t + \beta sin2\pi f_{m}t)
+\end{align*}
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/FMsinus}
+	\label{fig:test}
+	\caption{Momentan frekvens-tids-kurve for sinus frekvensmodulert bølge}
+\end{figure}
+
+\clearpage
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+\subsection{Faselåst sløyfe}
+
+For å generere bærefrekvensen brukt i radiosystemer, blir en teknikk kalt faselåst sløyfe eller \ac{PLL} mye brukt. Prinsippet går ut på at en referansefrekvens $f_{ref}$ blir delt ned n ganger. $f_{ref}$ og den skalerte $f_{ref}$ sammenlignes med hverandre i en VCO, spenningsstyrt oscillator. VCOen vil dermed tvinge opp frekvensen, fordi det ser ut som $f_{ref}$ er n ganger laver i frekvens. Utgangs frekvensen blir derfor $f_{0}=n\cdot f_{ref}$. Et problem er dersom n skal være en programmerbar teller vil denne ha relativt lav øvre frekvens.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/PLL}
+	\label{fig:PLL}
+\end{figure}
+
+Problemet kan løses ved hjelp av prescaling. Hvor man bruker såkalt to-modi teller som deler ned frekvensen til en så lav frekvens at programmerbare tellere greier å håndtere hastigheten. Den kan enten dele med P+1 eller P.
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/PLL_2mod}
+	\label{fig:PLL to-modi}
+\end{figure}
+m-telleren og n-telleren settes til bestemte verdier, i m- og n-registrene.
+Prescaleren er telleren som dividerer med P eller P+1. Den starter med P+1, så teller m-telleren og n-telleren ned til m-telleren når 0. Da sendes et signal til prescaleren om å dividere med P. Det har da gått m·(P+1) klokkesykler, n-telleren har da verdien n-m. n-telleren teller ned til 0, mens prescaleren dividerer med P. Det tar da (n-m)·P klokkesykluser. Når n-telleren når 0, sendes en puls til fasekomparatoren. Det samme signalet tilbakestiller m- og n-registrene. Antall pulser inn på prescaleren for å få en puls ut (divisjonsforholdet) til fasekomparatoren blir da:
+
+$m\cdot(P+1)+(n-m)\cdot P$
+
+$\Updownarrow$
+
+$m\cdot P+m+n\cdot P-m\cdot P$
+
+$\Updownarrow$
+
+$m+n\cdot P$
+\\
+Ofte brukes det en neddeler, N, mellom referanseoscillatoren og inngangen på fasekomparatoren for å få en passe størrelse på frekvensoppløsningen. Sammenhengen mellom referanseoscillatoren og utsignalet blir da:
+$f_{0}=(n\cdot P+m)\cdot \frac{f_{xtal}}{N}$.
+Radiokortet bruker Analog Devices kretsen ADF4360-7 \cite{ADF4360-7}, som VCO til å generere bærefrekvensen. Den bruker akkurat samme prinsippet som en for en to-modi PLL. For å generere 860MHz bruker ADF4360-7 samme formel som for to-modi PLL:
+
+$f_{VCO}=(P\cdot B+A)\cdot \frac{f_{ref}}{R}$, hvor
+
+$P=\left\{ 8/9, 16/17, 32/33 \right\}$
+
+$B=\left\{ 3...8191 \right\}$
+
+$A=\left\{ 0...31 \right\}$
+
+$R=\left\{ 1...16383 \right\}$
+
+Satt inn i formelen:
+
+$P=\left\{16/17 \right\}$
+
+$B=\left\{ 2150 \right\}$
+
+$A=\left\{ 0 \right\}$
+
+$R=\left\{ 800 \right\}$
+
+$f_{VCO}=(16\cdot 2150+0)\cdot \frac{20MHz}{800}=860MHz$
+Disse parametrene skrives inn ved hjelp av SPI inn i tre registre, Control Latch, N Counter Latch og R Counter Latch.
+\clearpage
+\subsection{Loopfilter}
+For å kompensere for fasefeil rundt den oppsatte frekvensen, bruker den faselåste sløyfen et loopfilter. Utenfor båndbredden til loopfilteret vil ikke den faselåste sløyfen kompanser for fasefeil, og dermed greier den ikke gå i lås på riktig frekvens. Loopfiltere må sees iforhold til kravet til båndbredde (hvor bredt frekvensspekter sløyfen skal kunne operere i) og hvor fort sløyfen skal skifte mellom to frekvenser, fordi loopfilteret bestemmer innsvingningsforløpet til VCOen. Eksempel på utregning av loopfilter er vist under med utgangspunkt i Analog Devices kretsen, ADF4360-7:
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{figurer/loopfilter}
+	\label{fig:loopfilter}
+	\caption{Loopfilter}
+\end{figure}
+
+
+$\xi$=dempningsfaktor.
+
+$\xi$=0,707 (typisk).
+
+$I_{cp}$=chargepump strøm.
+
+Settes i Control Latch registret til ADF4360-7:
+
+$I_{cp}$=1,25~mA
+
+$K_{VCO}$=VCOens følsomhet
+
+Fra side 11. fig. 20 i databladet til ADF4360-7:
+
+$K_{VCO}$=15~MHz, fra 1,3...2,5V=12,5~$\frac{MHz}{V}$
+\\
+Maksimum divisjonsrate:
+
+$N=\frac{maksimum VCO frekvens}{kanalsprang}=\frac{860MHz}{25kHz}=34400$
+\\
+N settes i N Counter Latch registre fra databladet til ADF4360-7 ved hjelp av formelen:
+
+$N=B\cdot P+A,B>A$, gir P=16, B=2150, A=0
+
+$f_{n}$=loopfilterts båndbredde:
+
+$f_{n}$=1000~Hz
+Utregning av $C_{2}$:
+\begin{align*}
+C_{2}=
+\frac{I_{cp} \cdot K_{VCO}}
+{N \cdot \left(2 \pi \cdot f_{n} \right)^{2}}
+=\frac{1,25mA \cdot 12,5M~Hz/V}{34400 \cdot \left(2 \pi \cdot 1000~Hz \right)^{2}}
+=11,5~nF
+\end{align*}
+Utregning av $R_{1}$:
+\begin{align*}
+&R_{1}=
+2 \xi \cdot
+\sqrt{\left( \frac{N}{I_{cp} \cdot K_{VCO} \cdot C_{2}} \right)}
+=2 \cdot0,707 \cdot
+\sqrt{\left( \frac{34400}{1,25~mA \cdot 12,5~MHz/V \cdot 11,5~nF} \right)}
+\\
+&=19,5~k\Omega
+\end{align*}
+
+Utregning av $C_{1}$:
+\begin{align*}
+C_{1}=\frac{C_{2}}{10}
+=\frac{11,5~nF}{10}
+=1,15~nF
+\end{align*}
+\\
+$R_{2}$ og $C_{3}$ blir typisk valgt som en tiendel av produktet til $R_{1}$ og $C_{2}$. Slik at ved $R_{1}=19,5~k\Omega$ og $C_{2}=11,5~nF$ blir gjerne $R_{2}=19,5~k\Omega$ og $C_{3}=1,15~nF$.
+\\
+For å få riktig bærefrekvens er det også to spoler på inngang $L_{1}$ og $L_{2}$, som må velges riktig, ved hjelp av formelen:
+\begin{align*}
+&F_{0}=\frac{1}{2\pi \cdot \sqrt{6,2~pF(0,9~nH+L)}}
+\\
+&\Rightarrow \frac{1}{2\pi \cdot \sqrt{6,2~pF(0,9~nH+4,7~nH)}}=854,14~MHz
+\end{align*}
+\\
+4,7~nH gir nesten 860~MHz, men på grunn av at kobberbanene gir tillegg på ca 1~nH per mm, måtte disse spolene tilpasses. For at ADF4360-7 skulle låse seg til 860~MHz måtte spolen justeres ned til 3,3~nH. Hvis spoleverdien overstiger 3,3~nH er det også anbefalt å sette en 470~$\Omega$ motstand i paralell med hver av spolene.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{figurer/VCOutleggmL1L2}
+	\label{fig:VCOutleggmL1L2}
+	\caption{Kretskjema over VCO}
+\end{figure}
+\clearpage
+
+\clearpage
+\subsection{Quadraturmodulering}
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+Det finnes flere måter og modulere på. Modulasjon tar utgangspunkt i å mikse sammen to signaler, et bæresignal og et informasjonssignal. Konseptet kommer fra den trigonometriske identiteten:
+\begin{align*}
+&cos(x)cos(y)=\frac{1}{2}cos(x+y)+\frac{1}{2}cos(x-y)
+\end{align*}
+\\
+x kan sees på som bæresignalet og y som informasjonssignalet. Overfører vi dette til for eksempel FM, vil frekvensspekteret til det modulerte signalet legge seg på begge sider av bærefrekvensen $f_{c}$, med 6~dB (50\%) dempning på det modulerte signalet. Denne metoden blir kalt dobbelt sidebånd modulering.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{figurer/singeldobbleBandMod}
+	\label{fig:singeldobbleBandMod}
+		\caption{Dobbel sidebånd modulasjon(a)Singel sidebånd modulasjon(b)}
+\end{figure}
+For å ungå 6~dB dempning brukes en annen metode, kalt singel sidebåndmodulering. Hvor man eliminerer enten det øvre eller det nedre sidebåndet, ved å bruke en quadraturmodulator. En quadraturmodulator mikser informasjonssignalet med to bæresignaler. Begge bæresignalene har samme frekvens, men det ene bæresignalet er faseforskjøvet $90^{\circ}$, herav uttrykket "'quadratur"'. Dermed for vi den trigonometriske identiteten:
+\begin{align*}
+&\left[cos(x)cos(y)\right]+\left[sin(x)sin(y) \right]=\left[\frac{1}{2}cos(x+y)+\frac{1}{2}cos(x-y)\right]\\
+&+\left[\frac{1}{2}cos(x-y)-\frac{1}{2}cos(x+y) \right]
+\\
+&=cos(x-y)
+\end{align*}
+$cos(x-y)$ er kun det nedre sidebåndet av $f_{c}$. Men ved å skifte fortegn på informasjonsfrekvensen $f_{m}$ kan det modulerte spekteret flyttes opp på oversiden av $f_{c}$, $cos(x-(-y))=cos(x+y)$.
+
+\subsection{Aliasfilter}
+\renewcommand{\theequation}{\thesection. \arabic{equation}}
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.80\textwidth]{figurer/aliasfilter}
+	\label{fig:aliasopp}
+	\caption{Aliasfilter oppkobling}
+\end{figure}
+Informasjonssignalet innpå quadraturmodulatoren AD8345 \cite{AD8345}, kommer i form av et sinus- og et cosinussignal inn på kretsens differensialinnganger. Disse inngangene krever et DC-nivå på $0,7~V\pm 0,3~V$ og differensielt AC-sving på maks 1,2~$V_{p-p}$. For å få signalet differensielt brukes en differensiel operasjonsforsterker ADA4941-1 \cite{ADA4941-1}. Dermed vil $V_{p-p}$ på utgangen være det dobbelte av det som går inn på inngangen. PWM-utgangen fra AtMega168-kretsen gir ut 3,3~$V_{p-p}$. Det vil si at signalet må skaleres ned til maks 0,6~$V_{p-p}$ med et DC-nivå å $0,7~V\pm 0,3~V$. Det er vanskelig og få til eksakt med standard komponentverdier. Siden det er for plasskrevende og sette komponenter i serie/paralell blir det en tilnærming.
+\\
+Komponentverdiene $R_{1}=3,6~k\Omega$ $R_{2}=820~\Omega$ og $R_{3}=2,7~k\Omega$ gir DC-verdien\eqref{inngDC} og AC-sving\eqref{inngAC}:
+\begin{align}
+\label{inngDC}
+V_{gg}\cdot \frac{R_{1}||R_{2}}{R_{1}||R_{2}+R_{3}}
+=3,3~V\cdot\frac{820~\Omega||3,6~k\Omega}{820~\Omega||3,6~k\Omega+2,7~k\Omega}
+=654~mV
+\end{align}
+
+\begin{align}
+\label{inngAC}
+V_{i}\cdot \frac{R_{2}||R_{3}}{R_{2}||R_{3}+R_{1}}
+=3,3~V\cdot\frac{820~\Omega||2,7k\Omega}{820\Omega||2,7~k\Omega+3,6~k\Omega}
+=490~mV, \text{differensielt 980mV}
+\end{align}
+\\
+Både DC-verdien\eqref{inngDC} og AC-sving\eqref{inngAC} er innfor kravet. Med et midtnivå på $654~mV\cdot \frac{490~mV,}{2}=899~mV$ og AC-sving på 980~m$V_{p-p}$.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/aliasinngSig}
+	\label{fig:aliasinngSig}
+	\caption{Inngangsignal}
+\end{figure}
+
+Sinus- og et cosinus-signalet kommer fra to \ac{PWM}-utganger fra en mikrokontroller AVR, AtMega168 \cite{AtMega168}. PWM går ut på og justere pulsbredden på et firkantsignal, som resulterer i et gjennomsnittlig DC-nivå mellom den høy og den lave delen av firkantsignalet innenfor en periode.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/PWM}
+	\label{fig:PWM}
+	\caption{Puls bredde modulasjon, PWM}
+\end{figure}
+
+Det er flere PWM-metoder med en AVR mikrokontroller. En av dem er kalt FAST PWM, hvor mikrokontrolleren teller opp til 255 før den setter PWM-verdien ut på en pinne. Frekvensen på PWM-signalet kan betrektes som punktprøvingsfrekvensen, og er tidsrommet mikrokontrolleren bruker på å telle opp til 255. Ved å bruke klokkefrekvensen til mikrokontrolleren kan punktprøvingfrekvensen regnes ut.
+\begin{align}
+f_{s}=\frac{f_{clk}}{N\cdot (1+ TOP)}
+=\frac{8~MHz}{1\cdot (1+ 255)}
+=31250~Hz
+\end{align}
+
+Mikrokontolleren har to PWM-pinner og er programmert til å sette en DCspenning tilsvarende amplitudeverdien til et sinus- og et cosinus-signal. Dette gjør den ved å sammenligne med 256 verdier som ligger i en tabell med amplitude verdiene til en sinuskurve. Cosinuskurven lages ved å hoppe 64 plasser inn i tabellen, som tilsvarer $90^{\circ}$ faseforsyvning og dermed et cosinussignal. For å unngå at punktprøvingsfrekvensen på 31250~Hz havner sammen med sinus- og cosinus-signalet, må denne frekvensen filtreres bort ved hjelp av et aliasfilter. For at modulatoren skal undertrykke bærefrekvensen er det viktig at det er minst mulig forskjell mellom referansenivået til differensialforsterkeren og midtnivået til sinus-og cosinus-signalet, dvs 899~mV.
+\begin{align}
+3,3~V\cdot \frac{3,65~k\Omega}{3,65~k\Omega + 10~k\Omega}
+=882mV
+\end{align}
+
+For nærmere analyse av aliasfilteret er det hensiktsmessig og  sette opp en theveninekvivalent for inngangssystemet i fig:\ref{fig:aliasopp} med thevenininngangssignal $u_{g}$ og theveninmotstand $R_{g}=R_{1}||R_{2}||R_{3}=3,6~k\Omega||820~\Omega||2,7~k\Omega \approx 535~\Omega$.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/theveninekv}
+	\label{fig:theveninekv}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{figurer/aliasfilterTH}
+	\label{fig:aliasfilterTH}
+		\caption{Aliasfilter theveninekvivalent oppkobling}
+\end{figure}
+
+For å finne filterresponsen er fordelaktig å benytte Laplace og nodespenningsmetoden. For så å starte med $i_{2}$ og jobbe seg igjennom de forskjellige delstrømmene.
+\begin{align*}
+i_{2}=u_{0}\cdot sC_{2}
+\end{align*}
+\begin{align*}
+u_{0}=i_{2}\cdot \left(R + \frac{1}{sC_{2}}\right)
+=u_{0} \cdot \left(1 + sRC_{2}\right)
+\end{align*}
+\begin{align*}
+i_{3}=(u-u_{0})\cdot sC_{3}
+=u_{0} \cdot \left(1 + sRC_{2} -1\right) \cdot sC_{3}
+=u_{0} \cdot s^{2}RC_{2}C_{3}\\
+\end{align*}
+\begin{align*}
+i_{1}=i_{2}+i_{3}
+=u_{0}\cdot \left[sC_{2} + s^{2}RC_{2}C_{3}\right]
+\end{align*}
+\begin{align*}
+&u_{1}=u +R\cdot i_{1}
+=u_{0}\cdot \left(1+ sRC_{2} \right)+u_{0}\cdot \left(sRC_{2} + s^{2}R^{2}C_{2}C_{3} \right)\\
+&=u_{0}\cdot \left(1+ 2sRC_{2} + s^{2}R^{2}C_{2}C_{3} \right)
+\end{align*}
+\begin{align*}
+&i_{4}=u_{1}\cdot sC_{1}
+=u_{0}\cdot sC_{1} \cdot \left(1+ 2sRC_{2} + s^{2}R^{2}C_{2}C_{3} \right)\\
+&=u_{0}\cdot  \left(sC_{1} + 2s^{2}RC_{1}C_{2} + s^{3}R^{2}C_{1}C_{2}C_{3} \right)
+\end{align*}
+\begin{align*}
+&i_{5}=i_{1}\cdot i_{4}
+=u_{0}\left[sC_{2} + s^{2}RC_{2}C_{3} + sC_{1} + 2s^{2}RC_{1}C_{2} + s^{3}R^{2}C_{1}C_{2}C_{3}\right]
+\\
+&=u_{0}\left[s(C_{1}+C_{2}) + s^{2}RC_{2}(2C_{1}+C_{3}) + s^{3}R^{2}C_{1}C_{2}C_{3} \right]
+\end{align*}
+\begin{align*}
+&u_{g}=u_{1}+R_{g}\cdot i_{5}
+\cong u_{1}+ R\cdot i_{5}\\
+&=u_{0}\cdot (1+ 2sRC_{2} + s^{2}R^{2}C_{2}C_{3} + sR(C_{1}+C_{2}) + s^{2}R_{2}C_{2}(2C_{1}+C_{3})\\
++ s^{3}R^{3}C_{1}C_{2}C_{3})
+&=u_{0}\cdot \left(1+ sR(C_{1}+ 3C_{2}) + s^{2}R^{2}(2C_{1}C_{2}+ 2C_{2}C_{3}) + s^{3}R^{3}C_{1}C_{2}C_{3}\right)
+\end{align*}
+\begin{align*}
+&u_{g}=u_{0}\cdot \left(1+ sR(C_{1}+ 3C_{2}) + 2s^{2}R^{2}(C_{1}C_{2}+ C_{2}C_{3}) + s^{3}R^{3}C_{1}C_{2}C_{3}  \right)
+\end{align*}
+Ender så opp med overføringsfunkjsonen:
+\begin{align*}
+\label{overfFunk}
+&H(s)=\frac{u_{g}(s)}{u_{0}(s)}\\
+&=R^{3}C_{1}C_{2}C_{3}s^{3} + 2R^{2}(C_{1}C_{2}+ C_{2}C_{3})s^{2}+ R(C_{1}+ 3C_{2})s + 1
+\end{align*}
+
+Setter inn verdiene for $R,C_{1},C_{2}$ og $C_{3}$ inn i overføringsfunksjonen:
+\begin{align*}
+X_{3}=R(C_{1}+ 3C_{2})=560~\Omega \cdot (39~nF+3\cdot 5,6~nF)
+=3,1248\cdot 10^{-5}
+\end{align*}
+\begin{align*}
+&X_{2}=2R^{2}(C_{1}C_{2}+ C_{2}C_{3})
+=2\cdot (560~\Omega)^{2} \cdot (39~nF\cdot  5,6~nF + 5,6~nF\cdot 100~nF)\\
+&=4,8821\cdot 10^{-10}
+\end{align*}
+\begin{align*}
+X_{1}=R^{3}C_{1}C_{2}C_{3}
+=(560~\Omega)^{3} \cdot 39~nF \cdot 5,6~nF \cdot 100~nF
+=3,8354\cdot 10^{-15}
+\end{align*}
+
+Satt inn i overføringsfunksjonen:
+\begin{align*}
+H(s)=
+R^{3}C_{1}C_{2}C_{3}s^{3} + 2R^{2}(C_{1}C_{2}+ C_{2}C_{3})s^{2}+ R(C_{1}+ 3C_{2})s + 1
+\\
+=3,8354\cdot 10^{-15}s^{3} + 4,8821\cdot 10^{-10}s^{2} + 3,1248\cdot 10^{-5}s + 1
+\end{align*}
+
+Som gir nullpunktene:
+
+$s_{1,2}=-31829.5827\pm J55534.7780$
+
+$s_{3}$=-63642.0078
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.80\textwidth]{figurer/AliasfilterPole}
+	\label{fig:AliasfilterPole}
+	\caption{Polplassering}
+\end{figure}
+
+Ut i fra bodediagrammet (fig:\ref{fig:AliasfilterBode}) i MATLAB ligger knekk frekvensen på ca $f_{3~dB}\approx\frac{6,43\cdot 10^{4}}{2\pi}\approx10234Hz$
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=1.00\textwidth]{figurer/AliasfilterBode}
+		\caption{Bodediagram}
+		\label{fig:AliasfilterBode}
+\end{figure}
+
+For å regne ut knekkfrekvens forflytter man seg til frekvensplanet:
+\begin{align*}
+&H(s)=H(j\omega)
+=\frac{1}{X_{1}(j\omega)^{3} + X_{2}(j\omega)^{2}+ X_{3}(j\omega) + 1}\\
+&=\frac{1}{-jX_{1}(\omega)^{3} - jX_{2}(\omega)^{2}+ jX_{3}(j\omega) + 1}
+\end{align*}
+Hvor frekvensresponsen blir:
+\begin{align*}
+\left|H(j\omega) \right|
+&=\left|\frac{1}{-jX_{1}(\omega)^{3} - jX_{2}(\omega)^{2}+ jX_{3}(j\omega) + 1} \right|\\
+&=\frac{\sqrt{1}^{2}}{\sqrt{(-jX_{1}(\omega)^{3}+ jX_{3}(j\omega))^{2} + (-X_{2}(\omega)^{2} + 1})^{2}}
+\\
+&=\frac{1}{\sqrt{X_{1}^{2}\omega ^{6}-2X_{1}X_{3}\omega ^{4}+X_{3}^{2}\omega ^{2}+X_{2}\omega ^{4}- 2X_{2}\omega ^{2}+1}}
+\\
+&=\frac{1}{\sqrt{X_{1}^{2}\omega ^{6}+(X_{2}-2X_{1}X_{3})\omega ^{4}+(X_{3}^{2}- 2X_{2})\omega ^{2}+1}}
+\end{align*}
+Setter man inn for $X_{1}$,$X_{2}$ og $X_{3}$ blir knekkfrekvensen:
+\begin{align*}
+&\left|H(j\omega _{-3dBm}) \right|
+=\frac{1}{\sqrt{X_{1}^{2}\omega ^{6}+(X_{2}-2X_{1}X_{3})\omega ^{4}+(X_{3}^{2}- 2X_{2})\omega ^{2}+1}}
+=\frac{1}{\sqrt{2}}
+\\
+&\Rightarrow w_{(-3~dB)}=64076~rad/s \Rightarrow f_{(-3~dB)}=10198~Hz
+\end{align*}
+
+\clearpage
+Simulering av kretsen (fig:\ref{fig:SimBode}) viser at knekkfrekvensen ligger på $f_{3~dB}\approx 10380~Hz$. Grunnen til at knekkfrekvensen befinner seg på -19,56~dB, er fordi simuleringen tar utgangspunkt i inngangsignalet på 3,3~$V_{p-p}$.
+\begin{align*}
+20log\left(\frac{490~mV}{3.3~V} \right)=-16,56
+\\
+-16,56-3~dB=-19,56~dB
+\end{align*}
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=1.00\textwidth]{figurer/AliasfilterSimBode}
+	\caption{Simulert Bodediagram}
+	\label{fig:SimBode}
+\end{figure}
+Samplingsfrekvensen blir til sammenligning dempet med:
+\begin{align*}
+&\left|H(j\omega) \right|=\left|H(j\cdot 2\pi \cdot 31250Hz) \right|
+\\
+&=\frac{1}{\sqrt{X_{1}^{2}(2\pi \cdot 31250~Hz) ^{6}+(X_{2}-2X_{1}X_{3})(2\pi \cdot 31250~Hz) ^{4}+(X_{3}^{2}- 2X_{2})(2\pi \cdot 31250~Hz)^{2}+1}}
+\\
+&=-29.2528~dB
+\end{align*}
+\clearpage
+\section{Praksis}
+Ved design av kretskortutlegg til radiokortet er det viktigste aspektet å unngå støy. Derfor er lineære regulatorer \cite{REG113} brukt til fordel for svitsjregulator. Alle spenningsinngangene har også avkoblingskondensatorer plassert så nær komponenten som mulig. For ikke å fange opp støy på strømforsyningen. Et godt jordplan sørger for kort vei til jord. Slik at arealet for å fange opp støy blir minst mulig. Det er også viktig at baner som går på undersiden av kortet ikke bryter jordplanet under transmisjonslinjer hvor det går RFsignaler eller komponenter som behandler RFsignaler. Det ble lagt jordplan både på over- og undersiden av kortet med gjennompletterte viahull for hver 5te~mm. For ekstra skjerming rundt komponentene som opererte på 869~MHz, ble det lagt en jordbane rundt disse komponentene, for og lodde fast en skjerm. VCOen er ekstra følsom for støy er nesten helt innkapslet av jordbanen. Nesten alle linjene for strøm styresignal etc, inn til komponentene ble kjørt over jordbanen igjennom \ac{EMI}-filtere \cite{EMI-filter}. EMIfiltrene har en knekkfrekvens på rundt 1~MHz for å unngå støy på linjene, men på grunn av at SCK- og datainngangen også blir brukt til å programmere mikrokontrolleren, måtte EMI-filterne på disse inngangene byttes ut med en 1$k\Omega$ motstander. Deling av SCK- og datainngangen førte til at mikrokontrollen tider til ikke ann og programmere.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/VCOutlegg}
+	\label{fig:VCOutlegg}
+	\caption{Kretskjema over VCO}
+\end{figure}
+\clearpage
+Kobberbanene i et godt kretskortutlegg må også designes riktig. Vinkler på 90$^{\circ}$ på kobberbanene vil fungerer som antenner, samtidig som spisse vinkler fungerer som samlingsplass for rester av etsemiddel. Derfor ble spisse og 90$^{\circ}$ vinkler på banene konsekvent unngått.
+I en transmisjonslinjene som ikke er uendelig lang vil det også oppstå refleksjoner på grunn av at kobberet har induktive og kapasitive egenskaper. Ved høye frekvenser blir disse refleksjonene betydelige, og man ønsker at så lite som mulig går tapt i transmisjonslinjene. Ved å design transmisjonslinjer som er helt reelle unngår man slike uønskede refleksjoner. Dette kalles for mikrostriper og har karakteristisk impedans $Z_{0}$. I radiosystemer er det vanlig og operere med karakteristisk impedans $Z_{0}=50~\Omega$ på transmisjonslinjene. Forholdet mellom høyden på kretskortsubstratet og bredden på linjen har veldig mye og si. Derfor er det greit og ha et tynt kretskort for ikke å få alt for breie transmisjonslinjer.
+\\
+\\
+$\epsilon_{r}=\text{relativ dielektrikumkonstant}=3,7$
+\\
+$H=\text{høyden på kretskortsubstratet}=0,8~mm$
+\\
+$W=\text{bredden på linjen}$
+\\
+$\epsilon_{eff}=\text{effektiv dielektrikumkonstant}$
+\\
+$Z_{0}=\text{karakteristisk impedans}=50~\Omega$
+\\
+
+Ved $\frac{W}{H} \geq 1$ blir den effektiv dielektrikumkonstanten $\epsilon_{eff}$:
+\begin{align*}
+\epsilon_{eff}=\frac{\epsilon_{r}+1}{2}+\frac{\epsilon_{r}-1}{2} \cdot \left(
+1+12\left(\frac{H}{W}\right)\right)^{-\frac{1}{2}}
+\end{align*}
+
+Ved $\frac{W}{H} \geq 1$ blir karakteristisk impedans $Z_{0}$:
+\begin{align*}
+Z_{0}=\frac{120\pi}{\sqrt{\epsilon _{eff}} \cdot \left[\frac{W}{H} +
+ 1,393 + \frac{2}{3} \text{ln} \left( \frac{W}{H} + 1,444\right)\right]}
+\end{align*}
+
+Setter $\epsilon_{eff}$ inni $Z_{0}$:
+\begin{align*}
+Z_{0}=\frac{120\pi}{\sqrt{\left(\frac{3,7+1}{2}+\frac{3,7-1}{2} \cdot \left(
+1+12\left(\frac{H}{W}\right)\right)^{-\frac{1}{2}}\right)} \cdot \left[\frac{W}{H} +
+ 1,393 + \frac{2}{3} \text{ln} \left( \frac{W}{H} + 1,444\right)\right]}
+\end{align*}
+
+Bredden på mikrostripen kan også regnes ut i et program kalt LINVILL. Bredden på mikrostripen regnet ut i LINVILL blir $1,76 mm$. For å kontrollere svaret kan verdien settes inn i formelen for $Z_{0}$:
+\begin{align*}
+&Z_{0}=\frac{120\pi}{\sqrt{\left(\frac{\epsilon_{r}+1}{2}+\frac{\epsilon_{r}-1}{2} \cdot \left(
+1+12\left(\frac{0,8~mm}{1,76~mm}\right)\right)^{-\frac{1}{2}}\right)} \cdot \left[\frac{0,8~mm}{1,76~mm} +
+ 1,393 + \frac{2}{3} \text{ln} \left( \frac{0,8~mm}{1,76~mm} + 1,444\right)\right]}\\
+&=49,85~\Omega
+\end{align*}
+
+I kretskortutlegget til radiokortet er det brukt $1,76~mm$ bredde på kobberbanen fra forsterkeren og ut til antennen. De andre transmisjonslinjene mellom komponentene er såpass korte at det har ingen hensikt og bruke $1,76mm$ bredde.
+\\
+Modulatoren er den kretsen i radiokortet som trenger minst omtanke,men den krever et godt jordplan og korte transmisjonslinjer inn fra VCOen og ut til forsterkeren. Forsterkeren har to kanaler, men for å nyttegjøre seg av begge kanalene kan forsterkeren kjøres balansert, der en splitter \cite{Splitter} blir brukt på inngangen til forsterkeren som faseforskyver inngangssignalet 90$^{\circ}$ og -90$^{\circ}$, før det splittes og inngangene på forsterkeren kjøres differensielt. For å få det differensiale signalet på utgangen av forsterkeren sentreret mot en antenneutgang, ligger det en splitter på utgangen forsterkeren også. Denne splitteren kjøres motstatt vei og summerer signalet, men for å ungå harmoniske av RFsignalet ligger det også et RFfilter \cite{RFfilter} på utgangen mellom forsterkeren og antennen. RFfilteret er et båndpass filter med senterfrekvens på 900~MHz. Dette filteret demper 2.harmonisk (1600~MHz) 50.48~dB og 3.harmonisk (3000~MHz) 46.30~~dB.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=1.0\textwidth]{figurer/PA}
+	\label{fig:PA}
+	\caption{Balansert forsterkeroppkobling}
+\end{figure}
+
+Siden radiokortet stiller strenge krav til kretkortet, ble radiokortet produsert profesjonelt hos ELprint. Profesjonelle kretskortprodusenter bruker et et filformat kalt GERBER-filer, der det er en GERBER-fil per lag i kretskortutlegget. Cadsoft, Eagle (programmet som kretkortutlegget ble lagd i), har muligheten til å lage GERBER-filer. Etter at kretkortutlegget var ferdig ble radiokortet sendt til produksjon. Montering av kortet ble gjort for hånd på Simpro som driver med kretkortproduksjon. Fordi Simpro har utstyr til å bruke stensil for påføring av loddepasta og lodding av kretskortet ved hjelp IR-ovn.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/kretkortutleggPCB}
+	\label{fig:kretkortutleggPCB}
+	\caption{Kretskortutlegg i Eagle}
+\end{figure}
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{figurer/gerber}
+	\label{fig:gerber}
+	\caption{Topp- og bunn-lag i GERBER-format}
+\end{figure}
+
+
+\clearpage
+Programmet for å overføre data ved hjelp av FM modulasjon starter med å sette opp den faselåste sløyfen, ved å skrive til tre registre ved hjelp av SPI. Så blir modulatoren, forsterkeren og operasjonsforsterkerene som kontrollerer aliasfilteret aktivert. Deretter venter mikrokontrolleren på data som skal overføres. For å FM modulere data representerer logisk 0 og logisk 1, hver sin frekvens. Fordelen med denne metoden er at det kan tas imot på en helt vanlig radio, hvor logisk 0 og logisk 1 representerer hver sin tone. Frekvensen som overføres lages ved å gjøre oppslag i en sinus og cosinus tabell på 256 verdier. Hvor steglengden mikrokontrolleren gjør i tabellen, avgjør frekvensen.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.40\textwidth]{figurer/flytskjema}
+	\label{fig:flytskjema}
+\end{figure}
+
+\clearpage
+Målinger på aliasfilteret viste at AC-svinget var på ca 482m$V_{p-p}$ og diferensielt 965m$V_{p-p}$ mot beregnet 490m$V_{p-p}$ og 980m$V_{p-p}$, med et midtnivå på ca 90~0mV mot beregnet 899~mV.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{scope/sin1250HzVpp}
+	\label{fig:sin1250HzVpp}
+	\caption{Måling på sinuskurve 1220~Hz}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{scope/sinus1250HzDiff}
+	\label{fig:sinus1250HzDiff}
+	\caption{Måling differensielt på sinuskurve 1220~Hz}
+\end{figure}
+\clearpage
+Ved å sammenlingne cosinus- og sinussignalet kunne fasen reges ut til $\varphi=360^{\circ}\cdot \frac{\Delta t}{T_{p}}=360^{\circ}\cdot \frac{204,94~ms}{\frac{1}{1220~Hz}}=90,01^{\circ}$.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{scope/sinCos1250HzTime2}
+	\label{fig:sinCos1250HzTime2}
+	\caption{Cosinus- og sinuskurve 1220~Hz}
+\end{figure}
+For å overføre data ved hjelp av FM, kan man endre frekvensen på cosinus- og sinussignalet i takt med logisk 1 og logisk 0.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.60\textwidth]{scope/FSKDataAA}
+	\label{fig:FSKDataAA}
+	\caption{Hexadesimal verdi AA overført ved hjelp av FSK}
+\end{figure}
+
+\clearpage
+Etter å ha satt opp VCO-kretsen til 860~MHz kunne bærebølgen leses av på en spektrumanalysator. På spektrumanalysatoren kan bærebølgen leses av til -6,64~dBm, 859,98976~MHz. -6,64~dBm er litt mindre enn -5dBm som står i databladet for ADF4360-7, men ved mer nøyaktig måling med et effektmeter kunne bærebølgen lese av til -5,2~dBm. 859,98976~MHz er litt lav bærefrekvens, men dette kan justeres bland annet med et potmeter på referanseoscillatoren til VCOen, men oscillatoren har en feilmargin på $\pm2~ppm$. Dette blir $\pm40~Hz$ på 20~MHz, som igjen blir multiplisert opp av faselåstesløyfen.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{spektrum/carrer}
+	\label{fig:carrer}
+	\caption{Bærebølge spektrum}
+\end{figure}
+
+
+Ved et sende et cosinus- og sinussignal på 250~Hz innpå modulatoren kunne man se på spektrumanalysatoren at bærebølgen ble undertrykt med ca 45~dB, mens det modulertesignalet flyttet seg 250~Hz laver i frekvens enn bærebølgen. Målinger med effektmeter viste at det modulerte signalet også befant seg på -5,2~dBm.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{spektrum/modulasjonMcarrier2}
+	\label{fig:modulasjonMcarrier2}
+	\caption{Modulert signal med undertrykt bærefrekvens, nedre sidebånd}
+\end{figure}
+
+\clearpage
+Sikfter man fortegnet på for eksempel sinussignalet, blir det modulerte signalet flyttet på oversiden av bærebølgen.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{spektrum/modulasjonMsamplfrekUpper2}
+	\label{fig:modulasjonMsamplfrekUpper}
+	\caption{Modulert signal med undertrykt bærefrekvens, øvre sidebånd}
+\end{figure}
+
+
+Utvider man frekvensområdet som vises på spektrumanalysatoren ser man tydlig punktprøvingsfrekvens til cosinus- og sinussignalet. Den er på ca 31250~Hz og dempet med ca -30~dB. Den utregnede verdien fra aliasfilteret er på -29,2528~dB. Den burde ha vært dempet litt mer, omtrent like mye som bærebølgen, ca -45~dB.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{spektrum/modulasjonMsamplfrek2}
+	\label{fig:modulasjonMsamplfrek2}
+	\caption{Modulert signal med punktprøvingsfrekvens 31250~Hz}
+\end{figure}
+
+Under testing av forsterkeren gikk det litt mye strøm i PA-kretsen, som tok tok knekken på 5V spenningsregulatoren \cite{REG113}. Strømforbruket til PA-kretsen kan justeres ved hjelp av $V_{ctrl}$, som også fungerer som enable av PA-kretsen. Ved å justere ned spenningen til 2,4~V ble det målt et utgangsnivå på 24,75~dB (4,75~dB+20~dB dempeledd) på spektrumanalysatoren. Etter spesifiksjonene skulle utgangsnivået vært nærmere 27~dBm, men for testingen sin del ble $V_{ctrl}$ holdt på 2,4~V, men med mulighet for å justere opp $V_{ctrl}$ for mer sendereffekt.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.50\textwidth]{spektrum/modulasjonPA}
+	\label{fig:modulasjonPA}
+	\caption{Modulert signal på antenne utgangen}
+\end{figure}
+
+For å demodulere signalet og ta imot data, ble det brukt en Rohde \& Schwarz, radiokommunikasjons analysator. Det demodulere signalet ble overført ved hjelp av lydutgangen på radiokommunikasjonsanalysatoren og inn på lydkortet på en PC. For dekode lydsignalene kan flere program brukes. For eksempel kan man bruke en gammel teleskriverstandard kalt RTTY. RTTY operer med lav datahastighet på 22 til 300~baud. MTTY er et typisk program som bruker RTTY. Man velger seg en markeringsfrekvens som represnterer logiske 0, så et frekvensskift opp fra markeringsfrekvensen som representerer logiske 1.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=1.0\textwidth]{scope/RTTY}
+	\label{fig:RTTY}
+	\caption{Dekoding av FM signal vha MTTY}
+\end{figure}
+Ved testing av radiosenderen ble det sendt strenger på 32 byte. De oppsto sporadiske bitfeil, men ca feilmargin på 1bit per 480bit. Dette skyltes problemer i forhold til synkronisering av overførte data. Enkelte data hadde mer bitfeil enn andre. Spesielt data med hyppige bitforandringer med resultat i hyppige frekvensskift. Det ble desverre ikke tid til og teste radiokortet opp mot de andre kortene og viderutvikle programmet for å bli kvitt synkroniseringsproblemet. Ulempen med RTTY er at standarden ikke bruker ASCII-format og opererer med lav datahastighet, men det finnes andre alternativer som WINPSK. WINPSK bruker ASCII-format og kan operere opptil 1200~baud.

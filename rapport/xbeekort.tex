@@ -1,0 +1,102 @@
+\chapter{XBee-kort}
+
+Kretsskjema til XBee-kortet finnes i figur \ref{fig:scem_xbee} i vedlegg \ref{app:scematics} på side \pageref{fig:scem_xbee}
+
+Når det lages en \acs{RF}-modul til CanSaten er de tre avgjørende faktorer som dukker opp:
+\begin{itemize}
+	\item Størrelse
+	\item Rekkevidde
+	\item Pris
+\end{itemize}
+Disse tre faktorene avhenger sterkt av hverandre, og det viser seg at utvalget av \acs{RF}-moduler er mindre enn forventet.
+De fysiske kravene er at modulen må passe inn i en sylinder med høyde 12~\centi\meter\ og diameter 64~\milli\meter\ samt at den må klare å sende data over en avstand på 10~\kilo\meter\ ved fri sikt. På grunn av svært begrenset utvalg av moduler velger gruppen å begi seg ut på eventyret med å lage en egen spesialtilpasset RF-modul. Mer om denne i kapittel \ref{Radiokort}.
+Litt ut i prosjektet finner gruppen en helt fersk RF-modul fra Digi\footnote{modulen kom på markedet i slutten av januar 2009} som viser seg å tilfredsstille kravene til både størrelse, rekkevidde og pris.
+XBee-kortet er altså ment som en backup hvis utviklingen av det opprinnelige radiokortet skulle ta for lang tid eller slå feil.
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.50\textwidth]{xbee}
+	\caption{Bilde av XBee-modulen}
+	\label{fig:xbee}
+\end{figure}
+
+\section{RF-modulene}
+Xbee-kortet er designet for å kunne parres med en XBee RF-modul som vist i figur \ref{fig:xbee}. Dette er en serie moduler utviklet av Digi (tidligere MaxStream) som er medlem av ZigBee-alliansen. Felles for disse modulene er at de er pinnekompatible, og deler samme instruksjonssett.
+Digi produserer blant annet disse Xbee-modulene:
+\begin{itemize}
+	\item	XBee \& XBee-Pro ZigBee
+	\begin{itemize}
+		\item Kompatibel med ZigBee-moduler fra andre produsenter
+		\item Opptil 1,2 km rekkevidde i fri sikt.
+	\end{itemize}
+	\item XBee \& XBee-Pro DigiMesh
+	\begin{itemize}
+		\item Opptil 10 km rekkevidde i fri sikt
+		\item Benytter Digis egen proprietære peer-to-peer nettverkstopologi
+	\end{itemize}
+	\item XBee-Pro 868 OEM
+	\begin{itemize}
+		\item Tiltenkt langdistansekommunikasjon i Europa
+		\item 40 km rekkevidde i fri sikt med dipolantenner
+	\end{itemize}
+\end{itemize}
+Av disse modulene skiller XBee-Pro 868 OEM seg klart ut med overlegen rekkevidde.
+\section{Spesifikasjoner}
+Noen av de viktigste spesifikasjonene til XBee Pro 868-modulen er gitt i tabell \ref{tab:xbee-spec}.
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Ytelse} & \\
+		\midrule
+		Rekkevidde innendørs/bystrøk & opp til 550~\meter \\
+		Utendørs rekkevidde, fri sikt & opp til 40~\kilo\meter\ (med 2~\deci\bel i dipolantenne) \\
+		 & opp til 80~\kilo\meter\ med <<high gain>> antenne \\
+		Sendeeffekt & 85~\milli\ampere - 500~\milli\ampere,  \\
+		\acs{RF} datakapasitet & 24 kbps \\
+		Datagjennomstrømning & 2.4 kbps \\
+		Duty Cycle & 10\% \\
+		Følsomhet, mottaker & -112~\deci\bel\milli \\
+		\addlinespace
+		\midrule
+		\textbf{Serielt interface} & \\
+		\midrule
+		\acs{UART} & 3,3~\volt\ \acs{CMOS} (5~\volt\ tolerant) \\
+		Datahastighet & 1200 - 230400 bps (kan velges i software) \\
+		\addlinespace
+		\midrule
+		\textbf{Strømkrav} & \\
+		\midrule
+		Driftspenning & 3,0~\volt\  til 3,6~\volt \\
+		Strømtrekk & 500~\milli\ampere\ (800~\milli\ampere\ maks.) \\
+		Strømtrekk (mottak) & 65~\milli\ampere\ typisk \\
+		\addlinespace
+		\midrule
+		\textbf{Generelt} & \\
+		\midrule
+		Frekvensbånd & \acs{SRD} G3-bånd (869,525~\mega\hertz) \\
+		Dimensjoner & $2,443~\centi\meter \times 3,332~\centi\meter$ \\
+		Driftstemperatur & $-40~\celsius$ til 75~\celsius\ ved 3,0~\volt\ til 3,6~\volt \\
+		& $-40~\celsius$ til 85~\celsius\ ved 3,3~\volt til 3,6~\volt \\
+		Tilkoblinsmulighet for antenne & $1/4$-bølge ledningsantenne, \\
+		 & \acs{RPSMA} \acs{RF}-konnektor, U.Fl-konnektor \\
+		\bottomrule
+	\end{tabular}
+	\caption{Spesifikasjoner på XBee Pro 868-modulen}
+	\label{tab:xbee-spec}
+\end{table}
+
+\section{Design av kretskort}
+XBee-modulen kommer med to pinnerader ferdig loddet på, som er ment til å monteres i hullrader med 2~\milli\meter\ hullavstand. På grunn av dette må modulen monteres på oversiden av kortet slik at den ikke kan falle ut av hullradene ved oppskyting av CanSaten. Siden XBee-modulen sender ut et høyeffekts antennesignal er resten av elektronikken plassert på undersiden av kortet slik at det ikke skal komme forstyrrelser til mikrokontrolleren. I tillegg er det også plassert jordplan på begge sidene av kortet for å forbedre støyegenskapene ytterligere.
+
+De fleste komponentene på dette kortet er like med komponentene på de andre modulene i CanSaten. Strømmåling, mikroprosessor, lysdiode, \acs{ISP}-plugg og systembus har likt design.
+Den ene komponenten som skiller seg ut er spenningsregulatoren. Siden XBee-modulen trekker 500~\milli\ampere\ ved sending (800~\milli\ampere\ maks.)\cite{xbee-ds} må det benyttes en kraftigere regulator. Modulen skal ha 3,3~\volt\ spenningsforsyning, og siden det er fastslått å bruke lineære regulatorer (vi har mer en nok batterikapasitet) blir det relativt stort effekttap i regulatoren.
+	\[\text{P}_{\text{dis}} = (\text{U}_{\text{batt}}-\text{U}_{\text{reg.out}})\cdot\text{I}_{\text{load}} = (8,0~\volt - 3,3~\volt)\cdot 0,5~\ampere = 2,35~\watt
+\]
+På grunn av dette velges det en regulator med fysisk stor pakke (DPak) som enkelt kan lede bort varme. I dette segmentet av regulatorer var det ikke mulig å finne en komponent med integrert on/off-pinne som var tilgjengelig for kjøp i Norge. Løsningen blir da å lage en egen krets før regulatoren som vil fungere som en on/off-pinne for kortet. On/off-pinnen er aktiv høy som de andre regulatorene, og implementeringen er vist i figur \ref{fig:xbee-power}.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.60\textwidth]{xbee-power}
+	\caption{Implementering av on/off-pinne}
+	\label{fig:xbee-power}
+\end{figure}
